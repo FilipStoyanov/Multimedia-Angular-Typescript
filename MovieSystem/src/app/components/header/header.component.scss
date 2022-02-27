@@ -1,0 +1,32 @@
+@import "../../../variables";
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: $default-button-color;
+  height: 70px;
+  font-size: $font-size-20;
+  color: $default-font-color;
+  .nav {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+  }
+
+  &__search {
+    width: 250px;
+    border-radius: $border-radius-5;
+    border: $border-input;
+    height: 30px;
+    padding-left: 10px;
+    color: $default-button-color;
+  }
+
+  &__search-wrapper {
+    width: 50%;
+    margin-left: $default-padding;
+  }
+}

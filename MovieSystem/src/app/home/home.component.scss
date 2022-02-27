@@ -1,0 +1,43 @@
+@import "../../variables";
+.home {
+  font-size: 20px;
+  color: $default-font-color;
+  padding: $default-padding;
+
+  &__wrapper {
+    padding: 20px;
+    width: 50%;
+    background-color: $background-wrapper;
+    margin-bottom: 300px;
+  }
+
+  &__title {
+    font-size: $font-size-30;
+    font-weight: $font-weight-600;
+    line-height: $line-height-60;
+  }
+
+}
+
+.slider {
+  width: 100%;
+  height: 400px;
+  background-color: $default-font-color;
+  margin-bottom: 150px;
+
+  &__title {
+    font-size: $font-size-25;
+    font-weight: $font-weight-600;
+    text-decoration: underline;
+  }
+}
+
+.registration-btn {
+  background-color: 'green',
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+

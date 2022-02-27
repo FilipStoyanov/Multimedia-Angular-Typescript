@@ -1,0 +1,13 @@
+<ng-container *ngTemplateOutlet="buttonConfig.isAnchor ? anchor : button"></ng-container>
+
+<!--Text button-->
+<ng-template #anchor>
+  <a class="default-btn" [ngStyle] = "buttonConfig.externalStyles" routerLink="buttonConfig.link"
+    (click)="onBtnClick()">{{buttonConfig.text}}</a>
+</ng-template>
+
+<!--Image Button-->
+<ng-template #button>
+  <button class="default-btn" [ngStyle] = "buttonConfig.externalStyles"
+    (click)="onBtnClick()">{{buttonConfig.text}}</button>
+</ng-template>
