@@ -1,12 +1,15 @@
 <section class="header">
   <div class="header__search-wrapper">
+    <a [routerLink]="links[0]">
+      <img class="header__logo" src="../../../assets/logo.svg" alt="Movie logo" />
+    </a>
     <input class="header__search" type="search" placeholder="Search movies" />
   </div>
   <ul class="nav">
-    <li class="nav__item">Home</li>
-    <li class="nav__item">Movies</li>
-    <li class="nav__item">Movies Collection</li>
-    <li class="nav__item">Reviewed Movies</li>
-    <li class="nav__item">Profile</li>
+    <li class="nav__item"><a class="nav__link" [routerLink]="links[0]">Home</a></li>
+    <li class="nav__item"><a class="nav__link" [routerLink]="links[1]">Movies</a></li>
+    <li class="nav__item"><a class="nav__link" [routerLink]="links[2]">Movies Collection</a></li>
+    <li class="nav__item"><a class="nav__link" [routerLink]="links[3]">Reviewed Movies</a></li>
+    <li class="nav__item"><a class="nav__link" [routerLink]="links[4]">Profile</a></li>
   </ul>
 </section>

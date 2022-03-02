@@ -2,8 +2,7 @@
 
 <!--Text button-->
 <ng-template #anchor>
-  <a class="default-btn" [ngStyle] = "buttonConfig.externalStyles" routerLink="buttonConfig.link"
-    (click)="onBtnClick()">{{buttonConfig.text}}</a>
+  <a class="default-btn" [ngStyle] = "buttonConfig.externalStyles" [routerLink]="buttonConfig.link">{{buttonConfig.text}}</a>
 </ng-template>
 
 <!--Image Button-->

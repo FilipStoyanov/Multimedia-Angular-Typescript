@@ -1,0 +1,17 @@
+@import "../../../../variables";
+
+.input {
+  display: block;
+  width: 500px;
+  height: 50px;
+  border-radius: $border-radius-10;
+  border: $border-gray;
+  padding-left: 10px;
+}
+
+.label {
+  margin: 0 0 10px 5px;
+  text-decoration: underline;
+  display: block;
+  text-underline-position: under;
+}

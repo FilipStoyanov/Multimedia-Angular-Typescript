@@ -1,0 +1,22 @@
+@import "../../../variables";
+
+.step1 {
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    padding: $default-padding;
+    border-radius: 20px;
+    background-color: $light-color;
+    margin: 100px auto;
+    flex-direction: column;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.hr-line {
+  margin: 15px 0;
+}

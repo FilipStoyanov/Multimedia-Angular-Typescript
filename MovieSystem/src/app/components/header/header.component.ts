@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  links = ['', 'movies', 'collections', 'reviews', 'profile'];
   constructor() { }
 
   ngOnInit(): void {

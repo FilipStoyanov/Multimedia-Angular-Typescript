@@ -14,19 +14,38 @@
     display: flex;
     justify-content: space-around;
     list-style: none;
+
+    &__item {
+
+    }
+
+    &__link {
+      text-decoration: none;
+      color: $color-black;
+    }
+
   }
 
   &__search {
     width: 250px;
     border-radius: $border-radius-5;
     border: $border-input;
-    height: 30px;
+    height: 40px;
     padding-left: 10px;
     color: $default-button-color;
+    margin: 20.5px 0 0 20px;
   }
 
   &__search-wrapper {
     width: 50%;
     margin-left: $default-padding;
+    display: flex;
+    align-items: center;
   }
+
+  &__logo {
+    height: 60px;
+    width: 60px;
+  }
+
 }

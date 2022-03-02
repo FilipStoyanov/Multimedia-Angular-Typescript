@@ -1,0 +1,28 @@
+@import "../../../variables";
+
+.footer {
+  font-size: $font-size-16;
+  background-color: $default-button-color;
+  padding: $default-padding;
+  display:  flex;
+  align-items: center;
+  width: 100%;
+
+  &__wrapper {
+    justify-content: space-around;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__left{
+    list-style: none;
+    text-decoration: none;
+  }
+
+  &__logo {
+    margin-left: 40px;
+    width: 159px;
+    height: 75px;
+  }
+}
