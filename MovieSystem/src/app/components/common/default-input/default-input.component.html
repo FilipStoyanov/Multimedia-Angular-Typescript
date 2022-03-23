@@ -1,2 +1,2 @@
   <label class="label" for="input">{{inputConfig.label}}</label>
-  <input class="input" id="input" type="text" [placeholder]='inputConfig.placeholder' />
+  <input class="input" id="input" type="text" [placeholder]='inputConfig.placeholder' value="{{value}}" (change) = "handleInput($event)" />

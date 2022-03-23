@@ -1,3 +1,33 @@
-<section class="step2">
-
-</section>
+<form class="step2">
+<div>
+  <label for="imageUpload" class="step2__title">Upload image</label>
+  <button class="upload" (click)="onBtnClick()">
+    <input class="upload__input" accept ="image/*" type="file" name="photo" id="imageUpload" (change) = "readUrl($event);" />
+    <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="imageUrl ? 'none' : 'upload__icon'" />
+    <img [ngClass]="imageUrl ? 'upload__image' : 'none'" [src] ="imageUrl" alt="Your Profile image" />
+    <div [ngClass]="imageUrl ? 'upload__mask' : 'none'">
+      <img [ngClass]="imageUrl ? 'upload__close' : 'none'" src="../../../assets/icons/close.svg" alt="close icon" />
+    </div>
+  </button>
+</div>
+<hr class="hr-line" />
+<app-default-input [inputConfig]="usernameInput"></app-default-input>
+<hr class="hr-line" />
+<app-default-select (handleSelect) = "addFavGenre($event)" label="Favorite film genres" [options]="genres" defaultValue="Genres"></app-default-select>
+<ul class="genres">
+  <div *ngFor="let genre of favoriteGenres" class="genres__wrapper">
+    <li class="genres__item">{{genre}}</li>
+    <button (click)="removeGenre(genre)" class="genres__close"><img src="../../../assets/icons/close.svg" alt="Remove this genre" /></button>
+  </div>
+</ul>
+<p *ngIf="showWarning">
+  <ngb-alert [dismissible]="false">
+    <strong>Warning!</strong> You have already added this genre. Added another one.
+  </ngb-alert>
+</p>
+<hr class="hr-line" />
+<div class="btn-wrapper">
+  <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="backBtn"></app-default-button>
+  <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="nextBtn"></app-default-button>
+</div>
+</form>

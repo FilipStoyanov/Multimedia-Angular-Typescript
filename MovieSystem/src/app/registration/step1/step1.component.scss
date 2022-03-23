@@ -9,11 +9,16 @@
     background-color: $light-color;
     margin: 100px auto;
     flex-direction: column;
+
+    &__datepicker{
+      height: 50px;
+      padding-left: 10px;
+    }
 }
 
 .btn-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
 }
 

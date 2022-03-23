@@ -6,6 +6,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { CollectionComponent } from './collection/collection.component';
 import { ReviewedMoviesComponent } from './reviewed-movies/reviewed-movies.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

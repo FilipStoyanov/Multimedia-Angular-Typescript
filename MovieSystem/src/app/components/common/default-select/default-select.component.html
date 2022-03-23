@@ -1,10 +1,7 @@
-<label class="label" for="countries">Country</label>
+<label class="label" for="countries">{{label}}</label>
 <div class="select">
-  <select class="select" name="countries" id="countries" defaultValue="None">
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Germany">Germany</option>
-    <option value="France">France</option>
-    <option value="Italy">Italy</option>
-    <option value="Spain">Spain</option>
+  <select class="select" name="countries" id="countries" (change) = "changeSelect($event)">
+    <option value="{{defaultValue}}" selected disabled hidden>{{defaultValue}}</option>
+    <option *ngFor="let option of options" [value]="option">{{option}}</option>
   </select>
 </div>

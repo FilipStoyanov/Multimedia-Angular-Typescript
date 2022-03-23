@@ -1,0 +1,6 @@
+<button class="accordion" (click)="onBtnClick()">Filter</button>
+<div [ngClass]="accordionConfig.showContent ? 'panel' : 'none'">
+  <app-movie-search (changeEmitter) = "onInputChange($event)" [inputValue] = 'accordionConfig.searchInput'></app-movie-search>
+  <app-movie-select (selectEmitter) = "onSelectChange($event)" [value] = 'accordionConfig.selectInput'></app-movie-select>
+  <app-default-checkbox label="Select movies"></app-default-checkbox>
+</div>

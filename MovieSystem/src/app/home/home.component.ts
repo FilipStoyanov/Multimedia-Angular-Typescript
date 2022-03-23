@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  linkConfig = {
+
+  public linkConfig = {
     isAnchor: true,
     externalStyles: {
       color: '#ffffff',
@@ -14,12 +15,11 @@ export class HomeComponent implements OnInit {
     text: 'Registration',
     link: '/registration',
   };
-  popularMovies = [
-    { path: '../../assets/home/spider-man.jpg' },
-    { path: '../../assets/home/spider-man.jpg' },
-    { path: '../../assets/home/spider-man.jpg' },
-    { path: '../../assets/home/spider-man.jpg' },
-    { path: '../../assets/home/spider-man.jpg' },
+  public popularMovies = [
+    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
+    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
+    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
+    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
   ];
   constructor() {}
 

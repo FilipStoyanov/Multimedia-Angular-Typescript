@@ -1,0 +1,24 @@
+@import "../../../variables";
+.search-wrapper{
+  width: 50%;
+  margin: 50px auto;
+  justify-content: center;
+}
+.search{
+  width: 100%;
+  border-radius: $border-radius-50;
+  height: 50px;
+  padding: 0 $default-padding / 2;
+  background-color: $default-link-color;
+  color: $default-font-color;
+  font-size: $font-size-25;
+  border: $border-input;
+}
+.search:focus{
+  border: none;
+  padding: 0 27px;
+}
+.label{
+  font-size: $font-size-25;
+  margin: 0 0 10px 10px;
+}

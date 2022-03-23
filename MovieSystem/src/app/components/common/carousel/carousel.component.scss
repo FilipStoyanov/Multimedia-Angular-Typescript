@@ -1,0 +1,22 @@
+@import "../../../../variables";
+
+.carousel {
+  width: 900px;
+  height: 500px;
+  margin: 0 auto;
+  background: $background-wrapper;
+}
+
+.piscum-image-wrapper {
+  width: 900px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.carousel-control-prev-icon{
+  color: 'red';
+}
+.carousel-control-next-icon{
+  color: 'red';
+}
+

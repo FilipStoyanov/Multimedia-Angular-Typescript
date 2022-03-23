@@ -1,8 +1,11 @@
 @import "../../../../variables";
 
 .label{
- display: block;
- margin-bottom: 10px;
+  margin: 0 0 10px 5px;
+  text-decoration: underline;
+  display: block;
+  text-underline-position: under;
+  font-size: $font-size-20;
 }
 
 select{
@@ -14,7 +17,7 @@ select{
    // Additional resets for further consistency
    border: none;
    padding: 0 0 0 20px;
-   margin: 0;
+   margin: 0 0 30px 0;
    width: 100%;
    font-family: inherit;
    font-size: inherit;
@@ -43,7 +46,4 @@ select{
 }
 select::-ms-expand {
   display: none;
-}
-.select-items {
-  background-color: yellow;
 }

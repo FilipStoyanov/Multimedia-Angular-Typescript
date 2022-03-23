@@ -1,0 +1,22 @@
+.sort-button{
+  width: 100px;
+  margin: 0 10px;
+  border: none;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+
+  &__arrow {
+    width: 15px;
+    height: 15px;
+    align-self: center;
+  }
+
+  &__text {
+    align-self: center;
+    margin-right: 10px;
+  }
+}
+.none {
+  display: none;
+}

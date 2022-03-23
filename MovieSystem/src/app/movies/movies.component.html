@@ -1,1 +1,29 @@
-<p>movies works!</p>
+<section class="movies">
+  <div class="movies__filter">
+    <div class="movies__flex">
+        <span class="movies__sort-title">Sort by:</span>
+        <app-sort-button [btn] = "btn1" (btnEmitter) = "onClick($event)"></app-sort-button>
+        <app-sort-button [btn] = "btn2" (btnEmitter) = "onClick($event)"></app-sort-button>
+        <app-sort-button [btn] = "btn3" (btnEmitter) = "onClick($event)"></app-sort-button>
+        <app-sort-button [btn] = "btn4" (btnEmitter) = "onClick($event)"></app-sort-button>
+      </div>
+    </div>
+  <app-accordion [accordionConfig] = "filterAccordion"></app-accordion>
+  <div class="movies__grid">
+    <div class="movies__column4">
+      <app-movie-card [titleEn]="films[0].titleEn" [titleBg]="films[0].titleBg" image="../../assets/home/spider-man.jpg" year="2020"></app-movie-card>
+    </div>
+    <div class="movies__column4">
+      <app-movie-card [titleEn]="films[1].titleEn" [titleBg]="films[1].titleBg" image="../../assets/home/spider-man.jpg" year="2020"></app-movie-card>
+    </div>
+    <div class="movies__column4">
+      <app-movie-card [titleEn]="films[2].titleEn" [titleBg]="films[2].titleBg" image="../../assets/home/spider-man.jpg" year="2020"></app-movie-card>
+    </div>
+    <div class="movies__column4">
+      <app-movie-card [titleEn]="films[3].titleEn" [titleBg]="films[3].titleBg" image="../../assets/home/spider-man.jpg" year="2020"></app-movie-card>
+    </div>
+    <div class="movies__column4">
+      <app-movie-card [titleEn]="films[4].titleEn" [titleBg]="films[4].titleBg" image="../../assets/home/spider-man.jpg" year="2020"></app-movie-card>
+    </div>
+  </div>
+</section>

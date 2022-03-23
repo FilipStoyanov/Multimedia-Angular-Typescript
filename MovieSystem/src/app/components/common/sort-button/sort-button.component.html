@@ -1,0 +1,4 @@
+<button class="sort-button" (click)="onBtnClick()">
+  <span class="sort-button__text">{{btn.type}}</span>
+  <img class="sort-button__arrow" [src]="btn.isAscending ?  './assets/icons/arrow-up.svg' : './assets/icons/arrow-down.svg' " alt="Ascending sort" />
+</button>

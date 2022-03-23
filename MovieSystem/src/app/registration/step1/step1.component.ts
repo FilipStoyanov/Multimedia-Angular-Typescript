@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-step1',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Step1Component implements OnInit {
 
-  constructor() { }
+  @Input() step: number;
+  @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
+  @Output() changedDate: EventEmitter<string> = new EventEmitter<string>();
+
+  countries = [
+    'Bulgaria',
+    'France',
+    'Italy',
+    'Germany',
+    'Spain',
+  ];
   inputConfig = [{
     placeholder: 'First name',
     label: 'First name',
@@ -17,16 +28,8 @@ export class Step1Component implements OnInit {
     label: 'Last name',
   },
   {
-    placeholder: 'Username',
-    label: 'Username',
-  },
-  {
     placeholder: 'Email',
     label: 'Email',
-  },
-  {
-    placeholder: 'Age',
-    label: 'Age',
   }];
 
   nextBtn = {
@@ -38,6 +41,7 @@ export class Step1Component implements OnInit {
       fontSize: '20px',
     },
     text: 'Напред',
+    nextBtn: true,
   };
 
   backBtn = {
@@ -49,10 +53,26 @@ export class Step1Component implements OnInit {
       fontSize: '20px',
     },
     text: 'Назад',
+    nextBtn: false,
   };
+  date: string;
 
+  updateStep(newStep): void{
+    this.step = newStep;
+    this.changedStep.emit(this.step);
+  }
+
+  selectDate(event: any): void{
+    this.date = event.target.value;
+    this.changedDate.emit(this.date);
+  }
+
+  constructor() {}
 
   ngOnInit(): void {
+  }
+
+  ngOnChange(): void{
   }
 
 }

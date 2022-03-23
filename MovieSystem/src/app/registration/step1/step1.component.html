@@ -1,20 +1,14 @@
-<section class="step1">
-  <hr class="hr-line" horizontal />
+<form class="step1">
+  <hr class="hr-line" />
   <app-default-input [inputConfig]="inputConfig[0]"></app-default-input>
-  <hr class="hr-line" horizontal />
+  <hr class="hr-line" />
   <app-default-input [inputConfig]="inputConfig[1]"></app-default-input>
-  <hr class="hr-line" horizontal />
-  <app-default-input [inputConfig]="inputConfig[2]"></app-default-input>
-  <hr class="hr-line" horizontal />
-  <app-default-input [inputConfig]="inputConfig[3]"></app-default-input>
-  <hr class="hr-line" horizontal />
-  <app-default-input [inputConfig]="inputConfig[4]"></app-default-input>
-  <hr class="hr-line" horizontal />
-  <app-default-select></app-default-select>
-  <hr class="hr-line" horizontal />
+  <hr class="hr-line" />
+  <app-default-input [inputConfig]="inputConfig[2]" required></app-default-input>
+  <hr class="hr-line" />
+  <input class="step1__datepicker" type="date"  min="1920-01-01" max="2018-12-31" (change) = "selectDate($event)" value="date" />
+  <hr class="hr-line" />
   <div class="btn-wrapper">
-    <app-default-button [buttonConfig]="backBtn"></app-default-button>
-    <app-default-button [buttonConfig]="nextBtn"></app-default-button>
+    <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="nextBtn"></app-default-button>
   </div>
-</section>
-
+</form>
