@@ -9,9 +9,11 @@ export class DefaultInputComponent implements OnInit {
   @Input() inputConfig: {
       placeholder?: string,
       label?: string,
+      password?: boolean,
   };
   value: string;
   @Output() changedValue: EventEmitter<string> = new EventEmitter<string>();
+  @Input() previousValue: string;
   constructor() { }
 
   handleInput(event: any): void{

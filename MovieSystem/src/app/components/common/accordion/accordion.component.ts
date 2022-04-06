@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 interface Accordion {
   showContent: boolean;
@@ -14,6 +14,7 @@ interface Accordion {
 export class AccordionComponent implements OnInit {
 
   @Input() accordionConfig: Accordion;
+  @Output() changeFilterValues: EventEmitter<Accordion> = new EventEmitter();
 
   onBtnClick = () => {
    this.accordionConfig.showContent = !this.accordionConfig.showContent;
@@ -23,9 +24,11 @@ export class AccordionComponent implements OnInit {
   }
   onInputChange = (res) => {
     this.accordionConfig.searchInput = res;
+    this.changeFilterValues.emit(this.accordionConfig);
   }
   onSelectChange = (res) => {
     this.accordionConfig.selectInput = res;
+    this.changeFilterValues.emit(this.accordionConfig);
   }
 
   ngOnInit(): void {

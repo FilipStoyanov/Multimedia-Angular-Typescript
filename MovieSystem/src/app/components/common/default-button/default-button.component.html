@@ -7,6 +7,6 @@
 
 <!--Image Button-->
 <ng-template #button>
-  <button [type]="buttonConfig.nextBtn ? 'submit' : 'button'"  class="default-btn" [ngStyle] = "buttonConfig.externalStyles"
+  <button [type]="buttonConfig.nextBtn ? 'button' : 'button'"  class="default-btn" [ngStyle] = "buttonConfig.externalStyles"
     (click)="onClickBtn()">{{buttonConfig.text}}</button>
 </ng-template>

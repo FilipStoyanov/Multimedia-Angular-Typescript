@@ -85,6 +85,11 @@
   display: none;
 }
 
+.error {
+  font-size: $font-size-16;
+  color: $default-button-color;
+}
+
 .btn-wrapper {
   display: flex;
   justify-content: space-between;

@@ -1,12 +1,21 @@
 <form class="step1">
   <hr class="hr-line" />
-  <app-default-input [inputConfig]="inputConfig[0]"></app-default-input>
+  <div>
+    <app-default-input [inputConfig]="{ placeholder: 'First name', label: 'First name'}" (changedValue)="updateFirstName($event)" [previousValue]='previousUserData.firstName'></app-default-input>
+    <span [ngClass]="validation.firstName ? 'none' : 'error' ">* Your first name should have at least three symbols</span>
+  </div>
   <hr class="hr-line" />
-  <app-default-input [inputConfig]="inputConfig[1]"></app-default-input>
+  <div>
+    <app-default-input [inputConfig]="{ placeholder: 'Last name', label: 'Last name'}" (changedValue)="updateLastName($event)" [previousValue]='previousUserData.lastName'></app-default-input>
+    <span [ngClass]="validation.lastName ? 'none' : 'error' ">* Your last name should have at least three symbols</span>
+  </div>
   <hr class="hr-line" />
-  <app-default-input [inputConfig]="inputConfig[2]" required></app-default-input>
+  <div>
+    <app-default-input [inputConfig]="{ placeholder: 'Email', label: 'Email'}"  (changedValue)="updateEmail($event)" [previousValue]='previousUserData.email'></app-default-input>
+    <span [ngClass]="validation.email ? 'none' : 'error' ">* Your email is incorrect</span>
+  </div>
   <hr class="hr-line" />
-  <input class="step1__datepicker" type="date"  min="1920-01-01" max="2018-12-31" (change) = "selectDate($event)" value="date" />
+  <input class="step1__datepicker" type="date"  min="1920-01-01" max="2018-12-31" (change) = "selectDate($event)" [value]="previousUserData.birthday" />
   <hr class="hr-line" />
   <div class="btn-wrapper">
     <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="nextBtn"></app-default-button>

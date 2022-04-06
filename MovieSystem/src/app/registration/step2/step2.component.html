@@ -11,7 +11,18 @@
   </button>
 </div>
 <hr class="hr-line" />
-<app-default-input [inputConfig]="usernameInput"></app-default-input>
+<div>
+  <app-default-input [inputConfig]="{placeholder: 'Username', label: 'Username'}" (changedValue)="updateUsername($event)"></app-default-input>
+  <span [ngClass] = "validation.username ? 'none' : 'error' ">* Your username should contains at least three symbols</span>
+</div>
+<div>
+  <app-default-input [inputConfig]="{placeholder: 'Password', label: 'Password', password: true}" (changedValue)="updatePassword($event)"></app-default-input>
+  <span [ngClass] = "validation.password ? 'none' : 'error'">* Your password should contains at least six symbols</span>
+</div>
+<div>
+  <app-default-input [inputConfig]="{placeholder: 'Password', label: 'Repeat password', password: true}" (changedValue)="updateRepeatPassword($event)"></app-default-input>
+  <span [ngClass] = "validation.repeatPassword ? 'none' : 'error'">* Your repeat password is different from value in password field</span>
+</div>
 <hr class="hr-line" />
 <app-default-select (handleSelect) = "addFavGenre($event)" label="Favorite film genres" [options]="genres" defaultValue="Genres"></app-default-select>
 <ul class="genres">

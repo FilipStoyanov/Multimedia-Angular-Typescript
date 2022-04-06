@@ -1,8 +1,15 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { UserData } from '../registration.component';
 
+export interface UserStep2{
+  username: string;
+  password: string;
+  repeatPassword: string;
+}
 interface HTMLInputEvent extends Event{
     target: HTMLInputElement & EventTarget;
 }
+
 @Component({
   selector: 'app-step2',
   templateUrl: './step2.component.html',
@@ -12,7 +19,12 @@ interface HTMLInputEvent extends Event{
 export class Step2Component implements OnInit {
 
   @Input() step: number;
+  @Input() previousUserData: UserData;
   @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
+  @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
+
+  private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
+  public validation = { username: true, password: true, repeatPassword: true };
 
   showWarning: boolean;
   imageUrl?: string | ArrayBuffer;
@@ -26,10 +38,7 @@ export class Step2Component implements OnInit {
     'Science fiction',
     'Western',
   ];
-  usernameInput = {
-    placeholder: 'Username',
-    label: 'Username',
-  };
+
   nextBtn = {
     isAnchor: false,
     externalStyles: {
@@ -55,6 +64,26 @@ export class Step2Component implements OnInit {
   };
 
   favoriteGenres = [];
+
+  updateUsername(newUsername: string): void{
+    this.data.username = newUsername;
+    this.validation.username  = this.data.username.length > 3 || this.data.username.length === 0;
+  }
+
+  updatePassword(newPassword: string): void{
+    this.data.password = newPassword;
+    this.validation.password = this.data.password.length >= 6 || this.data.password.length === 0;
+    if (this.data.repeatPassword === this.data.password){
+        this.validation.repeatPassword = true;
+    }
+  }
+
+  updateRepeatPassword(newPassword: string): void{
+    this.data.repeatPassword = newPassword;
+    this.validation.repeatPassword =  this.data.repeatPassword.length >= 6 || this.data.repeatPassword.length === 0;
+    this.validation.repeatPassword = this.validation.repeatPassword  && this.data.repeatPassword === this.data.password;
+  }
+
   readUrl(event: HTMLInputEvent): void{
     if ( event.target.files && event.target.files[0] ){
       const file = event.target.files[0];
@@ -106,10 +135,6 @@ export class Step2Component implements OnInit {
      }, 4000);
   }
 
-  requiredField(value): boolean{
-      return value !== '';
-  }
-
   removeGenre(element): void{
       this.favoriteGenres.forEach((item, index) => {
         if (item === element ){
@@ -119,8 +144,19 @@ export class Step2Component implements OnInit {
   }
 
   updateStep(newStep): void{
-    this.step = newStep;
-    this.changedStep.emit(this.step);
+    this.validation.repeatPassword = this.data.repeatPassword.length >= 6 && this.data.repeatPassword === this.data.password;
+    this.validation.password = this.data.password.length >= 6;
+    this.validation.username  = this.data.username.length > 3;
+    if (this.validation.username && this.validation.password && this.validation.repeatPassword){
+      this.step = newStep;
+      this.changedStep.emit(this.step);
+      this.changedUserData.emit(this.data);
+      // POST REQUEST TO THE BACKEND HERE
+    }else{
+      this.validation.username = (this.validation.username === true);
+      this.validation.password = (this.validation.password === true);
+      this.validation.repeatPassword = (this.validation.repeatPassword === true);
+    }
   }
 
 
@@ -128,6 +164,9 @@ export class Step2Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.data.username = this.previousUserData.username;
+    this.data.password = this.previousUserData.password;
+    this.data.repeatPassword = this.previousUserData.repeatPassword;
   }
 
 }
