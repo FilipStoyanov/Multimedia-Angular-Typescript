@@ -1,0 +1,28 @@
+.card {
+  width: 250px;
+  background-color: #404040;
+  font-size: 20px;
+  color: #ffffff;
+}
+.card__title {
+  font-size: 20px;
+  text-align: center;
+}
+.card__image {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
+}
+.card__year {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  background-color: #ffffff;
+  color: #FF6347;
+  padding: 0 10px;
+}
+.card__wrapper {
+  position: relative;
+  margin-bottom: 10px;
+}

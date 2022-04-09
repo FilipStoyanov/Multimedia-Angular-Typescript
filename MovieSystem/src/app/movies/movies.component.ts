@@ -1,18 +1,20 @@
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import {MovieService} from '../services/movie.service';
 
 interface SortBtn {
   isAscending: boolean;
   type: string;
 }
-interface Film {
-  titleBg?: string;
-  titleEn?: string;
-  year?: string;
-  image?: string;
-  genre?: string;
-  author?: string;
-  rating?: number;
-  watches?: number;
+interface Movie {
+  titleBg: string;
+  titleEn: string;
+  year: string;
+  image: string;
+  genre: string;
+  producer: string;
+  rating: number;
+  watches: number;
+  country: string;
 }
 
 interface Accordion {
@@ -25,7 +27,7 @@ interface Accordion {
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss'],
 })
-export class MoviesComponent implements OnChanges {
+export class MoviesComponent implements OnInit {
 
   filterAccordion: Accordion = {
     showContent: false,
@@ -33,30 +35,7 @@ export class MoviesComponent implements OnChanges {
     selectInput: '',
   };
 
-  initialFilms: Array<Film> = [
-    {
-      titleBg: 'Бързи и яростни', titleEn: 'Fast and furious', year: '2020', image: '../../assets/home/spider-man.jpg', genre: 'action',
-      rating: 1, watches: 5
-    },
-    {
-      titleBg: 'Лов на вещици', titleEn: 'Witch hunt', year: '2020', image: '../../assets/home/spider-man.jpg', genre: 'comedy',
-      rating: 5,  watches: 10
-    },
-    {
-      titleBg: 'Островите', titleEn: 'The islands', year: '2020', image: '../../assets/home/spider-man.jpg', genre: 'animations',
-      rating: 4,  watches: 15
-    },
-    {
-      titleBg: 'Американски бежанец', titleEn: 'American Refugee', year: '2020', image: '../../assets/home/spider-man.jpg',
-      genre: 'action', rating: 3,  watches: 11
-    },
-    {
-      titleBg: 'Американски бежанец', titleEn: 'American Refugee', year: '2021', image: '../../assets/home/spider-man.jpg',
-      genre: 'comedy', rating: 2,  watches: 7
-    },
-  ];
-
-  films: Array<Film> = [];
+  films: Movie[] = [];
 
 
   btn1: SortBtn = {
@@ -78,11 +57,16 @@ export class MoviesComponent implements OnChanges {
     isAscending: false,
     type: 'Author',
   };
-  sortButton: Array<SortBtn> = [this.btn1, this.btn2, this.btn3, this.btn4];
+  sortButton: SortBtn[] = [this.btn1, this.btn2, this.btn3, this.btn4];
 
-  constructor() {
-    this.films = [...this.initialFilms];
+  constructor(private movieService: MovieService) {
+    this.movieService.getAll().subscribe(data => {
+      console.log(data);
+      this.films = (data as any).data;
+    });
   }
+  initialFilms = [...this.films];
+
 
 
   onClick(currBtn: SortBtn): void {
@@ -93,7 +77,7 @@ export class MoviesComponent implements OnChanges {
          this.sortButton[i].isAscending = false;
        }
     }
-    let filterFilms: Array<Film> = [];
+    let filterFilms: Movie[] = [];
     switch (indexBtn){
       case 0: {
         if (this.sortButton[indexBtn].isAscending){
@@ -122,9 +106,9 @@ export class MoviesComponent implements OnChanges {
       }
       case 3: {
         if (this.sortButton[indexBtn].isAscending){
-          filterFilms = this.films.sort( (a, b) =>  a.author > b.author ? 1 : -1 );
+          filterFilms = this.films.sort( (a, b) =>  a.producer > b.producer ? 1 : -1 );
         }else{
-          filterFilms = this.films.sort( (a, b) =>  a.author < b.author ? 1 : -1 );
+          filterFilms = this.films.sort( (a, b) =>  a.producer < b.producer ? 1 : -1 );
 
         }
         break;
@@ -133,8 +117,9 @@ export class MoviesComponent implements OnChanges {
     console.log(this.films);
   }
 
+
   onFilterChange(res: Accordion): void {
-    let filteredMovies: Array<Film> = [...this.films];
+    let filteredMovies: Movie[] = [...this.films];
     filteredMovies = this.initialFilms.filter(x => x.titleBg.toLowerCase().indexOf(this.filterAccordion.searchInput.toLowerCase()) === 0);
     if (filteredMovies.length === 0) {
       filteredMovies = this.initialFilms.filter(x => x.titleEn.toLowerCase().indexOf(this.filterAccordion.searchInput.toLowerCase()) === 0);
@@ -145,7 +130,7 @@ export class MoviesComponent implements OnChanges {
     this.films = filteredMovies;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
   }
 
 }

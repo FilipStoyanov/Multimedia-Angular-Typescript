@@ -1,6 +1,9 @@
 import { Component, Input, OnInit,  } from '@angular/core';
 import { UserStep2 } from './step2/step2.component';
 import { UserStep1 } from './step1/step1.component';
+import { select, Store } from '@ngrx/store';
+// import { User } from '../store/entity';
+import { Observable } from 'rxjs';
 
 export interface UserData {
   firstName: string;
@@ -11,16 +14,28 @@ export interface UserData {
   repeatPassword: string;
   birthday?: string;
 }
+
+// const myUser: User = {
+//   firstName: 'Filip',
+//   lastName: 'Stoyanov',
+//   email: 'a@abv.bg',
+//   username: 'Filip',
+//   password: 'Stoyanov',
+//   image: 'image',
+//   age: '22',
+// };
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-
 export class RegistrationComponent implements OnInit {
-  constructor() {
-    this.currentStep = 1;
-  }
+  // userData: Observable<User>;
+  // constructor(private store: Store<{user: User}>) {
+  //   this.currentStep = 1;
+  //   this.userData = store.pipe(select('user'));
+  // }
 
   public currentStep: number;
   public date: string;
@@ -42,7 +57,7 @@ export class RegistrationComponent implements OnInit {
     this.user.username = data.username;
     this.user.password = data.password;
     this.user.repeatPassword = data.repeatPassword;
-    console.log(this.user);
+    // this.store.dispatch();
   }
 
   ngOnInit(): void {
