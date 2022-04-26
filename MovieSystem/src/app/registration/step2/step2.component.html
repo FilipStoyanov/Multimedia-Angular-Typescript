@@ -38,7 +38,9 @@
 </p>
 <hr class="hr-line" />
 <div class="btn-wrapper">
-  <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="backBtn"></app-default-button>
-  <app-default-button [stepCounter] = "step" (changeStep) = "updateStep($event)" [buttonConfig]="nextBtn"></app-default-button>
+  <!-- <app-default-button [stepCounter] = "step" (changeStep) = "goBack(stepper)" [buttonConfig]="backBtn"></app-default-button> -->
+  <app-default-button (changeStep) = "goBack(stepper)" [buttonConfig]="backBtn"></app-default-button>
+  <!-- <app-default-button [stepCounter] = "step" (changeStep) = "goForward(stepper)" [buttonConfig]="nextBtn"></app-default-button> -->
+  <app-default-button (changeStep) = "goForward(stepper)" [buttonConfig]="nextBtn"></app-default-button>
 </div>
 </form>

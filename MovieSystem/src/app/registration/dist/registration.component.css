@@ -1,0 +1,9 @@
+.registration {
+  padding: 50px;
+}
+.registration__title {
+  font-size: 25px;
+}
+.registration__subtitle {
+  font-size: 20px;
+}

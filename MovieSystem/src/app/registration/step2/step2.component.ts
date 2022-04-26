@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { UserData } from '../registration.component';
+import { UserStep1 } from '../step1/step1.component';
+import { UserService } from 'src/app/services/user.service';
 
 export interface UserStep2{
   username: string;
@@ -18,12 +21,15 @@ interface HTMLInputEvent extends Event{
 
 export class Step2Component implements OnInit {
 
-  @Input() step: number;
+  @Input() stepper: MatStepper;
+  @Input () userData1: UserStep1;
+  // @Input() step: number;
   @Input() previousUserData: UserData;
   @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
   @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
+  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: ''};
   public validation = { username: true, password: true, repeatPassword: true };
 
   showWarning: boolean;
@@ -68,6 +74,7 @@ export class Step2Component implements OnInit {
   updateUsername(newUsername: string): void{
     this.data.username = newUsername;
     this.validation.username  = this.data.username.length > 3 || this.data.username.length === 0;
+    this.user.username  = this.data.username;
   }
 
   updatePassword(newPassword: string): void{
@@ -76,12 +83,14 @@ export class Step2Component implements OnInit {
     if (this.data.repeatPassword === this.data.password){
         this.validation.repeatPassword = true;
     }
+    this.user.password = this.data.password;
   }
 
   updateRepeatPassword(newPassword: string): void{
     this.data.repeatPassword = newPassword;
     this.validation.repeatPassword =  this.data.repeatPassword.length >= 6 || this.data.repeatPassword.length === 0;
     this.validation.repeatPassword = this.validation.repeatPassword  && this.data.repeatPassword === this.data.password;
+    this.user.repeatPassword = this.data.repeatPassword;
   }
 
   readUrl(event: HTMLInputEvent): void{
@@ -143,14 +152,18 @@ export class Step2Component implements OnInit {
       });
   }
 
-  updateStep(newStep): void{
+  goForward(stepper: MatStepper): void{
     this.validation.repeatPassword = this.data.repeatPassword.length >= 6 && this.data.repeatPassword === this.data.password;
     this.validation.password = this.data.password.length >= 6;
     this.validation.username  = this.data.username.length > 3;
     if (this.validation.username && this.validation.password && this.validation.repeatPassword){
-      this.step = newStep;
-      this.changedStep.emit(this.step);
+      // this.step++;
+      stepper.next();
+      // this.changedStep.emit(this.step);
       this.changedUserData.emit(this.data);
+      console.log(this.user);
+      this.userService.addUser(this.user).subscribe(data => {
+      });
       // POST REQUEST TO THE BACKEND HERE
     }else{
       this.validation.username = (this.validation.username === true);
@@ -159,14 +172,20 @@ export class Step2Component implements OnInit {
     }
   }
 
+  goBack(stepper: MatStepper): void {
+    //  this.step --;
+     stepper.previous();
+  }
 
-  constructor() {
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.data.username = this.previousUserData.username;
-    this.data.password = this.previousUserData.password;
-    this.data.repeatPassword = this.previousUserData.repeatPassword;
+    this.user.firstName = this.userData1.firstName;
+    this.user.lastName = this.userData1.lastName;
+    this.user.email = this.userData1.email;
+    this.user.birthday = this.userData1.birthday;
   }
 
 }

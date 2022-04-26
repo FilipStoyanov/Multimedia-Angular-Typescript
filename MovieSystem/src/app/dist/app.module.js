@@ -34,6 +34,10 @@ var accordion_component_1 = require("./components/common/accordion/accordion.com
 var sort_button_component_1 = require("./components/common/sort-button/sort-button.component");
 var default_checkbox_component_1 = require("./components/common/default-checkbox/default-checkbox.component");
 var ng_bootstrap_2 = require("@ng-bootstrap/ng-bootstrap");
+var stepper_1 = require("@angular/material/stepper");
+var progress_bar_1 = require("@angular/material/progress-bar");
+var form_field_1 = require("@angular/material/form-field");
+var step3_component_1 = require("./registration/step3/step3.component");
 // import { LoginReducer } from './store/reducers/login.reducer';
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -62,10 +66,14 @@ var AppModule = /** @class */ (function () {
                 accordion_component_1.AccordionComponent,
                 sort_button_component_1.SortButtonComponent,
                 default_checkbox_component_1.DefaultCheckboxComponent,
+                step3_component_1.Step3Component,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule,
+                stepper_1.MatStepperModule,
+                progress_bar_1.MatProgressBarModule,
+                form_field_1.MatFormFieldModule,
                 // StoreModule.forRoot({user: LoginReducer}),
                 ng_bootstrap_1.NgbModule,
                 ng_bootstrap_2.NgbPaginationModule, ng_bootstrap_2.NgbAlertModule,

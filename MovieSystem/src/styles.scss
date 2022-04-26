@@ -16,3 +16,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+/*Importing Angular Material SCSS file*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,10 +12,11 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.2",
+    "@angular/cdk": "^13.3.2",
     "@angular/common": "~13.3.2",
     "@angular/compiler": "~13.3.2",
     "@angular/core": "~13.3.2",
-    "@angular/forms": "~13.3.2",
+    "@angular/forms": "^13.3.2",
     "@angular/localize": "~13.3.2",
     "@angular/material": "^13.3.2",
     "@angular/platform-browser": "~13.3.2",

@@ -1,0 +1,22 @@
+@import "../../../variables";
+.step3{
+  display: block;
+  width: 100%;
+  &__wrapper{
+    position: relative;
+    width: 50%;
+    margin: 70px auto 0;
+    color: $default-success;
+    text-align: center;
+  }
+  &__title {
+    font-size: $font-size-25;
+  }
+  &__subtitle {
+    font-size: $font-size-20;
+    margin-bottom: 20px;
+  }
+  &__progress {
+    height: 25px;
+  }
+}

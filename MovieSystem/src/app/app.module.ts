@@ -26,6 +26,10 @@ import { AccordionComponent } from './components/common/accordion/accordion.comp
 import { SortButtonComponent } from './components/common/sort-button/sort-button.component';
 import { DefaultCheckboxComponent } from './components/common/default-checkbox/default-checkbox.component';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { Step3Component } from './registration/step3/step3.component';
 // import { LoginReducer } from './store/reducers/login.reducer';
 
 @NgModule({
@@ -51,11 +55,15 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     AccordionComponent,
     SortButtonComponent,
     DefaultCheckboxComponent,
+    Step3Component,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatStepperModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
     // StoreModule.forRoot({user: LoginReducer}),
     NgbModule,
     NgbPaginationModule, NgbAlertModule,

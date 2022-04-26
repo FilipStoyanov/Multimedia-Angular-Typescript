@@ -1,0 +1,33 @@
+.step1 {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+  padding: 50px;
+  border-radius: 20px;
+  background-color: #d3d3d3;
+  margin: 100px auto;
+  flex-direction: column;
+}
+.step1__datepicker {
+  height: 50px;
+  padding-left: 10px;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.hr-line {
+  margin: 15px 0;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+}
+
+.none {
+  display: none;
+}
