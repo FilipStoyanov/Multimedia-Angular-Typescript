@@ -3,6 +3,13 @@ const router = express.Router();
 const User = require("../models/user.model.js");
 
 
+const userExists = async (email) => {
+ const user = await  User.findOne({email: email.toLowerCase().trim()});
+    if(user){
+        return true;
+    }
+    return false;
+}
 router.get('/Users', async (req,res) => {
   try{
     const users = await User.find();
@@ -24,8 +31,15 @@ router.post('/Users', async (req,res) => {
      role: 'user'
   })
   try{
-    const newUser = await user.save()
-    res.status(201).json(newUser);
+    const s = userExists(req.body.email);
+    if(await userExists(req.body.email)){
+      res.status(409).json({
+        error: 'Email already exists',
+      })
+    }else{
+      const newUser = await user.save()
+      res.status(201).json(newUser);
+    }
   }catch(err){
     res.status(400).json({message: err.message});
   }

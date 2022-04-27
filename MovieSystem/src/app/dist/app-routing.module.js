@@ -15,6 +15,7 @@ var movies_component_1 = require("./movies/movies.component");
 var collection_component_1 = require("./collection/collection.component");
 var reviewed_movies_component_1 = require("./reviewed-movies/reviewed-movies.component");
 var profile_component_1 = require("./profile/profile.component");
+var common_1 = require("@angular/common");
 var routes = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
@@ -28,7 +29,7 @@ var AppRoutingModule = /** @class */ (function () {
     }
     AppRoutingModule = __decorate([
         core_1.NgModule({
-            imports: [router_1.RouterModule.forRoot(routes)],
+            imports: [router_1.RouterModule.forRoot(routes), common_1.CommonModule],
             exports: [router_1.RouterModule]
         })
     ], AppRoutingModule);

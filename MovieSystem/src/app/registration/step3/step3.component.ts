@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {Router} from '@angular/router';
 import { UserData } from '../registration.component';
 
 @Component({
@@ -8,9 +9,15 @@ import { UserData } from '../registration.component';
 })
 export class Step3Component implements OnInit {
 
-  constructor()  {}
+  constructor(private router: Router)  {}
 
+  goToHome(): void {
+     this.router.navigate([`/`]);
+  }
   ngOnInit(): void {
+    setTimeout(() => {
+      this.goToHome();
+    }, 4000);
   }
 
 

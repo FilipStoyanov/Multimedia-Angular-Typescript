@@ -9,9 +9,17 @@ exports.__esModule = true;
 exports.Step3Component = void 0;
 var core_1 = require("@angular/core");
 var Step3Component = /** @class */ (function () {
-    function Step3Component() {
+    function Step3Component(router) {
+        this.router = router;
     }
+    Step3Component.prototype.goToHome = function () {
+        this.router.navigate(["/"]);
+    };
     Step3Component.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.goToHome();
+        }, 4000);
     };
     Step3Component = __decorate([
         core_1.Component({

@@ -6,11 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.Step2Component = void 0;
+exports.ExistedEmailComponent = exports.Step2Component = void 0;
 var core_1 = require("@angular/core");
+var user_actions_1 = require("../../actions/user.actions");
 var Step2Component = /** @class */ (function () {
-    function Step2Component(userService) {
+    function Step2Component(userService, snackBar, store) {
         this.userService = userService;
+        this.snackBar = snackBar;
+        this.store = store;
         this.changedStep = new core_1.EventEmitter();
         this.changedUserData = new core_1.EventEmitter();
         this.data = { username: '', password: '', repeatPassword: '' };
@@ -49,6 +52,9 @@ var Step2Component = /** @class */ (function () {
             nextBtn: false
         };
         this.favoriteGenres = [];
+        this.durationInSeconds = 5;
+        this.verticalPosition = 'top';
+        this.horizontalPosition = 'center';
     }
     Step2Component.prototype.updateUsername = function (newUsername) {
         this.data.username = newUsername;
@@ -127,17 +133,19 @@ var Step2Component = /** @class */ (function () {
         });
     };
     Step2Component.prototype.goForward = function (stepper) {
+        var _this = this;
         this.validation.repeatPassword = this.data.repeatPassword.length >= 6 && this.data.repeatPassword === this.data.password;
         this.validation.password = this.data.password.length >= 6;
         this.validation.username = this.data.username.length > 3;
         if (this.validation.username && this.validation.password && this.validation.repeatPassword) {
             // this.step++;
-            stepper.next();
             // this.changedStep.emit(this.step);
             this.changedUserData.emit(this.data);
-            console.log(this.user);
-            this.userService.addUser(this.user).subscribe(function (data) {
-            });
+            this.userService.addUser(this.user).subscribe(function (data) { stepper.next(); console.log(_this.user); _this.store.dispatch(user_actions_1.addUser({ user: _this.user })); }, //
+            function (//
+            error) { if (error.status === 409) {
+                _this.openSnackBar();
+            } });
             // POST REQUEST TO THE BACKEND HERE
         }
         else {
@@ -149,6 +157,11 @@ var Step2Component = /** @class */ (function () {
     Step2Component.prototype.goBack = function (stepper) {
         //  this.step --;
         stepper.previous();
+    };
+    Step2Component.prototype.openSnackBar = function () {
+        this.snackBar.openFromComponent(ExistedEmailComponent, {
+            duration: this.durationInSeconds * 1000
+        });
     };
     Step2Component.prototype.ngOnInit = function () {
         this.user.firstName = this.userData1.firstName;
@@ -181,3 +194,18 @@ var Step2Component = /** @class */ (function () {
     return Step2Component;
 }());
 exports.Step2Component = Step2Component;
+var ExistedEmailComponent = /** @class */ (function () {
+    function ExistedEmailComponent() {
+    }
+    ExistedEmailComponent = __decorate([
+        core_1.Component({
+            selector: 'app-snack-bar-component-email',
+            templateUrl: './snack-bar-component-email.html',
+            styles: [
+                "\n    .existed-email {\n      color: red;\n    }\n  ",
+            ]
+        })
+    ], ExistedEmailComponent);
+    return ExistedEmailComponent;
+}());
+exports.ExistedEmailComponent = ExistedEmailComponent;

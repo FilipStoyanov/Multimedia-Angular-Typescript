@@ -30,7 +30,9 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Step3Component } from './registration/step3/step3.component';
-// import { LoginReducer } from './store/reducers/login.reducer';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './reducers/user.reducer';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { Step3Component } from './registration/step3/step3.component';
     MatStepperModule,
     MatProgressBarModule,
     MatFormFieldModule,
-    // StoreModule.forRoot({user: LoginReducer}),
+    MatSnackBarModule,
+    StoreModule.forRoot({user: userReducer}),
     NgbModule,
     NgbPaginationModule, NgbAlertModule,
     HttpClientModule,

@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const app = express();
-const routes = require("./app/routes/movie.routes.js");
+const routes = require("./app/routes/router.routes.js");
 const MovieController = require("./app/controllers/movie.controller");
 
 app.use(cors());

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserData } from '../registration/registration.component';
+import { Observable } from 'rxjs';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  user$: Observable<UserData>;
   public linkConfig = {
     isAnchor: true,
     externalStyles: {
@@ -21,7 +25,12 @@ export class HomeComponent implements OnInit {
     {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
     {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
   ];
-  constructor() {}
+  constructor(private store: Store<{user: UserData}>) {
+    this.user$ = store.select('user');
+    this.user$.subscribe(user => console.log(user));
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
 }

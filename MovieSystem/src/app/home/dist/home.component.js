@@ -9,7 +9,8 @@ exports.__esModule = true;
 exports.HomeComponent = void 0;
 var core_1 = require("@angular/core");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent() {
+    function HomeComponent(store) {
+        this.store = store;
         this.linkConfig = {
             isAnchor: true,
             externalStyles: {
@@ -19,13 +20,16 @@ var HomeComponent = /** @class */ (function () {
             link: '/registration'
         };
         this.popularMovies = [
-            { path: '../../assets/home/spider-man.jpg', description: 'No description' },
-            { path: '../../assets/home/spider-man.jpg', description: 'No description' },
-            { path: '../../assets/home/spider-man.jpg', description: 'No description' },
-            { path: '../../assets/home/spider-man.jpg', description: 'No description' },
+            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
+            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
+            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
+            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
         ];
+        this.user$ = store.select('user');
+        this.user$.subscribe(function (user) { return console.log(user); });
     }
-    HomeComponent.prototype.ngOnInit = function () { };
+    HomeComponent.prototype.ngOnInit = function () {
+    };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'app-home',

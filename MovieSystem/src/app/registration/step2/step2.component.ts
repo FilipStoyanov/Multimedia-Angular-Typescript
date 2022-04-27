@@ -3,6 +3,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { UserData } from '../registration.component';
 import { UserStep1 } from '../step1/step1.component';
 import { UserService } from 'src/app/services/user.service';
+import {Store} from '@ngrx/store';
+import {addUser} from '../../actions/user.actions';
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 
 export interface UserStep2{
   username: string;
@@ -13,11 +16,13 @@ interface HTMLInputEvent extends Event{
     target: HTMLInputElement & EventTarget;
 }
 
+
 @Component({
   selector: 'app-step2',
   templateUrl: './step2.component.html',
   styleUrls: ['./step2.component.scss']
 })
+
 
 export class Step2Component implements OnInit {
 
@@ -70,6 +75,9 @@ export class Step2Component implements OnInit {
   };
 
   favoriteGenres = [];
+  horizontalPosition: MatSnackBarHorizontalPosition;
+  verticalPosition: MatSnackBarVerticalPosition;
+  durationInSeconds = 5;
 
   updateUsername(newUsername: string): void{
     this.data.username = newUsername;
@@ -158,12 +166,12 @@ export class Step2Component implements OnInit {
     this.validation.username  = this.data.username.length > 3;
     if (this.validation.username && this.validation.password && this.validation.repeatPassword){
       // this.step++;
-      stepper.next();
       // this.changedStep.emit(this.step);
       this.changedUserData.emit(this.data);
-      console.log(this.user);
-      this.userService.addUser(this.user).subscribe(data => {
-      });
+      this.userService.addUser(this.user).subscribe(
+        data => {stepper.next(); console.log(this.user); this.store.dispatch(addUser({user: this.user})); }, //
+        error => { if (error.status === 409) { this.openSnackBar(); }}
+      );
       // POST REQUEST TO THE BACKEND HERE
     }else{
       this.validation.username = (this.validation.username === true);
@@ -178,7 +186,15 @@ export class Step2Component implements OnInit {
   }
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar, private store: Store<{user: UserData}>) {
+    this.verticalPosition = 'top';
+    this.horizontalPosition = 'center';
+  }
+
+  openSnackBar(): void {
+    this.snackBar.openFromComponent(ExistedEmailComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 
   ngOnInit(): void {
@@ -189,3 +205,16 @@ export class Step2Component implements OnInit {
   }
 
 }
+
+@Component({
+  selector: 'app-snack-bar-component-email',
+  templateUrl: './snack-bar-component-email.html',
+  styles: [
+    `
+    .existed-email {
+      color: red;
+    }
+  `,
+  ],
+})
+export class ExistedEmailComponent {}

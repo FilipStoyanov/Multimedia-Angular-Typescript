@@ -38,7 +38,9 @@ var stepper_1 = require("@angular/material/stepper");
 var progress_bar_1 = require("@angular/material/progress-bar");
 var form_field_1 = require("@angular/material/form-field");
 var step3_component_1 = require("./registration/step3/step3.component");
-// import { LoginReducer } from './store/reducers/login.reducer';
+var snack_bar_1 = require("@angular/material/snack-bar");
+var store_1 = require("@ngrx/store");
+var user_reducer_1 = require("./reducers/user.reducer");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -74,7 +76,8 @@ var AppModule = /** @class */ (function () {
                 stepper_1.MatStepperModule,
                 progress_bar_1.MatProgressBarModule,
                 form_field_1.MatFormFieldModule,
-                // StoreModule.forRoot({user: LoginReducer}),
+                snack_bar_1.MatSnackBarModule,
+                store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),
                 ng_bootstrap_1.NgbModule,
                 ng_bootstrap_2.NgbPaginationModule, ng_bootstrap_2.NgbAlertModule,
                 http_1.HttpClientModule,

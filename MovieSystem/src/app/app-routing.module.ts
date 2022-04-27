@@ -7,6 +7,7 @@ import { CollectionComponent } from './collection/collection.component';
 import { ReviewedMoviesComponent } from './reviewed-movies/reviewed-movies.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},

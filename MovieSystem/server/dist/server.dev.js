@@ -8,7 +8,7 @@ var cors = require('cors');
 
 var app = express();
 
-var routes = require("./app/routes/movie.routes.js");
+var routes = require("./app/routes/router.routes.js");
 
 var MovieController = require("./app/controllers/movie.controller");
 
