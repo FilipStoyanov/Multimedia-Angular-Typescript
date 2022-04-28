@@ -33,6 +33,10 @@ import { Step3Component } from './registration/step3/step3.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './reducers/user.reducer';
+import { FriendsComponent } from './friends/friends.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +62,8 @@ import { userReducer } from './reducers/user.reducer';
     SortButtonComponent,
     DefaultCheckboxComponent,
     Step3Component,
+    FriendsComponent,
+    AboutUsComponent,
 
   ],
   imports: [
@@ -67,6 +73,7 @@ import { userReducer } from './reducers/user.reducer';
     MatProgressBarModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatIconModule,
     StoreModule.forRoot({user: userReducer}),
     NgbModule,
     NgbPaginationModule, NgbAlertModule,

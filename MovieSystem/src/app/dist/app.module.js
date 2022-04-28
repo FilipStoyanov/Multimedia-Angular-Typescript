@@ -41,6 +41,9 @@ var step3_component_1 = require("./registration/step3/step3.component");
 var snack_bar_1 = require("@angular/material/snack-bar");
 var store_1 = require("@ngrx/store");
 var user_reducer_1 = require("./reducers/user.reducer");
+var friends_component_1 = require("./friends/friends.component");
+var about_us_component_1 = require("./about-us/about-us.component");
+var icon_1 = require("@angular/material/icon");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -69,6 +72,8 @@ var AppModule = /** @class */ (function () {
                 sort_button_component_1.SortButtonComponent,
                 default_checkbox_component_1.DefaultCheckboxComponent,
                 step3_component_1.Step3Component,
+                friends_component_1.FriendsComponent,
+                about_us_component_1.AboutUsComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -77,6 +82,7 @@ var AppModule = /** @class */ (function () {
                 progress_bar_1.MatProgressBarModule,
                 form_field_1.MatFormFieldModule,
                 snack_bar_1.MatSnackBarModule,
+                icon_1.MatIconModule,
                 store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),
                 ng_bootstrap_1.NgbModule,
                 ng_bootstrap_2.NgbPaginationModule, ng_bootstrap_2.NgbAlertModule,

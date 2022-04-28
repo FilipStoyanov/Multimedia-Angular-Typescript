@@ -6,13 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ExistedEmailComponent = exports.Step2Component = void 0;
+exports.Step2Component = void 0;
 var core_1 = require("@angular/core");
 var user_actions_1 = require("../../actions/user.actions");
 var Step2Component = /** @class */ (function () {
-    function Step2Component(userService, snackBar, store) {
+    function Step2Component(userService, store) {
         this.userService = userService;
-        this.snackBar = snackBar;
         this.store = store;
         this.changedStep = new core_1.EventEmitter();
         this.changedUserData = new core_1.EventEmitter();
@@ -141,10 +140,10 @@ var Step2Component = /** @class */ (function () {
             // this.step++;
             // this.changedStep.emit(this.step);
             this.changedUserData.emit(this.data);
-            this.userService.addUser(this.user).subscribe(function (data) { stepper.next(); console.log(_this.user); _this.store.dispatch(user_actions_1.addUser({ user: _this.user })); }, //
+            this.userService.addUser(this.user).subscribe(function (data) { _this.finishRegistration(stepper); }, //
             function (//
             error) { if (error.status === 409) {
-                _this.openSnackBar();
+                _this.openAlert();
             } });
             // POST REQUEST TO THE BACKEND HERE
         }
@@ -158,10 +157,13 @@ var Step2Component = /** @class */ (function () {
         //  this.step --;
         stepper.previous();
     };
-    Step2Component.prototype.openSnackBar = function () {
-        this.snackBar.openFromComponent(ExistedEmailComponent, {
-            duration: this.durationInSeconds * 1000
-        });
+    Step2Component.prototype.finishRegistration = function (stepper) {
+        stepper.next();
+        this.store.dispatch(user_actions_1.addUser({ user: this.user }));
+        localStorage.setItem('userId', this.user.username);
+    };
+    Step2Component.prototype.openAlert = function () {
+        alert('Account with this email already exists!');
     };
     Step2Component.prototype.ngOnInit = function () {
         this.user.firstName = this.userData1.firstName;
@@ -175,9 +177,6 @@ var Step2Component = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], Step2Component.prototype, "userData1");
-    __decorate([
-        core_1.Input()
-    ], Step2Component.prototype, "previousUserData");
     __decorate([
         core_1.Output()
     ], Step2Component.prototype, "changedStep");
@@ -194,18 +193,3 @@ var Step2Component = /** @class */ (function () {
     return Step2Component;
 }());
 exports.Step2Component = Step2Component;
-var ExistedEmailComponent = /** @class */ (function () {
-    function ExistedEmailComponent() {
-    }
-    ExistedEmailComponent = __decorate([
-        core_1.Component({
-            selector: 'app-snack-bar-component-email',
-            templateUrl: './snack-bar-component-email.html',
-            styles: [
-                "\n    .existed-email {\n      color: red;\n    }\n  ",
-            ]
-        })
-    ], ExistedEmailComponent);
-    return ExistedEmailComponent;
-}());
-exports.ExistedEmailComponent = ExistedEmailComponent;

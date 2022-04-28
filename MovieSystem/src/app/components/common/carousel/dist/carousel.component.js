@@ -9,14 +9,28 @@ exports.__esModule = true;
 exports.CarouselComponent = void 0;
 var core_1 = require("@angular/core");
 var CarouselComponent = /** @class */ (function () {
-    function CarouselComponent() {
-        this.images = [];
+    function CarouselComponent(movies) {
+        var _this = this;
+        this.movies = movies;
+        this.films = [];
+        this.lastFilms = [];
+        this.movies.getAll().subscribe(function (data) {
+            _this.films = data.data;
+            _this.films.sort(function (a, b) { return parseFloat(b.year) - parseFloat(a.year); });
+            _this.lastFilms = [
+                _this.films[0],
+                _this.films[1],
+                _this.films[2],
+                _this.films[3],
+                _this.films[4],
+            ];
+        });
     }
+    CarouselComponent.prototype.openMovieLink = function (url) {
+        window.open(url, '_blank');
+    };
     CarouselComponent.prototype.ngOnInit = function () {
     };
-    __decorate([
-        core_1.Input()
-    ], CarouselComponent.prototype, "images");
     CarouselComponent = __decorate([
         core_1.Component({
             selector: 'app-carousel',

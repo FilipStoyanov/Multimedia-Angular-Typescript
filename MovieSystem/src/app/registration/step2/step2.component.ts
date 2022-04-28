@@ -5,7 +5,7 @@ import { UserStep1 } from '../step1/step1.component';
 import { UserService } from 'src/app/services/user.service';
 import {Store} from '@ngrx/store';
 import {addUser} from '../../actions/user.actions';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 
 export interface UserStep2{
   username: string;
@@ -28,8 +28,6 @@ export class Step2Component implements OnInit {
 
   @Input() stepper: MatStepper;
   @Input () userData1: UserStep1;
-  // @Input() step: number;
-  @Input() previousUserData: UserData;
   @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
   @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
@@ -169,8 +167,8 @@ export class Step2Component implements OnInit {
       // this.changedStep.emit(this.step);
       this.changedUserData.emit(this.data);
       this.userService.addUser(this.user).subscribe(
-        data => {stepper.next(); console.log(this.user); this.store.dispatch(addUser({user: this.user})); }, //
-        error => { if (error.status === 409) { this.openSnackBar(); }}
+        data => {this.finishRegistration(stepper); }, //
+        error => { if (error.status === 409) { this.openAlert(); }}
       );
       // POST REQUEST TO THE BACKEND HERE
     }else{
@@ -185,16 +183,19 @@ export class Step2Component implements OnInit {
      stepper.previous();
   }
 
+  finishRegistration(stepper: MatStepper): void {
+    stepper.next(); this.store.dispatch(addUser({user: this.user}));
+    localStorage.setItem('userId', this.user.username);
+  }
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private store: Store<{user: UserData}>) {
+
+  constructor(private userService: UserService, private store: Store<{user: UserData}>) {
     this.verticalPosition = 'top';
     this.horizontalPosition = 'center';
   }
 
-  openSnackBar(): void {
-    this.snackBar.openFromComponent(ExistedEmailComponent, {
-      duration: this.durationInSeconds * 1000,
-    });
+  openAlert(): void {
+    alert('Account with this email already exists!');
   }
 
   ngOnInit(): void {
@@ -205,16 +206,3 @@ export class Step2Component implements OnInit {
   }
 
 }
-
-@Component({
-  selector: 'app-snack-bar-component-email',
-  templateUrl: './snack-bar-component-email.html',
-  styles: [
-    `
-    .existed-email {
-      color: red;
-    }
-  `,
-  ],
-})
-export class ExistedEmailComponent {}

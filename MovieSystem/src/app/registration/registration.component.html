@@ -4,13 +4,13 @@
   <mat-stepper orientation="horizontal" #stepper>
     <mat-step>
       <ng-template matStepContent>
-        <app-step1 [previousUserData] = "user" (changedUserData) = "updateUserData1($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step1>
+        <app-step1 [userData] = "user"(changedUserData) = "updateUserData1($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step1>
       </ng-template>
       <ng-template matStepLabel>Step1</ng-template>
     </mat-step>
     <mat-step>
       <ng-template matStepContent>
-        <app-step2 [userData1] = "user" [previousUserData] = "user"  (changedUserData) = "updateUserData2($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step2>
+        <app-step2 [userData1] = "user" (changedUserData) = "updateUserData2($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step2>
       </ng-template>
       <ng-template matStepLabel>Step2</ng-template>
     </mat-step>

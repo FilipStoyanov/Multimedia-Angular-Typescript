@@ -21,7 +21,7 @@ export class Step1Component implements OnInit {
   @Input() stepper: MatStepper;
   @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
   @Output() changedUserData: EventEmitter<UserStep1> = new EventEmitter<UserStep1>();
-  @Input()  previousUserData: UserData;
+  @Input()  userData: UserData;
   @Output () private data: UserStep1 = {firstName: '', lastName: '', email: '', birthday: ''};
 
   constructor() {
@@ -118,10 +118,10 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data.firstName  = this.previousUserData.firstName;
-    this.data.lastName  = this.previousUserData.lastName;
-    this.data.email = this.previousUserData.email;
-    this.data.birthday = this.previousUserData.birthday;
+    this.data.firstName = this.userData.firstName;
+    this.data.lastName = this.userData.lastName;
+    this.userData.email = this.userData.email;
+    this.userData.birthday = this.userData.birthday;
   }
 
   ngOnChange(): void{

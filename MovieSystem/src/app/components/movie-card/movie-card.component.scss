@@ -28,4 +28,25 @@
     position: relative;
      margin-bottom: 10px;
   }
+  &__btn-wrapper {
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+  }
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.none {
+  display: none;
 }

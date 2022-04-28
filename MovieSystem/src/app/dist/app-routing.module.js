@@ -16,20 +16,36 @@ var collection_component_1 = require("./collection/collection.component");
 var reviewed_movies_component_1 = require("./reviewed-movies/reviewed-movies.component");
 var profile_component_1 = require("./profile/profile.component");
 var common_1 = require("@angular/common");
-var routes = [
+var friends_component_1 = require("./friends/friends.component");
+var about_us_component_1 = require("./about-us/about-us.component");
+var notRegisteredUser = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
     { path: 'collections', component: collection_component_1.CollectionComponent },
+    { path: 'about', component: about_us_component_1.AboutUsComponent },
+];
+var registeredUser = [
+    { path: '', component: home_component_1.HomeComponent },
+    { path: 'movies', component: movies_component_1.MoviesComponent },
+    { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'reviews', component: reviewed_movies_component_1.ReviewedMoviesComponent },
     { path: 'profile', component: profile_component_1.ProfileComponent },
+    { path: 'friends', component: friends_component_1.FriendsComponent },
+    { path: 'about', component: about_us_component_1.AboutUsComponent },
 ];
+var UserRole;
+(function (UserRole) {
+    UserRole[UserRole["admin"] = 0] = "admin";
+    UserRole[UserRole["registeredUser"] = 1] = "registeredUser";
+    UserRole[UserRole["notRegisteredUser"] = 2] = "notRegisteredUser";
+})(UserRole || (UserRole = {}));
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
         core_1.NgModule({
-            imports: [router_1.RouterModule.forRoot(routes), common_1.CommonModule],
+            imports: [router_1.RouterModule.forRoot(localStorage.getItem('userId') ? registeredUser : notRegisteredUser), common_1.CommonModule],
             exports: [router_1.RouterModule]
         })
     ], AppRoutingModule);

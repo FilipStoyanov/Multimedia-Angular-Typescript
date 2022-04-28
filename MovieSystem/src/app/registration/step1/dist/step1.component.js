@@ -97,10 +97,10 @@ var Step1Component = /** @class */ (function () {
         this.validation.email = this.validateEmail(this.data.email);
     };
     Step1Component.prototype.ngOnInit = function () {
-        this.data.firstName = this.previousUserData.firstName;
-        this.data.lastName = this.previousUserData.lastName;
-        this.data.email = this.previousUserData.email;
-        this.data.birthday = this.previousUserData.birthday;
+        this.data.firstName = this.userData.firstName;
+        this.data.lastName = this.userData.lastName;
+        this.userData.email = this.userData.email;
+        this.userData.birthday = this.userData.birthday;
     };
     Step1Component.prototype.ngOnChange = function () {
     };
@@ -115,7 +115,7 @@ var Step1Component = /** @class */ (function () {
     ], Step1Component.prototype, "changedUserData");
     __decorate([
         core_1.Input()
-    ], Step1Component.prototype, "previousUserData");
+    ], Step1Component.prototype, "userData");
     __decorate([
         core_1.Output()
     ], Step1Component.prototype, "data");

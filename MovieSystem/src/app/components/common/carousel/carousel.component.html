@@ -1,11 +1,11 @@
-<ngb-carousel *ngIf="images" [showNavigationArrows]="true" [showNavigationIndicators]="true">
-  <ng-template ngbSlide *ngFor="let image of images">
+<ngb-carousel *ngIf="lastFilms" [showNavigationArrows]="true" [showNavigationIndicators]="true">
+  <ng-template ngbSlide *ngFor="let film of lastFilms">
     <div class="piscum-image-wrapper">
-      <img [src]="image.path" alt="Random slide">
+      <img [src]="film.image" alt="Random slide">
     </div>
     <div class="carousel-caption">
-      <h3>{{image.title}}</h3>
-      <a href='' (click)="openMovieLink(image.link)" target="_blank">{{image.description}}</a>
+      <h3>{{film.titleEn}}</h3>
+      <a href='' (click)="openMovieLink(film.link)" target="_blank">{{film.description}}</a>
     </div>
   </ng-template>
 </ngb-carousel>
