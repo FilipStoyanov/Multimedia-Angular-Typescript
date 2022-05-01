@@ -12,6 +12,7 @@ export interface UserStep2{
   password: string;
   repeatPassword: string;
 }
+
 interface HTMLInputEvent extends Event{
     target: HTMLInputElement & EventTarget;
 }
@@ -32,11 +33,10 @@ export class Step2Component implements OnInit {
   @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
-  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: ''};
+  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: ''};
   public validation = { username: true, password: true, repeatPassword: true };
-
   showWarning: boolean;
-  imageUrl?: string | ArrayBuffer;
+  public imageUrl: string | ArrayBuffer;
   genres = [
     'Action',
     'Comedy',
@@ -162,6 +162,8 @@ export class Step2Component implements OnInit {
     this.validation.repeatPassword = this.data.repeatPassword.length >= 6 && this.data.repeatPassword === this.data.password;
     this.validation.password = this.data.password.length >= 6;
     this.validation.username  = this.data.username.length > 3;
+    this.user.image = this.imageUrl;
+
     if (this.validation.username && this.validation.password && this.validation.repeatPassword){
       // this.step++;
       // this.changedStep.emit(this.step);
@@ -185,7 +187,7 @@ export class Step2Component implements OnInit {
 
   finishRegistration(stepper: MatStepper): void {
     stepper.next(); this.store.dispatch(addUser({user: this.user}));
-    localStorage.setItem('userId', this.user.username);
+    localStorage.setItem('user', JSON.stringify(this.user));
   }
 
 

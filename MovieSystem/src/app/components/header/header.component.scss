@@ -22,6 +22,11 @@
       cursor: pointer;
     }
 
+    &__item {
+      position: relative;
+      top: 7.5px;
+    }
+
   }
 
   &__search {
@@ -46,4 +51,54 @@
     width: 60px;
   }
 
+  &__icon {
+    position: relative;
+    top: 5px;
+  }
+}
+
+.profile{
+  position: absolute;
+  width: 200px;
+  height: auto;
+  background-color: lightgray;
+  list-style-type: none;
+  top: 70px;
+  right: 0;
+  z-index: 5;
+  border-radius: 5px;
+  padding: 10px;
+  &__item {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+      background-color: white;
+   }
+  }
+  &__link{
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: $default-button-color;
+    }
+  }
+  &__image {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    object-fit: cover;
+  }
+}
+
+.no-background {
+  background-color: $default-button-color;
+  border: none;
+  cursor: pointer;
+}
+
+.none {
+  display: none;
 }

@@ -1,2 +1,2 @@
   <label class="label" for="input">{{inputConfig.label}}</label>
-  <input required class="input form-control" id="input" [type]="inputConfig.password ? 'password' : 'text'" [placeholder]='inputConfig.placeholder' value="{{previousValue}}" (keyup) = "handleInput($event)" />
+  <input class="input form-control" id="input" [type]="inputConfig.password ? 'password' : 'text'" [placeholder]='inputConfig.placeholder' value="{{previousValue}}" (keyup) = "handleInput($event)" />

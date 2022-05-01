@@ -3,3 +3,4 @@ import { UserData } from '../registration/registration.component';
 export const addUser = createAction(
   'addUser',
   props<{user: UserData}>()) ;
+

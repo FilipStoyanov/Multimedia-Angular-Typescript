@@ -16,11 +16,13 @@ const notRegisteredUser: Routes = [
   { path: 'movies', component: MoviesComponent },
   { path: 'collections', component: CollectionComponent },
   { path: 'about', component: AboutUsComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
 
 const registeredUser: Routes = [
   { path: '', component: HomeComponent},
   { path: 'movies', component: MoviesComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'collections', component: CollectionComponent },
   { path: 'reviews', component: ReviewedMoviesComponent },
   { path: 'profile', component: ProfileComponent },

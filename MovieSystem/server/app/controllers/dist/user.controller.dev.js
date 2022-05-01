@@ -6,6 +6,12 @@ var router = express.Router();
 
 var User = require("../models/user.model.js");
 
+router.param('username', function (req, res, next, username) {
+  var modified = username;
+  req.username = modified;
+  next();
+});
+
 var userExists = function userExists(email) {
   var user;
   return regeneratorRuntime.async(function userExists$(_context) {
@@ -71,7 +77,7 @@ router.get('/Users', function _callee(req, res) {
   }, null, null, [[0, 7]]);
 });
 router.post('/Users', function _callee2(req, res) {
-  var user, s, newUser;
+  var user, newUser;
   return regeneratorRuntime.async(function _callee2$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -86,46 +92,78 @@ router.post('/Users', function _callee2(req, res) {
             role: 'user'
           });
           _context3.prev = 1;
-          s = userExists(req.body.email);
-          _context3.next = 5;
+          _context3.next = 4;
           return regeneratorRuntime.awrap(userExists(req.body.email));
 
-        case 5:
+        case 4:
           if (!_context3.sent) {
-            _context3.next = 9;
+            _context3.next = 8;
             break;
           }
 
           res.status(409).json({
             error: 'Email already exists'
           });
-          _context3.next = 13;
+          _context3.next = 12;
           break;
 
-        case 9:
-          _context3.next = 11;
+        case 8:
+          _context3.next = 10;
           return regeneratorRuntime.awrap(user.save());
 
-        case 11:
+        case 10:
           newUser = _context3.sent;
           res.status(201).json(newUser);
 
-        case 13:
-          _context3.next = 18;
+        case 12:
+          _context3.next = 17;
           break;
 
-        case 15:
-          _context3.prev = 15;
+        case 14:
+          _context3.prev = 14;
           _context3.t0 = _context3["catch"](1);
           res.status(400).json({
             message: _context3.t0.message
           });
 
-        case 18:
+        case 17:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[1, 15]]);
+  }, null, null, [[1, 14]]);
+});
+router.get('/Users/:username', function _callee3(req, res) {
+  var user;
+  return regeneratorRuntime.async(function _callee3$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(User.findOne({
+            username: req.params.username
+          }));
+
+        case 3:
+          user = _context4.sent;
+          console.log('here');
+          res.send(user);
+          _context4.next = 11;
+          break;
+
+        case 8:
+          _context4.prev = 8;
+          _context4.t0 = _context4["catch"](0);
+          res.status(500).json({
+            message: _context4.t0.message
+          });
+
+        case 11:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 8]]);
 });
 module.exports = router;

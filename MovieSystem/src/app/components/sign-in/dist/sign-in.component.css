@@ -1,0 +1,10 @@
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
+.form {
+  padding: calc($default-padding / 2);
+}
+.form__button {
+  margin-top: 20px;
+}

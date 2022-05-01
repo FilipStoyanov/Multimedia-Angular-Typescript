@@ -1,8 +1,8 @@
-<form class="step2">
+<div class="step2">
 <div>
   <label for="imageUpload" class="step2__title">Upload image</label>
   <button class="upload" (click)="onBtnClick()">
-    <input class="upload__input" accept ="image/*" type="file" name="photo" id="imageUpload" (change) = "readUrl($event);" />
+    <input class="upload__input" accept ="image/*" type="file" name="profileImage" id="imageUpload" (change) = "readUrl($event);" />
     <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="imageUrl ? 'none' : 'upload__icon'" />
     <img [ngClass]="imageUrl ? 'upload__image' : 'none'" [src] ="imageUrl" alt="Your Profile image" />
     <div [ngClass]="imageUrl ? 'upload__mask' : 'none'">
@@ -43,4 +43,4 @@
   <!-- <app-default-button [stepCounter] = "step" (changeStep) = "goForward(stepper)" [buttonConfig]="nextBtn"></app-default-button> -->
   <app-default-button (changeStep) = "goForward(stepper)" [buttonConfig]="nextBtn"></app-default-button>
 </div>
-</form>
+</div>

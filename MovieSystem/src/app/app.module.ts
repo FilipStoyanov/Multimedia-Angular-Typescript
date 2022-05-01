@@ -36,6 +36,7 @@ import { userReducer } from './reducers/user.reducer';
 import { FriendsComponent } from './friends/friends.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {MatIconModule} from '@angular/material/icon';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import {MatIconModule} from '@angular/material/icon';
     Step3Component,
     FriendsComponent,
     AboutUsComponent,
+    SignInComponent,
 
   ],
   imports: [
@@ -75,8 +77,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatSnackBarModule,
     MatIconModule,
     StoreModule.forRoot({user: userReducer}),
+    NgbAlertModule,
     NgbModule,
-    NgbPaginationModule, NgbAlertModule,
+    NgbPaginationModule,
     HttpClientModule,
   ],
   providers: [],

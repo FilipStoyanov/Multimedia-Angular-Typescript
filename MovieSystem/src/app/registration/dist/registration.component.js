@@ -9,24 +9,10 @@ exports.__esModule = true;
 exports.RegistrationComponent = void 0;
 var core_1 = require("@angular/core");
 var stepper_1 = require("@angular/cdk/stepper");
-// const myUser: User = {
-//   firstName: 'Filip',
-//   lastName: 'Stoyanov',
-//   email: 'a@abv.bg',
-//   username: 'Filip',
-//   password: 'Stoyanov',
-//   image: 'image',
-//   age: '22',
-// };
 var RegistrationComponent = /** @class */ (function () {
-    // public currentStep: number;
     function RegistrationComponent() {
         this.user = { firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: '' };
-        // this.currentStep = 1;
     }
-    // private updateStepCounter(newStep): void  {
-    //   this.currentStep = newStep;
-    // }
     RegistrationComponent.prototype.updateUserData1 = function (data) {
         this.user.firstName = data.firstName;
         this.user.lastName = data.lastName;

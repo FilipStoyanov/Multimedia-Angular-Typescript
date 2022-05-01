@@ -6,10 +6,27 @@
     <input class="header__search" type="search" placeholder="Search movies" />
   </div>
   <ul class="nav">
+    <li class="nav__item"><app-sign-in></app-sign-in></li>
     <li class="nav__item"><a class="nav__link" [routerLink]="links[0]">Home</a></li>
     <li class="nav__item"><a class="nav__link" [routerLink]="links[1]">Movies</a></li>
     <li class="nav__item"><a class="nav__link" [routerLink]="links[2]">Movies Collection</a></li>
     <li class="nav__item"><a class="nav__link" [routerLink]="links[3]">Reviewed Movies</a></li>
-    <li class="nav__item"><a class="nav__link" [routerLink]="links[4]">Profile</a></li>
+    <li *ngIf="userData"><button type="button" class="nav__link no-background" (click) = "toggleProfileMenu()"><span id="profileText">Hello, </span><span>{{userData.username}}
+    </span><img  class="profile__image" [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profileImage" id="profileImage" /><span [ngClass]=" isShownProfileMenu ? 'none' : 'header__icon'"><mat-icon id="arrowDown">keyboard_arrow_down</mat-icon></span>
+    <span [ngClass]="isShownProfileMenu ? 'header__icon' : 'none'"><mat-icon id="arrowUp">keyboard_arrow_up</mat-icon></span></button></li>
+    <ul [ngClass]="isShownProfileMenu ? 'profile' : 'none'" #profileList>
+      <li class="profile__item">
+        <a class="profile__link" (click) = "logOut()">Notifications</a>
+      </li>
+      <li class="profile__item">
+        <a class="profile__link" [routerLink] = "links[4]">Profile</a>
+      </li>
+      <li class="profile__item">
+        <a class="profile__link"(click) = "logOut()">Log out -></a>
+      </li>
+      <li class="profile__item">
+        <a class="profile__link"(click) = "logOut()">Friends</a>
+      </li>
+    </ul>
   </ul>
 </section>

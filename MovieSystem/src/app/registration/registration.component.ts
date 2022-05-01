@@ -13,19 +13,10 @@ export interface UserData {
   email: string;
   username: string;
   password: string;
+  image?: string | ArrayBuffer;
   repeatPassword?: string;
   birthday?: string;
 }
-
-// const myUser: User = {
-//   firstName: 'Filip',
-//   lastName: 'Stoyanov',
-//   email: 'a@abv.bg',
-//   username: 'Filip',
-//   password: 'Stoyanov',
-//   image: 'image',
-//   age: '22',
-// };
 
 @Component({
   selector: 'app-registration',
@@ -40,26 +31,13 @@ export interface UserData {
 })
 export class RegistrationComponent implements OnInit {
 
-  // public currentStep: number;
 
   constructor() {
-    // this.currentStep = 1;
   }
-  // userData: Observable<User>;
-  // constructor(private store: Store<{user: User}>) {
-  //   this.currentStep = 1;
-  //   this.userData = store.pipe(select('user'));
-  // }
-
 
   public date: string;
 
   private user: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: ''};
-
-  // private updateStepCounter(newStep): void  {
-  //   this.currentStep = newStep;
-  // }
-
   private updateUserData1(data: UserStep1): void {
     this.user.firstName = data.firstName;
     this.user.lastName = data.lastName;

@@ -13,7 +13,7 @@ var Step3Component = /** @class */ (function () {
         this.router = router;
     }
     Step3Component.prototype.goToHome = function () {
-        this.router.navigate(["/"]);
+        this.router.navigate(["/"]).then(function () { return window.location.reload(); });
     };
     Step3Component.prototype.ngOnInit = function () {
         var _this = this;

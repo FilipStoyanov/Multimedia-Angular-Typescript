@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { UserData } from '../registration/registration.component';
 import { Observable } from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -19,15 +19,19 @@ export class HomeComponent implements OnInit {
     text: 'Registration',
     link: '/registration',
   };
-  public popularMovies = [
-    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
-    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
-    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
-    {path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/'},
-  ];
+
+  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: ''};
   constructor(private store: Store<{user: UserData}>) {
     this.user$ = store.select('user');
-    this.user$.subscribe(user => console.log(user));
+    this.user$.subscribe( user => {
+      console.log(user);
+      this.userData.username = user.username;
+    });
+    // this.image$ = store.select('image');
+    // console.log(this.image$);
+    // this.image$.subscribe(image => {
+    //   console.log(image);
+    // });
   }
 
   ngOnInit(): void {

@@ -16,7 +16,7 @@ var Step2Component = /** @class */ (function () {
         this.changedStep = new core_1.EventEmitter();
         this.changedUserData = new core_1.EventEmitter();
         this.data = { username: '', password: '', repeatPassword: '' };
-        this.user = { username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '' };
+        this.user = { username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '' };
         this.validation = { username: true, password: true, repeatPassword: true };
         this.genres = [
             'Action',
@@ -136,6 +136,7 @@ var Step2Component = /** @class */ (function () {
         this.validation.repeatPassword = this.data.repeatPassword.length >= 6 && this.data.repeatPassword === this.data.password;
         this.validation.password = this.data.password.length >= 6;
         this.validation.username = this.data.username.length > 3;
+        this.user.image = this.imageUrl;
         if (this.validation.username && this.validation.password && this.validation.repeatPassword) {
             // this.step++;
             // this.changedStep.emit(this.step);
@@ -160,7 +161,7 @@ var Step2Component = /** @class */ (function () {
     Step2Component.prototype.finishRegistration = function (stepper) {
         stepper.next();
         this.store.dispatch(user_actions_1.addUser({ user: this.user }));
-        localStorage.setItem('userId', this.user.username);
+        localStorage.setItem('user', JSON.stringify(this.user));
     };
     Step2Component.prototype.openAlert = function () {
         alert('Account with this email already exists!');

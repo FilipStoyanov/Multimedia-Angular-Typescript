@@ -6,26 +6,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.UserService = void 0;
+exports.ProfileImageService = void 0;
 var core_1 = require("@angular/core");
-var baseURL = 'http://localhost:8080/api/users';
-var UserService = /** @class */ (function () {
-    function UserService(http) {
+var baseUrl = 'http://localhost:8080/api/images';
+var ProfileImageService = /** @class */ (function () {
+    function ProfileImageService(http) {
         this.http = http;
     }
-    UserService.prototype.addUser = function (user) {
+    ProfileImageService.prototype.uploadImage = function (image) {
         var headers = { 'content-type': 'application/json' };
-        var body = JSON.stringify(user);
-        return this.http.post(baseURL, body, { headers: headers });
+        var body = JSON.stringify(image);
+        console.log(body.length);
+        return this.http.post(baseUrl, body, { headers: headers });
     };
-    UserService.prototype.getUser = function (username) {
-        return this.http.get(baseURL + ("/" + username));
+    ProfileImageService.prototype.getProfileImage = function (username) {
+        console.log(username);
+        return this.http.get(baseUrl + ("/" + username));
     };
-    UserService = __decorate([
+    ProfileImageService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], UserService);
-    return UserService;
+    ], ProfileImageService);
+    return ProfileImageService;
 }());
-exports.UserService = UserService;
+exports.ProfileImageService = ProfileImageService;

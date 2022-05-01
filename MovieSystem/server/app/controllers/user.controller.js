@@ -3,6 +3,12 @@ const router = express.Router();
 const User = require("../models/user.model.js");
 
 
+router.param('username', function(req, res, next, username) {
+  const modified = username;
+
+  req.username = modified;
+  next();
+});
 const userExists = async (email) => {
  const user = await  User.findOne({email: email.toLowerCase().trim()});
     if(user){
@@ -31,7 +37,6 @@ router.post('/Users', async (req,res) => {
      role: 'user'
   })
   try{
-    const s = userExists(req.body.email);
     if(await userExists(req.body.email)){
       res.status(409).json({
         error: 'Email already exists',
@@ -45,5 +50,15 @@ router.post('/Users', async (req,res) => {
   }
 })
 
+
+router.get('/Users/:username', async (req,res) => {
+  try{
+    const user = await User.findOne({username: req.params.username});
+    console.log('here');
+    res.send(user);
+  }catch(error){
+    res.status(500).json({message: error.message})
+  }
+})
 
 module.exports = router;

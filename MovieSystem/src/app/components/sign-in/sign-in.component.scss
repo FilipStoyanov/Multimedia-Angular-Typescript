@@ -1,0 +1,12 @@
+@import "../../../variables";
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
+.form {
+  padding: calc($default-padding / 2);
+
+  &__button {
+    margin-top: 20px;
+  }
+}

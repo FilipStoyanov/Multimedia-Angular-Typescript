@@ -9,6 +9,7 @@ export const initialState: UserData = {
   email: '',
   password: '',
   username: '',
+  image: '',
 };
 export interface UserAction extends Actions {
    payload: UserData;
@@ -22,4 +23,5 @@ export const userReducer = createReducer(
       email: action.user.email,
       password: action.user.password,
       username: action.user.username,
+      image: action.user.image,
     }; }));

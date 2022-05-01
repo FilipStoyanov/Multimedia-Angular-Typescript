@@ -24,10 +24,12 @@ var notRegisteredUser = [
     { path: 'movies', component: movies_component_1.MoviesComponent },
     { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'about', component: about_us_component_1.AboutUsComponent },
+    { path: 'profile', component: profile_component_1.ProfileComponent },
 ];
 var registeredUser = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
+    { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'reviews', component: reviewed_movies_component_1.ReviewedMoviesComponent },
     { path: 'profile', component: profile_component_1.ProfileComponent },

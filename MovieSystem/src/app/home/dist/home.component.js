@@ -10,6 +10,7 @@ exports.HomeComponent = void 0;
 var core_1 = require("@angular/core");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(store) {
+        var _this = this;
         this.store = store;
         this.linkConfig = {
             isAnchor: true,
@@ -19,14 +20,17 @@ var HomeComponent = /** @class */ (function () {
             text: 'Registration',
             link: '/registration'
         };
-        this.popularMovies = [
-            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
-            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
-            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
-            { path: '../../assets/home/movie.png', description: 'No description', title: 'IMAGE', link: 'https://www.imdb.com/title/tt10872600/' },
-        ];
+        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '' };
         this.user$ = store.select('user');
-        this.user$.subscribe(function (user) { return console.log(user); });
+        this.user$.subscribe(function (user) {
+            console.log(user);
+            _this.userData.username = user.username;
+        });
+        // this.image$ = store.select('image');
+        // console.log(this.image$);
+        // this.image$.subscribe(image => {
+        //   console.log(image);
+        // });
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
