@@ -15,7 +15,7 @@ var HeaderComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.router = router;
         this.links = ['', 'movies', 'collections', 'reviews', 'profile'];
-        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '', image: '' };
+        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '', image: '', id: '' };
         this.user$ = store.select('user');
         this.user$.subscribe(function (user) {
             _this.userData.username = user.username;

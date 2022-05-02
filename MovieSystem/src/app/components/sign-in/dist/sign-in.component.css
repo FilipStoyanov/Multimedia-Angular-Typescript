@@ -8,3 +8,7 @@
 .form__button {
   margin-top: 20px;
 }
+.form__invalid {
+  color: red;
+  display: block;
+}

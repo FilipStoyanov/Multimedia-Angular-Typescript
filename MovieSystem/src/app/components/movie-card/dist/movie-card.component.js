@@ -9,7 +9,8 @@ exports.__esModule = true;
 exports.MovieCardComponent = void 0;
 var core_1 = require("@angular/core");
 var MovieCardComponent = /** @class */ (function () {
-    function MovieCardComponent() {
+    function MovieCardComponent(router) {
+        this.router = router;
         this.showButtons = false;
     }
     MovieCardComponent.prototype.hideCardButtons = function (event) {
@@ -18,20 +19,18 @@ var MovieCardComponent = /** @class */ (function () {
     MovieCardComponent.prototype.showCardButtons = function (event) {
         this.showButtons = true;
     };
+    MovieCardComponent.prototype.openMovieScreen = function () {
+        this.router.navigate(['/movie'], { state: {
+                movie: JSON.stringify(this.movie)
+            } }).then(function () {
+            //  window.location.reload();
+        });
+    };
     MovieCardComponent.prototype.ngOnInit = function () {
     };
     __decorate([
         core_1.Input()
-    ], MovieCardComponent.prototype, "titleBg");
-    __decorate([
-        core_1.Input()
-    ], MovieCardComponent.prototype, "titleEn");
-    __decorate([
-        core_1.Input()
-    ], MovieCardComponent.prototype, "image");
-    __decorate([
-        core_1.Input()
-    ], MovieCardComponent.prototype, "year");
+    ], MovieCardComponent.prototype, "movie");
     MovieCardComponent = __decorate([
         core_1.Component({
             selector: 'app-movie-card',

@@ -10,6 +10,7 @@ export const initialState: UserData = {
   password: '',
   username: '',
   image: '',
+  id: '',
 };
 export interface UserAction extends Actions {
    payload: UserData;
@@ -24,4 +25,5 @@ export const userReducer = createReducer(
       password: action.user.password,
       username: action.user.username,
       image: action.user.image,
+      id: action.user.id,
     }; }));

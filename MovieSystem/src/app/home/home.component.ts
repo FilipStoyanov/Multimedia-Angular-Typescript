@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     link: '/registration',
   };
 
-  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: ''};
+  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', id: ''};
   constructor(private store: Store<{user: UserData}>) {
     this.user$ = store.select('user');
     this.user$.subscribe( user => {

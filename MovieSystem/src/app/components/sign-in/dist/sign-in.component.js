@@ -9,8 +9,14 @@ exports.__esModule = true;
 exports.SignInComponent = void 0;
 var core_1 = require("@angular/core");
 var SignInComponent = /** @class */ (function () {
-    function SignInComponent(modalService) {
+    function SignInComponent(modalService, userService, userDataService, router, store) {
         this.modalService = modalService;
+        this.userService = userService;
+        this.userDataService = userDataService;
+        this.router = router;
+        this.store = store;
+        this.user = { token: '', username: '', password: '' };
+        this.invalidCredentials = false;
     }
     SignInComponent.prototype.ngOnInit = function () {
     };
@@ -18,14 +24,21 @@ var SignInComponent = /** @class */ (function () {
         this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
     };
     SignInComponent.prototype.logIn = function () {
-        console.log(this.emailInput);
-        console.log(this.passwordInput);
+        var _this = this;
+        this.userService.addLoggedUser(this.user).subscribe(function (data) { }, function (error) { return _this.invalidCredentials = true; });
+        this.userDataService.getUser(this.emailInput).subscribe(function (data) {
+            localStorage.setItem('user', JSON.stringify(data));
+            _this.router.navigate(["/"]).then(function () { return window.location.reload(); });
+        });
     };
+    // this.store.dispatch(addUser({user: data}));
     SignInComponent.prototype.onChangeEmail = function (event) {
         this.emailInput = event.target.value;
+        this.user.username = this.emailInput;
     };
     SignInComponent.prototype.onChangePassword = function (event) {
         this.passwordInput = event.target.value;
+        this.user.password = this.passwordInput;
     };
     SignInComponent = __decorate([
         core_1.Component({

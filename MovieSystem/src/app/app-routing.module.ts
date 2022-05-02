@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
 import { FriendsComponent } from './friends/friends.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { MovieComponent } from './movie/movie.component';
 
 const notRegisteredUser: Routes = [
   {path: '', component: HomeComponent},
@@ -17,6 +18,7 @@ const notRegisteredUser: Routes = [
   { path: 'collections', component: CollectionComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'movie', component: MovieComponent},
 ];
 
 const registeredUser: Routes = [
@@ -28,6 +30,7 @@ const registeredUser: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'friends', component: FriendsComponent },
   { path: 'about', component: AboutUsComponent },
+  { path: 'movie', component: MovieComponent},
 ];
 enum UserRole {
   admin,

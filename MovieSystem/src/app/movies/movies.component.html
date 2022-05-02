@@ -11,7 +11,7 @@
   <app-accordion (changeFilterValues)="onFilterChange($event)" [accordionConfig]="filterAccordion"></app-accordion>
   <div class="movies__grid">
     <div *ngFor="let film of films" class="movies__column4">
-      <app-movie-card [titleEn]="film.titleEn" [titleBg]="film.titleBg" [image]="film.image" [year]="film.year"></app-movie-card>
+      <app-movie-card [movie]="film"></app-movie-card>
     </div>
     </div>
 </section>

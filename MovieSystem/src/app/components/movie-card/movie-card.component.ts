@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Movie } from 'src/app/services/movie.service';
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -6,12 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MovieCardComponent implements OnInit {
 
-  @Input() titleBg: string;
-  @Input() titleEn: string;
-  @Input() image: string;
-  @Input() year: number;
+  @Input() movie: Movie;
   showButtons: boolean;
-  constructor() {
+  constructor(private router: Router) {
     this.showButtons = false;
   }
 
@@ -21,6 +20,14 @@ export class MovieCardComponent implements OnInit {
 
   showCardButtons(event): void{
     this.showButtons = true;
+  }
+
+  openMovieScreen(): void {
+     this.router.navigate(['/movie'], {state: {
+       movie: JSON.stringify(this.movie)
+     }}).then(() => {
+      //  window.location.reload();
+     });
   }
 
 

@@ -35,6 +35,18 @@ const movieSchema = new mongoose.Schema({
   country: {
     required: true,
     type: String,
+  },
+  description: {
+    require: true,
+    type: String,
+  },
+  trailer: {
+    require: true,
+    type: String,
+  },
+  id: {
+    required: false,
+    type: String,
   }
 })
 

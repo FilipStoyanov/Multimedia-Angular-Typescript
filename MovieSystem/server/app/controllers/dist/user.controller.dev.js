@@ -6,6 +6,11 @@ var router = express.Router();
 
 var User = require("../models/user.model.js");
 
+router.param('email', function (req, res, next, email) {
+  var modified = email;
+  req.email = modified;
+  next();
+});
 router.param('username', function (req, res, next, username) {
   var modified = username;
   req.username = modified;
@@ -147,23 +152,22 @@ router.get('/Users/:username', function _callee3(req, res) {
 
         case 3:
           user = _context4.sent;
-          console.log('here');
           res.send(user);
-          _context4.next = 11;
+          _context4.next = 10;
           break;
 
-        case 8:
-          _context4.prev = 8;
+        case 7:
+          _context4.prev = 7;
           _context4.t0 = _context4["catch"](0);
           res.status(500).json({
             message: _context4.t0.message
           });
 
-        case 11:
+        case 10:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 7]]);
 });
 module.exports = router;

@@ -19,4 +19,7 @@ export class UserService {
   getUser(username: string): Observable<UserData>{
     return this.http.get<UserData>(baseURL + `/${username}`);
   }
+  getUserByEmail(email: string): Observable<UserData>{
+    return this.http.get<UserData>(baseURL + `/${email}`);
+  }
 }

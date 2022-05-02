@@ -15,6 +15,9 @@ interface Movie {
   rating: number;
   watches: number;
   country: string;
+  id?: string;
+  description: string;
+  trailer: string;
 }
 
 interface Accordion {

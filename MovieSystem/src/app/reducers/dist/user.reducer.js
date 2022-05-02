@@ -9,7 +9,8 @@ exports.initialState = {
     email: '',
     password: '',
     username: '',
-    image: ''
+    image: '',
+    id: ''
 };
 exports.userReducer = store_1.createReducer(exports.initialState, store_1.on(user_actions_1.addUser, function (state, action) {
     return {
@@ -18,6 +19,7 @@ exports.userReducer = store_1.createReducer(exports.initialState, store_1.on(use
         email: action.user.email,
         password: action.user.password,
         username: action.user.username,
-        image: action.user.image
+        image: action.user.image,
+        id: action.user.id
     };
 }));

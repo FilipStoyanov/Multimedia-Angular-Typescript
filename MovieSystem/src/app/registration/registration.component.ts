@@ -16,6 +16,7 @@ export interface UserData {
   image?: string | ArrayBuffer;
   repeatPassword?: string;
   birthday?: string;
+  id: string;
 }
 
 @Component({
@@ -37,7 +38,7 @@ export class RegistrationComponent implements OnInit {
 
   public date: string;
 
-  private user: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: ''};
+  private user: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: '', id: ''};
   private updateUserData1(data: UserStep1): void {
     this.user.firstName = data.firstName;
     this.user.lastName = data.lastName;

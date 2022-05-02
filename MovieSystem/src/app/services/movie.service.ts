@@ -12,6 +12,9 @@ export interface Movie{
   rating: number;
   watches: number;
   country: string;
+  id?: string;
+  description: string;
+  trailer: string;
 }
 const baseUrl = 'http://localhost:8080/api/movies';
 @Injectable({

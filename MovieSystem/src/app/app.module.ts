@@ -37,6 +37,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {MatIconModule} from '@angular/material/icon';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { MovieComponent } from './movie/movie.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     FriendsComponent,
     AboutUsComponent,
     SignInComponent,
+    MovieComponent,
 
   ],
   imports: [

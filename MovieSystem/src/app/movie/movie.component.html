@@ -1,0 +1,29 @@
+<section class="movie">
+  <div class="movie__mask"></div>
+  <img class="movie__background" [src]="movieData.image" alt="movie image" />
+  <div class="row text-center">
+    <h1 class="movie__title">{{movieData.titleEn}}</h1>
+  </div>
+  <div class="row justify-content-between movie__wrapper">
+    <div class="movie__description col-4">
+      <h2 class="movie__subtitle">Description</h2>
+      <p>{{movieData.description}}</p>
+    </div>
+    <div class="movie__info col-4">
+      <ul class="list">
+        <li class="list__item">Genre: <span>{{movieData.genre}}</span></li>
+        <li class="list__item">Country: <span>{{movieData.country}}</span></li>
+        <li class="list__item">Year: <span>{{movieData.year}}</span></li>
+        <li class="list__item">Producer: <span>{{movieData.producer}}</span></li>
+        <li class="list__item">Rating: <span>{{movieData.rating}}</span></li>
+        <li class="list__item">Watches: <span>{{movieData.watches}}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="trailer row justify-content-center">
+    <div class="movie__trailer col-10">
+      <iframe class="video" [src]="movieData.trailer" alt="">
+      </iframe>
+    </div>
+  </div>
+</section>

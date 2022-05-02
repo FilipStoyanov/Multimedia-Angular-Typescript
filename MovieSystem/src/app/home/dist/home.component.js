@@ -20,7 +20,7 @@ var HomeComponent = /** @class */ (function () {
             text: 'Registration',
             link: '/registration'
         };
-        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '' };
+        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '', id: '' };
         this.user$ = store.select('user');
         this.user$.subscribe(function (user) {
             console.log(user);

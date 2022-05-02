@@ -9,4 +9,9 @@
   &__button {
     margin-top: 20px;
   }
+
+  &__invalid {
+    color: $default-error;
+    display: block;
+  }
 }

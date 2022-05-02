@@ -16,7 +16,7 @@ var Step2Component = /** @class */ (function () {
         this.changedStep = new core_1.EventEmitter();
         this.changedUserData = new core_1.EventEmitter();
         this.data = { username: '', password: '', repeatPassword: '' };
-        this.user = { username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '' };
+        this.user = { username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '', id: '' };
         this.validation = { username: true, password: true, repeatPassword: true };
         this.genres = [
             'Action',

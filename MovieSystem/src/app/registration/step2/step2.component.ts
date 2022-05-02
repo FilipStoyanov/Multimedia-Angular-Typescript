@@ -33,7 +33,7 @@ export class Step2Component implements OnInit {
   @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
-  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: ''};
+  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '', id: ''};
   public validation = { username: true, password: true, repeatPassword: true };
   showWarning: boolean;
   public imageUrl: string | ArrayBuffer;

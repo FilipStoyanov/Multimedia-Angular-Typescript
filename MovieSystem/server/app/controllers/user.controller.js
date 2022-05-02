@@ -2,20 +2,26 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model.js");
 
-
+router.param('email', function(req, res, next, email) {
+    const modified = email;
+    req.email = modified;
+    next();
+});
 router.param('username', function(req, res, next, username) {
   const modified = username;
 
   req.username = modified;
   next();
 });
+
 const userExists = async (email) => {
- const user = await  User.findOne({email: email.toLowerCase().trim()});
+ const user = await User.findOne({email: email.toLowerCase().trim()});
     if(user){
         return true;
     }
     return false;
 }
+
 router.get('/Users', async (req,res) => {
   try{
     const users = await User.find();
@@ -54,7 +60,6 @@ router.post('/Users', async (req,res) => {
 router.get('/Users/:username', async (req,res) => {
   try{
     const user = await User.findOne({username: req.params.username});
-    console.log('here');
     res.send(user);
   }catch(error){
     res.status(500).json({message: error.message})

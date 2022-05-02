@@ -44,6 +44,7 @@ var user_reducer_1 = require("./reducers/user.reducer");
 var friends_component_1 = require("./friends/friends.component");
 var about_us_component_1 = require("./about-us/about-us.component");
 var icon_1 = require("@angular/material/icon");
+var sign_in_component_1 = require("./components/sign-in/sign-in.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -74,6 +75,7 @@ var AppModule = /** @class */ (function () {
                 step3_component_1.Step3Component,
                 friends_component_1.FriendsComponent,
                 about_us_component_1.AboutUsComponent,
+                sign_in_component_1.SignInComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,

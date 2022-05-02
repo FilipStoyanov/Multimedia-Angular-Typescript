@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 })
 export class HeaderComponent implements OnInit, OnChanges {
   links = ['', 'movies', 'collections', 'reviews', 'profile'];
-  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', image: ''};
+  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', image: '', id: ''};
   public isShownProfileMenu: boolean;
   user$: Observable<UserData>;
   private unlistener: () => void;

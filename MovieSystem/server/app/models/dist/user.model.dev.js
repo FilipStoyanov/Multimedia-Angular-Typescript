@@ -34,6 +34,10 @@ var userSchema = new mongoose.Schema({
   role: {
     required: false,
     type: String
+  },
+  id: {
+    required: false,
+    type: String
   }
 });
 module.exports = mongoose.model('User', userSchema, "Users");
