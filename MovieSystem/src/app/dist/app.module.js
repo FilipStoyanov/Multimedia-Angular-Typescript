@@ -45,6 +45,13 @@ var friends_component_1 = require("./friends/friends.component");
 var about_us_component_1 = require("./about-us/about-us.component");
 var icon_1 = require("@angular/material/icon");
 var sign_in_component_1 = require("./components/sign-in/sign-in.component");
+var movie_component_1 = require("./movie/movie.component");
+var youtube_player_1 = require("@angular/youtube-player");
+var list_1 = require("@angular/material/list");
+var user_component_1 = require("./user/user.component");
+var button_1 = require("@angular/material/button");
+var button_toggle_1 = require("@angular/material/button-toggle");
+var tabs_1 = require("@angular/material/tabs");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -76,20 +83,27 @@ var AppModule = /** @class */ (function () {
                 friends_component_1.FriendsComponent,
                 about_us_component_1.AboutUsComponent,
                 sign_in_component_1.SignInComponent,
+                movie_component_1.MovieComponent,
+                user_component_1.UserComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_module_1.AppRoutingModule,
                 stepper_1.MatStepperModule,
                 progress_bar_1.MatProgressBarModule,
+                button_1.MatButtonModule,
+                list_1.MatListModule,
                 form_field_1.MatFormFieldModule,
                 snack_bar_1.MatSnackBarModule,
                 icon_1.MatIconModule,
+                tabs_1.MatTabsModule,
+                button_toggle_1.MatButtonToggleModule,
                 store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),
                 ng_bootstrap_2.NgbAlertModule,
                 ng_bootstrap_1.NgbModule,
                 ng_bootstrap_2.NgbPaginationModule,
                 http_1.HttpClientModule,
+                youtube_player_1.YouTubePlayerModule,
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

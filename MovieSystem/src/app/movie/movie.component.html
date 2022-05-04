@@ -21,9 +21,14 @@
     </div>
   </div>
   <div class="trailer row justify-content-center">
-    <div class="movie__trailer col-10">
-      <iframe class="video" [src]="movieData.trailer" alt="">
-      </iframe>
+    <div class="movie__trailer">
+      <youtube-player
+       [videoId]="videoId"
+       suggestedQuality="highres"
+       [width] = "1000"
+       [height] = "500"
+       >
+      </youtube-player>
     </div>
   </div>
 </section>

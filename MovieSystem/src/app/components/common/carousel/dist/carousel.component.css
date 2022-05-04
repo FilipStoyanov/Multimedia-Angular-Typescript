@@ -2,10 +2,25 @@
   width: 900px;
   height: 500px;
   margin: 0 auto;
+  background: #404040;
 }
 
 .piscum-image-wrapper {
   width: 900px;
   height: 500px;
   object-fit: cover;
+}
+
+.carousel-control-prev-icon {
+  color: "red";
+}
+
+.carousel-control-next-icon {
+  color: "red";
+}
+
+.description {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
 }

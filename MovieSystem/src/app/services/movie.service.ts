@@ -12,7 +12,7 @@ export interface Movie{
   rating: number;
   watches: number;
   country: string;
-  id?: string;
+  _id: string;
   description: string;
   trailer: string;
 }
@@ -26,5 +26,8 @@ export class MovieService {
   constructor(private http: HttpClient){}
   getAll(): Observable<Movie[]>{
     return this.http.get<Movie[]>(baseUrl);
+  }
+  getMovieById(id): Observable<Movie>{
+    return this.http.get<Movie>(baseUrl + `/${id}`);
   }
 }

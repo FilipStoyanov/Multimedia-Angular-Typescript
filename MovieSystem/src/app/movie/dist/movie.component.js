@@ -9,17 +9,27 @@ exports.__esModule = true;
 exports.MovieComponent = void 0;
 var core_1 = require("@angular/core");
 var MovieComponent = /** @class */ (function () {
-    function MovieComponent(router) {
+    function MovieComponent(router, movieService) {
+        var _this = this;
         this.router = router;
-        if (this.router.getCurrentNavigation().extras.state) {
-            this.hasData = this.router.getCurrentNavigation().extras.state;
-            if (this.hasData) {
-                this.movieData = this.hasData.movie ? JSON.parse(this.hasData.movie) : '';
-            }
-        }
+        this.movieService = movieService;
+        var movieId = localStorage.getItem('movieId');
+        this.movieService.getMovieById(movieId).subscribe(function (data) {
+            _this.movieData = data;
+            _this.videoId = _this.getVideoId(data.trailer);
+        });
+        // if (this.router.getCurrentNavigation().extras.state){
+        //    this.hasData = this.router.getCurrentNavigation().extras.state;
+        //    if (this.hasData){
+        //      this.movieData = this.hasData.movie ? JSON.parse(this.hasData.movie) : '';
+        //    }
+        // }
     }
     MovieComponent.prototype.ngOnInit = function () {
-        console.log(this.movieData.trailer);
+    };
+    MovieComponent.prototype.getVideoId = function (str) {
+        var words = str.split('=');
+        return words[1];
     };
     MovieComponent = __decorate([
         core_1.Component({

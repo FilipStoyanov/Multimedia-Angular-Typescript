@@ -97,10 +97,10 @@ var Step1Component = /** @class */ (function () {
         this.validation.email = this.validateEmail(this.data.email);
     };
     Step1Component.prototype.ngOnInit = function () {
-        this.data.firstName = this.userData.firstName;
-        this.data.lastName = this.userData.lastName;
+        this.data.firstName = this.userData.firstname;
+        this.data.lastName = this.userData.lastname;
         this.userData.email = this.userData.email;
-        this.userData.birthday = this.userData.birthday;
+        this.userData.birthdate = this.userData.birthdate;
     };
     Step1Component.prototype.ngOnChange = function () {
     };

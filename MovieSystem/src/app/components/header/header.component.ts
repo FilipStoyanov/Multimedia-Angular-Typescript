@@ -11,8 +11,8 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnChanges {
-  links = ['', 'movies', 'collections', 'reviews', 'profile'];
-  public userData: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', image: '', id: ''};
+  links = ['', 'movies', 'collections', 'reviews', 'profile', `/friends`];
+  public userData: UserData = {firstname: '', lastname: '', email: '', username: '', password: '', image: '', _id: ''};
   public isShownProfileMenu: boolean;
   user$: Observable<UserData>;
   private unlistener: () => void;
@@ -64,5 +64,9 @@ export class HeaderComponent implements OnInit, OnChanges {
   logOut(): void{
     this.router.navigate([`/`]).then(() => window.location.reload());
     localStorage.clear();
+  }
+
+  goToFriends(): void {
+    this.router.navigate([`/friends`]).then(() => window.location.reload());
   }
 }

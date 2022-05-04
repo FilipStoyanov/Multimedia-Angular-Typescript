@@ -16,6 +16,9 @@ var MovieService = /** @class */ (function () {
     MovieService.prototype.getAll = function () {
         return this.http.get(baseUrl);
     };
+    MovieService.prototype.getMovieById = function (id) {
+        return this.http.get(baseUrl + ("/" + id));
+    };
     MovieService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

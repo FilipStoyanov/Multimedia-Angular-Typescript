@@ -33,7 +33,8 @@ export class Step2Component implements OnInit {
   @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
-  private user: UserData = {username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '', id: ''};
+  private user: UserData = {username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
+  birthdate: ''};
   public validation = { username: true, password: true, repeatPassword: true };
   showWarning: boolean;
   public imageUrl: string | ArrayBuffer;
@@ -201,10 +202,10 @@ export class Step2Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user.firstName = this.userData1.firstName;
-    this.user.lastName = this.userData1.lastName;
+    this.user.firstname = this.userData1.firstName;
+    this.user.lastname = this.userData1.lastName;
     this.user.email = this.userData1.email;
-    this.user.birthday = this.userData1.birthday;
+    this.user.birthdate = this.userData1.birthday;
   }
 
 }

@@ -19,6 +19,7 @@ var common_1 = require("@angular/common");
 var friends_component_1 = require("./friends/friends.component");
 var about_us_component_1 = require("./about-us/about-us.component");
 var movie_component_1 = require("./movie/movie.component");
+var user_component_1 = require("./user/user.component");
 var notRegisteredUser = [
     { path: '', component: home_component_1.HomeComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
@@ -26,7 +27,9 @@ var notRegisteredUser = [
     { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'about', component: about_us_component_1.AboutUsComponent },
     { path: 'profile', component: profile_component_1.ProfileComponent },
-    { path: 'movie', component: movie_component_1.MovieComponent },
+    { path: 'user/:userId', component: user_component_1.UserComponent },
+    { path: 'friends', component: friends_component_1.FriendsComponent },
+    { path: 'movie/:movieId', component: movie_component_1.MovieComponent },
 ];
 var registeredUser = [
     { path: '', component: home_component_1.HomeComponent },
@@ -37,6 +40,7 @@ var registeredUser = [
     { path: 'profile', component: profile_component_1.ProfileComponent },
     { path: 'friends', component: friends_component_1.FriendsComponent },
     { path: 'about', component: about_us_component_1.AboutUsComponent },
+    { path: 'user/:userId', component: user_component_1.UserComponent },
     { path: 'movie', component: movie_component_1.MovieComponent },
 ];
 var UserRole;

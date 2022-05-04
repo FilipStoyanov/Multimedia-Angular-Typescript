@@ -8,15 +8,16 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 export interface UserData {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   username: string;
   password: string;
+  role?: string;
+  birthdate?: string;
   image?: string | ArrayBuffer;
   repeatPassword?: string;
-  birthday?: string;
-  id: string;
+  _id?: string;
 }
 
 @Component({
@@ -38,12 +39,12 @@ export class RegistrationComponent implements OnInit {
 
   public date: string;
 
-  private user: UserData = {firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: '', id: ''};
+  private user: UserData = {firstname: '', lastname: '', email: '', username: '', password: '', repeatPassword: '', birthdate: '', _id: ''};
   private updateUserData1(data: UserStep1): void {
-    this.user.firstName = data.firstName;
-    this.user.lastName = data.lastName;
+    this.user.firstname = data.firstName;
+    this.user.lastname = data.lastName;
     this.user.email = data.email;
-    this.user.birthday = data.birthday;
+    this.user.birthdate = data.birthday;
   }
   private updateUserData2(data: UserStep2): void {
     this.user.username = data.username;

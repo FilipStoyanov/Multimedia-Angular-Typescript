@@ -23,11 +23,8 @@ export class MovieCardComponent implements OnInit {
   }
 
   openMovieScreen(): void {
-     this.router.navigate(['/movie'], {state: {
-       movie: JSON.stringify(this.movie)
-     }}).then(() => {
-      //  window.location.reload();
-     });
+     localStorage.setItem('movieId', this.movie._id);
+     this.router.navigate([`/movie/${this.movie._id}`]);
   }
 
 

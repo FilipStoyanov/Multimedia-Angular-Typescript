@@ -14,8 +14,8 @@ var HeaderComponent = /** @class */ (function () {
         this.store = store;
         this.renderer = renderer;
         this.router = router;
-        this.links = ['', 'movies', 'collections', 'reviews', 'profile'];
-        this.userData = { firstName: '', lastName: '', email: '', username: '', password: '', image: '', id: '' };
+        this.links = ['', 'movies', 'collections', 'reviews', 'profile', "/friends"];
+        this.userData = { firstname: '', lastname: '', email: '', username: '', password: '', image: '', _id: '' };
         this.user$ = store.select('user');
         this.user$.subscribe(function (user) {
             _this.userData.username = user.username;
@@ -59,6 +59,9 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.prototype.logOut = function () {
         this.router.navigate(["/"]).then(function () { return window.location.reload(); });
         localStorage.clear();
+    };
+    HeaderComponent.prototype.goToFriends = function () {
+        this.router.navigate(["/friends"]).then(function () { return window.location.reload(); });
     };
     HeaderComponent = __decorate([
         core_1.Component({

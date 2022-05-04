@@ -11,13 +11,13 @@ var core_1 = require("@angular/core");
 var stepper_1 = require("@angular/cdk/stepper");
 var RegistrationComponent = /** @class */ (function () {
     function RegistrationComponent() {
-        this.user = { firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: '', birthday: '', id: '' };
+        this.user = { firstname: '', lastname: '', email: '', username: '', password: '', repeatPassword: '', birthdate: '', _id: '' };
     }
     RegistrationComponent.prototype.updateUserData1 = function (data) {
-        this.user.firstName = data.firstName;
-        this.user.lastName = data.lastName;
+        this.user.firstname = data.firstName;
+        this.user.lastname = data.lastName;
         this.user.email = data.email;
-        this.user.birthday = data.birthday;
+        this.user.birthdate = data.birthday;
     };
     RegistrationComponent.prototype.updateUserData2 = function (data) {
         this.user.username = data.username;

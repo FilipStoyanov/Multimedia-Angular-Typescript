@@ -16,6 +16,11 @@ router.param('username', function (req, res, next, username) {
   req.username = modified;
   next();
 });
+router.param('id', function (req, res, next, id) {
+  var modified = id;
+  req.id = modified;
+  next();
+});
 
 var userExists = function userExists(email) {
   var user;
@@ -166,6 +171,38 @@ router.get('/Users/:username', function _callee3(req, res) {
         case 10:
         case "end":
           return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 7]]);
+});
+router.get('/Users/:id', function _callee4(req, res) {
+  var user;
+  return regeneratorRuntime.async(function _callee4$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(User.findOne({
+            username: req.params.id
+          }));
+
+        case 3:
+          user = _context5.sent;
+          res.send(user);
+          _context5.next = 10;
+          break;
+
+        case 7:
+          _context5.prev = 7;
+          _context5.t0 = _context5["catch"](0);
+          res.status(500).json({
+            message: _context5.t0.message
+          });
+
+        case 10:
+        case "end":
+          return _context5.stop();
       }
     }
   }, null, null, [[0, 7]]);

@@ -1,0 +1,39 @@
+.list{
+  min-height: 420px;
+  &__toggle {
+    margin: 20px 0 20px 20px;
+  }
+  &__image {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    align-self: center;
+    margin-right: 10px;
+    display: inline-block;
+  }
+  &__item {
+    padding: 15px 0px;
+    display: flex;
+    min-height: 60px;
+    border-bottom: 0.5px solid lightgray;
+  }
+  &__buttons {
+    display: flex;
+  }
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  display: flex;
+  height: auto;
+}
+
+.btn{
+  margin: 0 10px;
+}
+
+.input {
+  width: 300px;
+  height: 35px;
+  margin: 20px 0 0 20px;
+  padding-left: 5px;
+}

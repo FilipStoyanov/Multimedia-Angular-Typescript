@@ -54,10 +54,10 @@
   color: #ffffff;
 }
 .movie__trailer {
-  background-color: rgba(0, 162, 255, 0.7);
   font-size: 20px;
   z-index: 3;
   color: #ffffff;
+  text-align: center;
 }
 
 .list {
@@ -79,4 +79,5 @@
 .trailer {
   margin-top: 150px;
   padding-bottom: 150px;
+  z-index: 5;
 }

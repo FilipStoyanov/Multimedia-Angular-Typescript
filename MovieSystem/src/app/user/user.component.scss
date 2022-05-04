@@ -1,0 +1,41 @@
+@import "../../variables";
+.user{
+  &__image {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    text-align: center;
+    object-fit: cover;
+    margin-top: 15px;
+    padding: 0;
+  }
+  &__username {
+    text-align: center;
+    font-size:$font-size-30;
+    font-weight: 700;
+    padding: 0 0 7.5px;
+  }
+  &__text--label {
+    font-size: $font-size-25;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+  &__text--value {
+    font-size: $font-size-25;
+    font-weight: 600;
+  }
+  &__line {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0;
+  }
+  &__email {
+    color: #000000;
+    text-decoration: none;
+    &:hover {
+      color: $default-button-color;
+    }
+  }
+  &__button {
+    background-color: $default-button-color;
+  }
+}

@@ -4,13 +4,15 @@ import { addUser} from '../actions/user.actions';
 import { UserData } from '../registration/registration.component';
 
 export const initialState: UserData = {
-  firstName: '',
-  lastName: '',
+  firstname: '',
+  lastname: '',
   email: '',
   password: '',
   username: '',
   image: '',
-  id: '',
+  birthdate: '',
+  role: 'user',
+  _id: '',
 };
 export interface UserAction extends Actions {
    payload: UserData;
@@ -19,11 +21,12 @@ export const userReducer = createReducer(
   initialState,
   on(addUser, (state, action) => {
     return {
-      firstName: action.user.firstName,
-      lastName: action.user.lastName,
+      firstname: action.user.firstname,
+      lastname: action.user.lastname,
       email: action.user.email,
       password: action.user.password,
       username: action.user.username,
       image: action.user.image,
-      id: action.user.id,
+      _id: action.user._id,
+      birthdate: action.user.birthdate,
     }; }));

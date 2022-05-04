@@ -1,0 +1,31 @@
+<section class="user">
+<div class="row justify-content-center align-self-center">
+  <img class="user__image" src="https://images.moviesanywhere.com/7308ccb67815dd9d2c50517d3ee3d91e/f9285756-768d-4fef-9c8c-69edb4d3c832.jpg" alt="user profile image" />
+  <span class="user__username">{{user.username}}</span>
+  <button mat-button color="primary" class="user__button col-1">+ ADD FRIEND</button>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Fistname: </span>
+  <span class="col-6 user__text--value text-center">{{user.firstname}}</span>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Lastname: </span>
+  <span class="col-6 user__text--value text-center">{{user.lastname}}</span>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Email: </span>
+  <a href="{{getEmail()}}" class="col-6 user__text--value text-center user__email">{{user.email}}</a>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Birthdate: </span>
+  <span class="col-6 user__text--value text-center">{{user.birthdate}}</span>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Role: </span>
+  <span class="col-6 user__text--value text-center">{{user.role}}</span>
+</div>
+<div class="row px-5 user__line">
+  <span class="col-6 user__text--label text-center">Country: </span>
+  <span class="col-6 user__text--value text-center">{{user.role}}</span>
+</div>
+</section>

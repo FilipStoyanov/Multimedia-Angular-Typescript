@@ -16,6 +16,9 @@ export class UserService {
       const body = JSON.stringify(user);
       return this.http.post<UserData>(baseURL, body, {headers});
   }
+  getUsers(): Observable<UserData[]>{
+    return this.http.get<UserData[]>(baseURL);
+  }
   getUser(username: string): Observable<UserData>{
     return this.http.get<UserData>(baseURL + `/${username}`);
   }

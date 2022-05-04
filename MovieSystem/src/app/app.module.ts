@@ -38,6 +38,13 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import {MatIconModule} from '@angular/material/icon';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MovieComponent } from './movie/movie.component';
+import {YouTubePlayerModule} from '@angular/youtube-player';
+import {MatListModule} from '@angular/material/list';
+import { UserComponent } from './user/user.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 @NgModule({
@@ -68,21 +75,26 @@ import { MovieComponent } from './movie/movie.component';
     AboutUsComponent,
     SignInComponent,
     MovieComponent,
-
+    UserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatStepperModule,
     MatProgressBarModule,
+    MatButtonModule,
+    MatListModule,
     MatFormFieldModule,
     MatSnackBarModule,
     MatIconModule,
+    MatTabsModule,
+    MatButtonToggleModule,
     StoreModule.forRoot({user: userReducer}),
     NgbAlertModule,
     NgbModule,
     NgbPaginationModule,
     HttpClientModule,
+    YouTubePlayerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

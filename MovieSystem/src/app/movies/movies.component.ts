@@ -15,7 +15,7 @@ interface Movie {
   rating: number;
   watches: number;
   country: string;
-  id?: string;
+  _id: string;
   description: string;
   trailer: string;
 }

@@ -18,6 +18,9 @@ var UserService = /** @class */ (function () {
         var body = JSON.stringify(user);
         return this.http.post(baseURL, body, { headers: headers });
     };
+    UserService.prototype.getUsers = function () {
+        return this.http.get(baseURL);
+    };
     UserService.prototype.getUser = function (username) {
         return this.http.get(baseURL + ("/" + username));
     };

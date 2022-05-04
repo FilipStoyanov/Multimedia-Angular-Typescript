@@ -16,7 +16,8 @@ var Step2Component = /** @class */ (function () {
         this.changedStep = new core_1.EventEmitter();
         this.changedUserData = new core_1.EventEmitter();
         this.data = { username: '', password: '', repeatPassword: '' };
-        this.user = { username: '', password: '', repeatPassword: '', firstName: '', lastName: '', email: '', image: '', id: '' };
+        this.user = { username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
+            birthdate: '' };
         this.validation = { username: true, password: true, repeatPassword: true };
         this.genres = [
             'Action',
@@ -167,10 +168,10 @@ var Step2Component = /** @class */ (function () {
         alert('Account with this email already exists!');
     };
     Step2Component.prototype.ngOnInit = function () {
-        this.user.firstName = this.userData1.firstName;
-        this.user.lastName = this.userData1.lastName;
+        this.user.firstname = this.userData1.firstName;
+        this.user.lastname = this.userData1.lastName;
         this.user.email = this.userData1.email;
-        this.user.birthday = this.userData1.birthday;
+        this.user.birthdate = this.userData1.birthday;
     };
     __decorate([
         core_1.Input()

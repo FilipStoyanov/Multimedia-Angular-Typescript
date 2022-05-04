@@ -118,10 +118,10 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data.firstName = this.userData.firstName;
-    this.data.lastName = this.userData.lastName;
+    this.data.firstName = this.userData.firstname;
+    this.data.lastName = this.userData.lastname;
     this.userData.email = this.userData.email;
-    this.userData.birthday = this.userData.birthday;
+    this.userData.birthdate = this.userData.birthdate;
   }
 
   ngOnChange(): void{

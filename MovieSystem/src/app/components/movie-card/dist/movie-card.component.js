@@ -20,11 +20,8 @@ var MovieCardComponent = /** @class */ (function () {
         this.showButtons = true;
     };
     MovieCardComponent.prototype.openMovieScreen = function () {
-        this.router.navigate(['/movie'], { state: {
-                movie: JSON.stringify(this.movie)
-            } }).then(function () {
-            //  window.location.reload();
-        });
+        localStorage.setItem('movieId', this.movie._id);
+        this.router.navigate(["/movie/" + this.movie._id]);
     };
     MovieCardComponent.prototype.ngOnInit = function () {
     };

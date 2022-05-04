@@ -13,6 +13,12 @@ router.param('username', function(req, res, next, username) {
   req.username = modified;
   next();
 });
+router.param('id', function(req, res, next, id) {
+  const modified = id;
+
+  req.id = modified;
+  next();
+});
 
 const userExists = async (email) => {
  const user = await User.findOne({email: email.toLowerCase().trim()});
@@ -66,4 +72,13 @@ router.get('/Users/:username', async (req,res) => {
   }
 })
 
+
+router.get('/Users/:id', async (req,res) => {
+  try{
+    const user = await User.findOne({username: req.params.id});
+    res.send(user);
+  }catch(error){
+    res.status(500).json({message: error.message})
+  }
+})
 module.exports = router;
