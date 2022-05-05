@@ -1,4 +1,62 @@
-<section class="header">
+<!--Navbar-->
+<mdb-navbar class="header" SideClass="navbar navbar-expand-lg navbar-dark indigo">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand" [routerLink]="links[0]">Movie System</a></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect  [routerLink]="links[0]">Home</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[1]">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[2]">Movies Collection</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[3]">Reviewed movies</a>
+      </li>
+      <li class="nav-item login">
+        <app-sign-in></app-sign-in>
+      </li>
+      <!-- Dropdown -->
+    </ul>
+    <!-- Links -->
+
+    <!-- Search form -->
+    <form class="form-inline waves-light" mdbWavesEffect>
+      <div class="md-form my-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      </div>
+    </form>
+    <ul *ngIf="userData" class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link">1 <mdb-icon fas icon="envelope"></mdb-icon></a>
+      </li>
+      <li class="nav-item avatar dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          Hello, <span>{{userData.username}}</span><img [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profile Image" class="img-fluid rounded-circle z-depth-0 profile__image"></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect (click) = "logOut()">Notifications</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect [routerLink] = "links[4]">Profile</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink='/friends'>Friends</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect (click) = "logOut()">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<!-- <section class="header">
   <div class="header__search-wrapper">
     <a [routerLink]="links[0]">
       <img class="header__logo" src="../../../assets/logo.svg" alt="Movie logo" />
@@ -29,4 +87,4 @@
       </li>
     </ul>
   </ul>
-</section>
+</section> -->

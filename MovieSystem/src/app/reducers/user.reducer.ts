@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
-import { addUser} from '../actions/user.actions';
+import { addUser, addFriendList} from '../actions/user.actions';
 import { UserData } from '../registration/registration.component';
 
 export const initialState: UserData = {
@@ -12,6 +12,7 @@ export const initialState: UserData = {
   image: '',
   birthdate: '',
   role: 'user',
+  friends: [],
   _id: '',
 };
 export interface UserAction extends Actions {
@@ -30,3 +31,8 @@ export const userReducer = createReducer(
       _id: action.user._id,
       birthdate: action.user.birthdate,
     }; }));
+
+export const friendsReducer = createReducer(
+      initialState,
+      on(addFriendList, (state, action) => ({...state, friends: action.friends, })));
+

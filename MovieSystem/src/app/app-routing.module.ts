@@ -13,7 +13,7 @@ import { MovieComponent } from './movie/movie.component';
 import {UserComponent} from './user/user.component';
 
 const notRegisteredUser: Routes = [
-  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   { path: 'registration', component: RegistrationComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'collections', component: CollectionComponent },
@@ -25,7 +25,7 @@ const notRegisteredUser: Routes = [
 ];
 
 const registeredUser: Routes = [
-  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
   { path: 'movies', component: MoviesComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'collections', component: CollectionComponent },

@@ -4,3 +4,8 @@ export const addUser = createAction(
   'addUser',
   props<{user: UserData}>()) ;
 
+
+export const addFriendList = createAction(
+   'addFriends',
+   props<{friends: string[]}>());
+

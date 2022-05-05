@@ -16,7 +16,7 @@ router.param('username', function(req, res, next, username) {
 router.param('id', function(req, res, next, id) {
   const modified = id;
 
-  req.id = modified;
+  req.params.id = modified;
   next();
 });
 
@@ -80,5 +80,23 @@ router.get('/Users/:id', async (req,res) => {
   }catch(error){
     res.status(500).json({message: error.message})
   }
+})
+
+router.put('/Users/:username', async (req,res) => {
+  try{
+    const updateUser = await User.findOne({username:req.params.username});
+    const newFriends = [...updateUser.friends];
+    if(updateUser.friends){
+      if(updateUser.friends.indexOf(req.body.friend) === -1){
+        newFriends.push(req.body.friend);
+      }
+    }else{
+      newFriends = [...updateUser.friends];
+    }
+    await User.updateOne({username: req.params.username}, {friends: [...newFriends]});
+  }catch(error){
+    res.status(500).json({message: error.message});
+  }
+
 })
 module.exports = router;

@@ -1,28 +1,7 @@
-@import "../../../../variables";
-
-.carousel {
-  width: 900px;
-  height: 500px;
-  margin: 0 auto;
-  background: $background-wrapper;
+.image {
+  height: 700px;
 }
-
-.piscum-image-wrapper {
-  width: 900px;
-  height: 500px;
-  object-fit: cover;
-}
-
-.carousel-control-prev-icon{
-  color: 'red';
-}
-.carousel-control-next-icon{
-  color: 'red';
-}
-
 .description {
-  font-size: $font-size-20;
-  color: white;
-  text-decoration: none;
+  color: #ffffff;
 }
 

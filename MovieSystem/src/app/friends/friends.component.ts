@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, AfterContentInit } from '@angular/core';
 import {UserService} from '../services/user.service';
 import { UserData } from '../registration/registration.component';
 import { Router } from '@angular/router';
@@ -8,25 +8,38 @@ import { Router } from '@angular/router';
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.scss']
 })
-export class FriendsComponent implements OnInit, DoCheck {
+export class FriendsComponent implements OnInit, AfterContentInit {
 
   users: UserData[];
   userId: string;
   userName: string;
   searchValue: string;
   filteredUser: UserData [];
+  friendsUsername: Array<string>;
+  friends: UserData [];
+  filteredFriends: UserData[];
+  username: string;
   constructor(private userService: UserService, private router: Router) {
+      if (localStorage.getItem('user')){
+        this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+      }
+      for (const friendName of this.friendsUsername) {
+        this.userService.getUser(friendName).subscribe(data => {
+            this.friends.push(data);
+        });
+      }
       this.userService.getUsers().subscribe(data => {
         this.users = (data as any).data;
         this.filteredUser = (data as any).data;
       });
+      this.username = JSON.parse(localStorage.getItem('user')).username;
       this.searchValue = '';
   }
 
   ngOnInit(): void {
   }
 
-  ngDoCheck(): void {
+  ngAfterContentInit(): void {
   }
 
   get(): void {
@@ -40,7 +53,6 @@ export class FriendsComponent implements OnInit, DoCheck {
   }
   filterUsers(event): void{
     this.searchValue = event.target.value;
-    console.log(this.searchValue);
     if (this.searchValue === ''){
       this.filteredUser = [...this.users as Array<UserData>];
     }else{

@@ -1,4 +1,4 @@
-<ng-template #content let-modal>
+<ng-template #content let-modal style="z-index: 1056">
   <div class="modal-header">
     <h4 class="modal-title">Log In</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -22,4 +22,4 @@
   </div>
 </ng-template>
 
-<button  class="btn btn-outline-primary mb-2 me-2" type="button" (click) = "openModal(content)">Log In</button>
+<button  class="btn btn-primary mb-2 me-2" type="button" (click) = "openModal(content)">Log In</button>

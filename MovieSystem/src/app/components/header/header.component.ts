@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnChanges {
-  links = ['', 'movies', 'collections', 'reviews', 'profile', `/friends`];
+  links = ['home', 'movies', 'collections', 'reviews', 'profile', `/friends`];
   public userData: UserData = {firstname: '', lastname: '', email: '', username: '', password: '', image: '', _id: ''};
   public isShownProfileMenu: boolean;
   user$: Observable<UserData>;

@@ -1,5 +1,15 @@
 "use strict";
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
+
 var express = require("express");
 
 var router = express.Router();
@@ -18,7 +28,7 @@ router.param('username', function (req, res, next, username) {
 });
 router.param('id', function (req, res, next, id) {
   var modified = id;
-  req.id = modified;
+  req.params.id = modified;
   next();
 });
 
@@ -206,5 +216,54 @@ router.get('/Users/:id', function _callee4(req, res) {
       }
     }
   }, null, null, [[0, 7]]);
+});
+router.put('/Users/:username', function _callee5(req, res) {
+  var updateUser, newFriends;
+  return regeneratorRuntime.async(function _callee5$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return regeneratorRuntime.awrap(User.findOne({
+            username: req.params.username
+          }));
+
+        case 3:
+          updateUser = _context6.sent;
+          newFriends = _toConsumableArray(updateUser.friends);
+
+          if (updateUser.friends) {
+            if (updateUser.friends.indexOf(req.body.friend) === -1) {
+              newFriends.push(req.body.friend);
+            }
+          } else {
+            newFriends = (_readOnlyError("newFriends"), _toConsumableArray(updateUser.friends));
+          }
+
+          _context6.next = 8;
+          return regeneratorRuntime.awrap(User.updateOne({
+            username: req.params.username
+          }, {
+            friends: _toConsumableArray(newFriends)
+          }));
+
+        case 8:
+          _context6.next = 13;
+          break;
+
+        case 10:
+          _context6.prev = 10;
+          _context6.t0 = _context6["catch"](0);
+          res.status(500).json({
+            message: _context6.t0.message
+          });
+
+        case 13:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[0, 10]]);
 });
 module.exports = router;

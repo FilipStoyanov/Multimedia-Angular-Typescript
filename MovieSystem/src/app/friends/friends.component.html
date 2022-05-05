@@ -1,15 +1,15 @@
-<section class="list">
+  <section class="list">
   <mat-tab-group>
     <mat-tab label="Friends">
-      <h1>Friends</h1>
+      <h1 class="tab__title">Friends</h1>
       <input class="input" type="search" placeholder="Search user by username" (keyup)="filterFriends($event)" />
       <mat-list role="list" #friends>
-        <a *ngFor="let user of filteredUser" (click)="routeToUserProfile($event)" id={{user._id}}
-          name={{user.username}}>
+        <a *ngFor="let friend of friends" (click)="routeToUserProfile($event)" id={{friend._id}}
+          name={{friend.username}}>
           <mat-list-item class="list__item row" role="listitem">
             <div class="col-3 px-2">
               <img class="list__image" src="https://i.ytimg.com/vi/8WXp6UutPgE/maxresdefault.jpg" alt="user image" />
-              <span>{{user.username}}</span>
+              <span>{{friend.username}}</span>
             </div>
             <div class="col-6">
               <span>Collections</span>
@@ -31,7 +31,7 @@
       </mat-list>
     </mat-tab>
     <mat-tab label="Find new friends">
-      <h1>Users</h1>
+      <h1 class="tab__title">Users</h1>
       <input class="input" type="search" placeholder="Search user by username" (keyup)="filterUsers($event)" />
       <mat-list role="list" #users>
         <a *ngFor="let user of filteredUser" (click)="routeToUserProfile($event)" id={{user._id}}

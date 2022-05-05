@@ -13,6 +13,7 @@ router.get("/users", UsersController);
 router.post("/users", UsersController);
 router.get("/users/:username", UsersController);
 router.get("/users/:id", UsersController);
+router.put("/users/:username", UsersController);
 
 router.post("/login", LoginController);
 router.get("/login", LoginController);

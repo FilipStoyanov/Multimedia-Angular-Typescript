@@ -18,6 +18,8 @@ export interface UserData {
   image?: string | ArrayBuffer;
   repeatPassword?: string;
   _id?: string;
+  friends?: Array<string>;
+  _v?: string;
 }
 
 @Component({

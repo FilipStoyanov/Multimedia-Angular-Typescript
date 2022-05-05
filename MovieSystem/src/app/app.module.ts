@@ -38,12 +38,14 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import {MatIconModule} from '@angular/material/icon';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MovieComponent } from './movie/movie.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {MatListModule} from '@angular/material/list';
 import { UserComponent } from './user/user.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -79,6 +81,7 @@ import {MatTabsModule} from '@angular/material/tabs';
   ],
   imports: [
     BrowserModule,
+    MDBBootstrapModule.forRoot(),
     AppRoutingModule,
     MatStepperModule,
     MatProgressBarModule,
@@ -89,6 +92,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatIconModule,
     MatTabsModule,
     MatButtonToggleModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({user: userReducer}),
     NgbAlertModule,
     NgbModule,

@@ -20,15 +20,25 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.userService = userService;
         this.router = router;
+        if (localStorage.getItem('user')) {
+            this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+        }
+        for (var _i = 0, _a = this.friendsUsername; _i < _a.length; _i++) {
+            var friendName = _a[_i];
+            this.userService.getUser(friendName).subscribe(function (data) {
+                _this.friends.push(data);
+            });
+        }
         this.userService.getUsers().subscribe(function (data) {
             _this.users = data.data;
             _this.filteredUser = data.data;
         });
+        this.username = JSON.parse(localStorage.getItem('user')).username;
         this.searchValue = '';
     }
     FriendsComponent.prototype.ngOnInit = function () {
     };
-    FriendsComponent.prototype.ngDoCheck = function () {
+    FriendsComponent.prototype.ngAfterContentInit = function () {
     };
     FriendsComponent.prototype.get = function () {
     };
@@ -41,7 +51,6 @@ var FriendsComponent = /** @class */ (function () {
     FriendsComponent.prototype.filterUsers = function (event) {
         var _this = this;
         this.searchValue = event.target.value;
-        console.log(this.searchValue);
         if (this.searchValue === '') {
             this.filteredUser = __spreadArrays(this.users);
         }

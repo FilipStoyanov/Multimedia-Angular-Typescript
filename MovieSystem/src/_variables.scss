@@ -5,12 +5,12 @@ $font-size-25: 25px;
 $font-size-20: 20px;
 $font-size-16: 16px;
 
-$light-color: #d3d3d3;
+$light-color: #e0e0e0;
 $default-padding: 50px;
 $background-wrapper: #404040;
 $default-font-color: #ffffff;
 $default-link-color: #A9A9A9;
-$default-button-color: #87ceeb;
+$default-button-color: #3f51b5;
 $default-success: lightgreen;
 $default-error: red;
 $border-radius-50: 50px;
@@ -42,5 +42,11 @@ $large-screen: 1200px;
 $desktop-small-breakpoint: 1360px;
 $desktop-middle-breakpoint: 1460px;
 $extra-large-screen: 1600px;
+
+$small-breakpoint: 480px;
+$table-breakpoint: 768px;
+$middle-breakpoint: 1200px;
+$large-breakpoint: 1440px;
+$extra-large-breakpoint: 1680px;
 
 

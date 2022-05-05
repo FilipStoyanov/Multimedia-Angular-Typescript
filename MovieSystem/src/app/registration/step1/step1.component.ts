@@ -42,7 +42,6 @@ export class Step1Component implements OnInit {
     isAnchor: false,
     externalStyles: {
       color: '#ffffff',
-      backgroundColor: 'red',
       width: '150px',
       fontSize: '20px',
     },
@@ -54,7 +53,6 @@ export class Step1Component implements OnInit {
     isAnchor: false,
     externalStyles: {
       color: '#ffffff',
-      backgroundColor: 'red',
       width: '150px',
       fontSize: '20px',
     },
