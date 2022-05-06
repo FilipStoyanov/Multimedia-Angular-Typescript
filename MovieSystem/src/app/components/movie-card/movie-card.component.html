@@ -1,13 +1,19 @@
-<button type="button" class="card" (mouseover) = "showCardButtons($event)" (mouseout) = "hideCardButtons($event)" (click)="openMovieScreen()">
-  <div class="card__wrapper">
-    <img class="card__image" alt="Movie card" [src]='movie.image' />
-    <span class="card__year">{{movie.year}}</span>
-    <div class="card__btn-wrapper" *ngIf="showButtons">
-      <button type='button'><mat-icon>add_circle_outline</mat-icon></button>
-      <button type='button'><mat-icon>star_border</mat-icon></button>
+<div class="wrapper">
+  <button type="button" class="card" (mouseover) = "showCardButtons($event)" (mouseout) = "hideCardButtons($event)" (click)="openMovieScreen()">
+    <div class="card__wrapper">
+      <img class="card__image" alt="Movie card" [src]='movie.image' />
+      <span class="card__year">{{movie.year}}</span>
     </div>
+    <h1 class="card__title">{{movie.titleEn}}</h1>
+    <h1 class="card__title">{{movie.titleBg}}</h1>
+    <div [ngClass]="showButtons ? 'mask' : 'none'"></div>
+  </button>
+  <div class="card__btn-wrapper mt-2">
+    <button mat-mini-fab class="card__btn mr-2" aria-label="Example icon button with a heart icon">
+      <mat-icon>star_border</mat-icon>
+    </button>
+    <button mat-mini-fab class="card__btn ml-2" aria-label="Example icon button with a heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </div>
-  <h1 class="card__title">{{movie.titleEn}}</h1>
-  <h1 class="card__title">{{movie.titleBg}}</h1>
-  <div [ngClass]="showButtons ? 'mask' : 'none'"></div>
-</button>
+</div>

@@ -21,6 +21,7 @@ var about_us_component_1 = require("./about-us/about-us.component");
 var movie_component_1 = require("./movie/movie.component");
 var user_component_1 = require("./user/user.component");
 var notRegisteredUser = [
+    { path: '', redirectTo: 'home', component: home_component_1.HomeComponent },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
@@ -32,6 +33,7 @@ var notRegisteredUser = [
     { path: 'movie/:movieId', component: movie_component_1.MovieComponent },
 ];
 var registeredUser = [
+    { path: '', redirectTo: 'home', component: home_component_1.HomeComponent },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
     { path: 'registration', component: registration_component_1.RegistrationComponent },

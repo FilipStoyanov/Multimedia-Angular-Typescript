@@ -13,25 +13,40 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.FriendsComponent = void 0;
+exports.FriendsComponent = exports.User = void 0;
 var core_1 = require("@angular/core");
+var User = /** @class */ (function () {
+    function User(user) {
+        this.firstname = user.firstname;
+        this.lastname = user.lastname;
+        this.email = user.email;
+        this.username = user.username;
+        this.password = user.password;
+        this.friends = user.friends;
+        this.image = user.image;
+        this.role = user.role;
+        this.birthdate = user.birthdate;
+        this.id = user._id;
+    }
+    return User;
+}());
+exports.User = User;
 var FriendsComponent = /** @class */ (function () {
     function FriendsComponent(userService, router) {
         var _this = this;
         this.userService = userService;
         this.router = router;
+        this.filteredFriends = [];
+        this.showAddAlert = false;
+        this.showRemoveAlert = false;
         if (localStorage.getItem('user')) {
             this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
         }
-        for (var _i = 0, _a = this.friendsUsername; _i < _a.length; _i++) {
-            var friendName = _a[_i];
-            this.userService.getUser(friendName).subscribe(function (data) {
-                _this.friends.push(data);
-            });
-        }
         this.userService.getUsers().subscribe(function (data) {
             _this.users = data.data;
-            _this.filteredUser = data.data;
+            _this.filteredUser = data.data.filter(function (user) { return _this.friendsUsername.indexOf(user.username) === -1; });
+            _this.friends = data.data;
+            _this.filteredFriends = data.data.filter(function (user) { return _this.friendsUsername.indexOf(user.username) > -1; });
         });
         this.username = JSON.parse(localStorage.getItem('user')).username;
         this.searchValue = '';
@@ -40,7 +55,9 @@ var FriendsComponent = /** @class */ (function () {
     };
     FriendsComponent.prototype.ngAfterContentInit = function () {
     };
-    FriendsComponent.prototype.get = function () {
+    FriendsComponent.prototype.ngOnDestroy = function () {
+        this.filteredFriends = [];
+        this.filteredUser = [];
     };
     FriendsComponent.prototype.routeToUserProfile = function (e) {
         this.userName = e.currentTarget.name;
@@ -52,14 +69,80 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.searchValue = event.target.value;
         if (this.searchValue === '') {
-            this.filteredUser = __spreadArrays(this.users);
+            this.filteredUser = this.users.filter(function (user) { return _this.friendsUsername.indexOf(user.username) === -1; });
         }
         else {
-            this.filteredUser = this.users.filter(function (user) { return user.username.indexOf(_this.searchValue) > -1; });
+            this.filteredUser = this.filteredUser.filter(function (user) { return user.username.indexOf(_this.searchValue) > -1; });
         }
+        this.notFoundUser = (this.filteredUser.length === 0);
     };
     FriendsComponent.prototype.filterFriends = function (event) {
+        var _this = this;
+        this.searchValueFriend = event.target.value;
+        if (this.searchValueFriend === '') {
+            this.filteredFriends = __spreadArrays(this.users.filter(function (user) { return _this.friendsUsername.indexOf(user.username) > -1; }));
+        }
+        else {
+            this.filteredFriends = __spreadArrays(this.users.filter(function (user) { return _this.friendsUsername.indexOf(user.username) > -1
+                && user.username.indexOf(_this.searchValueFriend) > -1; }));
+        }
+        if (this.searchValueFriend.length > 0) {
+            this.notFoundFriend = (this.filteredFriends.length === 0);
+        }
+        else {
+            this.notFoundFriend = false;
+        }
     };
+    FriendsComponent.prototype.removeFriend = function (friend, event) {
+        event.stopPropagation();
+        var user = JSON.parse(localStorage.getItem('user'));
+        this.userService.addFriend(user.username, friend.username).subscribe();
+        var ind = user.friends.indexOf(friend.username);
+        if (ind > -1) {
+            user.friends.splice(ind, 1);
+            localStorage.setItem('user', JSON.stringify(user));
+            window.location.reload();
+        }
+    };
+    FriendsComponent.prototype.addFriend = function (friend, event) {
+        var _this = this;
+        event.stopImmediatePropagation();
+        this.filteredFriends = [];
+        var user = JSON.parse(localStorage.getItem('user'));
+        this.userService.addFriend(user.username, friend.username).subscribe();
+        var ind = user.friends.indexOf(friend.username);
+        if (ind === -1) {
+            user.friends.push(friend.username);
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+        this.showAddAlert = true;
+        setTimeout(function () {
+            _this.showAddAlert = false;
+        }, 3000);
+    };
+    FriendsComponent.prototype.onTabChanged = function (event) {
+        var _this = this;
+        this.friendInput.nativeElement.value = '';
+        this.userInput.nativeElement.value = '';
+        if (localStorage.getItem('user')) {
+            this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+        }
+        this.userService.getUsers().subscribe(function (data) {
+            _this.users = data.data;
+            _this.filteredUser = data.data.filter(function (user) { return _this.friendsUsername.indexOf(user.username) === -1; });
+            _this.friends = data.data;
+            _this.filteredFriends = data.data.filter(function (user) { return _this.friendsUsername.indexOf(user.username) > -1; });
+        });
+        console.log(this.filteredFriends);
+        this.username = JSON.parse(localStorage.getItem('user')).username;
+        this.searchValue = '';
+    };
+    __decorate([
+        core_1.ViewChild('friendInput')
+    ], FriendsComponent.prototype, "friendInput");
+    __decorate([
+        core_1.ViewChild('userInput')
+    ], FriendsComponent.prototype, "userInput");
     FriendsComponent = __decorate([
         core_1.Component({
             selector: 'app-friends',

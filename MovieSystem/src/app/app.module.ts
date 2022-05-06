@@ -46,6 +46,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -83,6 +85,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule,
+    NgbAlertModule,
     MatStepperModule,
     MatProgressBarModule,
     MatButtonModule,
@@ -91,6 +94,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSnackBarModule,
     MatIconModule,
     MatTabsModule,
+    MatExpansionModule,
+    MatCardModule,
     MatButtonToggleModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({user: userReducer}),

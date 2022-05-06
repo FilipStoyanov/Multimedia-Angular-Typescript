@@ -8,8 +8,6 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
 var express = require("express");
 
 var router = express.Router();
@@ -218,7 +216,7 @@ router.get('/Users/:id', function _callee4(req, res) {
   }, null, null, [[0, 7]]);
 });
 router.put('/Users/:username', function _callee5(req, res) {
-  var updateUser, newFriends;
+  var updateUser, newFriends, index;
   return regeneratorRuntime.async(function _callee5$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
@@ -236,9 +234,13 @@ router.put('/Users/:username', function _callee5(req, res) {
           if (updateUser.friends) {
             if (updateUser.friends.indexOf(req.body.friend) === -1) {
               newFriends.push(req.body.friend);
+            } else {
+              index = updateUser.friends.indexOf(req.body.friends);
+              updateUser.friends.splice(index, 1);
+              newFriends = _toConsumableArray(updateUser.friends);
             }
           } else {
-            newFriends = (_readOnlyError("newFriends"), _toConsumableArray(updateUser.friends));
+            newFriends = _toConsumableArray(updateUser.friends);
           }
 
           _context6.next = 8;

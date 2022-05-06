@@ -1,12 +1,13 @@
   <section class="list">
-  <mat-tab-group>
+  <mat-tab-group dynamicHeight (selectedTabChange)="onTabChanged($event)">
     <mat-tab label="Friends">
       <h1 class="tab__title">Friends</h1>
-      <input class="input" type="search" placeholder="Search user by username" (keyup)="filterFriends($event)" />
-      <mat-list role="list" #friends>
-        <a *ngFor="let friend of friends" (click)="routeToUserProfile($event)" id={{friend._id}}
+      <input class="input" placeholder="Search user by username" (keyup)="filterFriends($event)" #friendInput />
+      <mat-list role="list" #friends}>
+        <a *ngFor="let friend of filteredFriends" (click)="routeToUserProfile($event)" id={{friend._id}}
           name={{friend.username}}>
-          <mat-list-item class="list__item row" role="listitem">
+          <mat-list-item class="list__item row" role="listitem" *ngFor="let friend of filteredFriends" id={{friend._id}}
+          name={{friend.username}}>
             <div class="col-3 px-2">
               <img class="list__image" src="https://i.ytimg.com/vi/8WXp6UutPgE/maxresdefault.jpg" alt="user image" />
               <span>{{friend.username}}</span>
@@ -19,8 +20,11 @@
                 aria-label="Example icon button with a bookmark icon">
                 See more
               </button>
+              <button (click)="removeFriend(friend,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+                <mat-icon>close icon</mat-icon>
+              </button>
               <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
-                <mat-icon>add</mat-icon>
+                <mat-icon>chat bubble outline icon</mat-icon>
               </button>
               <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>delete</mat-icon>
@@ -29,10 +33,11 @@
           </mat-list-item>
         </a>
       </mat-list>
+      <h3 class="not-found" *ngIf="notFoundFriend">Sorry, you don't have friend with this username</h3>
     </mat-tab>
     <mat-tab label="Find new friends">
       <h1 class="tab__title">Users</h1>
-      <input class="input" type="search" placeholder="Search user by username" (keyup)="filterUsers($event)" />
+      <input class="input" placeholder="Search user by username" (keyup)="filterUsers($event)" #userInput />
       <mat-list role="list" #users>
         <a *ngFor="let user of filteredUser" (click)="routeToUserProfile($event)" id={{user._id}}
           name={{user.username}}>
@@ -49,7 +54,7 @@
                 aria-label="Example icon button with a bookmark icon">
                 See more
               </button>
-              <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+              <button (click) = "addFriend(user,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>add</mat-icon>
               </button>
               <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
@@ -59,6 +64,12 @@
           </mat-list-item>
         </a>
       </mat-list>
+      <p *ngIf="showAddAlert" class="alert col-10 text-center my-2 mx-auto">
+        <ngb-alert type="success">
+          <strong>Warning!</strong> Added successfully
+        </ngb-alert>
+      </p>
+      <h3 class="not-found" *ngIf="notFoundUser">Sorry, it doesn't have user with this username</h3>
     </mat-tab>
   </mat-tab-group>
 </section>

@@ -54,6 +54,8 @@ var button_1 = require("@angular/material/button");
 var button_toggle_1 = require("@angular/material/button-toggle");
 var tabs_1 = require("@angular/material/tabs");
 var animations_1 = require("@angular/platform-browser/animations");
+var expansion_1 = require("@angular/material/expansion");
+var card_1 = require("@angular/material/card");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -92,6 +94,7 @@ var AppModule = /** @class */ (function () {
                 platform_browser_1.BrowserModule,
                 angular_bootstrap_md_1.MDBBootstrapModule.forRoot(),
                 app_routing_module_1.AppRoutingModule,
+                ng_bootstrap_2.NgbAlertModule,
                 stepper_1.MatStepperModule,
                 progress_bar_1.MatProgressBarModule,
                 button_1.MatButtonModule,
@@ -100,6 +103,8 @@ var AppModule = /** @class */ (function () {
                 snack_bar_1.MatSnackBarModule,
                 icon_1.MatIconModule,
                 tabs_1.MatTabsModule,
+                expansion_1.MatExpansionModule,
+                card_1.MatCardModule,
                 button_toggle_1.MatButtonToggleModule,
                 animations_1.BrowserAnimationsModule,
                 store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),

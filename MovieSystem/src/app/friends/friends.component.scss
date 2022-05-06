@@ -1,3 +1,4 @@
+@import "../../variables";
 .list{
   min-height: 420px;
   &__toggle {
@@ -43,4 +44,16 @@
     margin: 20px 0 0 20px;
     text-decoration: underline;
   }
+}
+
+.not-found {
+  margin: 20px;
+  font-size: $font-size-25;
+  color: $default-button-color;
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  right: 20px;
 }

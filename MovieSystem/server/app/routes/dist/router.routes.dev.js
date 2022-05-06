@@ -10,9 +10,14 @@ var UsersController = require("../controllers/user.controller.js");
 
 var LoginController = require("../controllers/login.controller.js");
 
+var CommentController = require("../controllers/comment.controller.js");
+
 router.get("/movies", MovieController);
 router.post("/movies", MovieController);
 router.get("/movies/:id", MovieController);
+router.get("/comments", CommentController);
+router.post("/comments", CommentController);
+router.get("/comments/:id", CommentController);
 router.get("/users", UsersController);
 router.post("/users", UsersController);
 router.get("/users/:username", UsersController);

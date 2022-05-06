@@ -14,6 +14,7 @@ export interface Movie{
   country: string;
   _id: string;
   description: string;
+  id?: string;
   trailer: string;
 }
 const baseUrl = 'http://localhost:8080/api/movies';

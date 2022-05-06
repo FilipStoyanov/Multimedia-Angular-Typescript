@@ -15,7 +15,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   hideCardButtons(event): void{
-    this.showButtons = false;
+        this.showButtons = false;
   }
 
   showCardButtons(event): void{
@@ -26,7 +26,6 @@ export class MovieCardComponent implements OnInit {
      localStorage.setItem('movieId', this.movie._id);
      this.router.navigate([`/movie/${this.movie._id}`]);
   }
-
 
   ngOnInit(): void {
   }

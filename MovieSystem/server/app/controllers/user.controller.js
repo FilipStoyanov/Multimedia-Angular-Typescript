@@ -85,10 +85,15 @@ router.get('/Users/:id', async (req,res) => {
 router.put('/Users/:username', async (req,res) => {
   try{
     const updateUser = await User.findOne({username:req.params.username});
-    const newFriends = [...updateUser.friends];
+    let newFriends = [...updateUser.friends];
     if(updateUser.friends){
       if(updateUser.friends.indexOf(req.body.friend) === -1){
         newFriends.push(req.body.friend);
+      }else{
+        let index = updateUser.friends.indexOf(req.body.friends);
+        updateUser.friends.splice(index,1);
+        newFriends = [...updateUser.friends];
+
       }
     }else{
       newFriends = [...updateUser.friends];

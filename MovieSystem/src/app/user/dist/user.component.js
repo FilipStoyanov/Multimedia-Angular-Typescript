@@ -14,13 +14,18 @@ var UserComponent = /** @class */ (function () {
         this.userService = userService;
         this.user = { username: '', firstname: '', lastname: '', email: '', birthdate: '', password: '' };
         this.userName = localStorage.getItem('userName');
+        this.isFriend = false;
+        this.showAlert = false;
+        this.friends = JSON.parse(localStorage.getItem('user')).friends;
         this.userService.getUser(this.userName).subscribe(function (data) {
+            console.log(data);
             if (!data.hasOwnProperty('birthdate')) {
                 data.birthdate = '-';
             }
             if (!data.hasOwnProperty('username')) {
                 data.username = '';
             }
+            _this.isFriend = (_this.friends.indexOf(data.username) > -1);
             _this.user = data;
         });
     }
@@ -31,6 +36,13 @@ var UserComponent = /** @class */ (function () {
         result += 'mailto:';
         result += this.user.email;
         return result;
+    };
+    UserComponent.prototype.toggleFriend = function () {
+        this.showAlert = true;
+        this.userService.addFriend(this.user.username, this.userName).subscribe();
+        setTimeout(function () {
+            window.location.reload();
+        }, 2000);
     };
     UserComponent = __decorate([
         core_1.Component({

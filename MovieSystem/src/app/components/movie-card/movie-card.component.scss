@@ -1,7 +1,11 @@
 @import "../../../variables";
 
+.wrapper {
+  text-align: center;
+}
 .card {
   width: 250px;
+  margin: 0 auto;
   background-color: $background-wrapper;
   font-size: $font-size-20;
   color: $default-font-color;
@@ -30,11 +34,10 @@
      margin-bottom: 10px;
   }
   &__btn-wrapper {
-    z-index: 2;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%,0);
+    z-index: 100;
+  }
+  &__btn {
+    background-color: $default-button-color;
   }
 }
 

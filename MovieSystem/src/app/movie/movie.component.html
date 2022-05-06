@@ -4,7 +4,18 @@
   <div class="row text-center">
     <h1 class="movie__title">{{movieData.titleEn}}</h1>
   </div>
-  <div class="row justify-content-between movie__wrapper">
+  <div class="trailer row justify-content-center">
+    <div class="movie__trailer">
+      <youtube-player
+       [videoId]="videoId"
+       suggestedQuality="highres"
+       [width] = "1000"
+       [height] = "500"
+       >
+      </youtube-player>
+    </div>
+  </div>
+  <div class="row justify-content-between movie__wrapper py-5">
     <div class="movie__description col-4">
       <h2 class="movie__subtitle">Description</h2>
       <p>{{movieData.description}}</p>
@@ -19,16 +30,39 @@
         <li class="list__item">Watches: <span>{{movieData.watches}}</span></li>
       </ul>
     </div>
-  </div>
-  <div class="trailer row justify-content-center">
-    <div class="movie__trailer">
-      <youtube-player
-       [videoId]="videoId"
-       suggestedQuality="highres"
-       [width] = "1000"
-       [height] = "500"
-       >
-      </youtube-player>
-    </div>
+    <mat-accordion class="movie__accordion my-5">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           <h2 class="movie__accordion-title">User Reviews</h2>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p  class="movie__accordion-subtitle">Reviews about <span>{{movieData.titleEn}}</span></p>
+        <mat-card *ngFor="let comment of comments" class="card my-4">
+          <mat-card-title class="card__title">
+            <span class="card__username">Username: <span>{{comment.username}}</span></span>
+            <img class="card__image ml-2" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="profile image" />
+          </mat-card-title>
+          <mat-card-content class="card__description">{{comment.description}}</mat-card-content>
+          <mat-card-footer class="card__date">Date: <span>{{comment.date}}</span></mat-card-footer>
+        </mat-card>
+        <div class="row justify-content-center">
+          <button *ngIf="!showTextArea" (click) = "toggleInput()" mat-button class="comment-button col-6 col-sm-6 col-md-2" color="secondary" aria-label="Example icon button with a plus one icon">
+            + review this movie
+          </button>
+          <button *ngIf="showTextArea" (click) = "toggleInput()" mat-button class="comment-button col-6 col-sm-6 col-md-2" color="secondary" aria-label="Example icon button with a plus one icon">
+            Hide textarea
+          </button>
+        </div>
+          <div *ngIf="showTextArea" class="row justify-content-center">
+            <textarea class="comment-input col-10 my-4" type="text" placeholder = "Write review ...." (keyup)="writeComment($event)"></textarea>
+          </div>
+          <div class="row justify-content-end">
+            <button *ngIf="showTextArea" (click) = "addReview()" mat-button class="comment-button col-4 col-sm-4 col-md-1 mr-3" color="secondary" aria-label="Example icon button with a plus one icon">
+               Send
+            </button>
+          </div>
+      </mat-expansion-panel>
+     </mat-accordion>
   </div>
 </section>

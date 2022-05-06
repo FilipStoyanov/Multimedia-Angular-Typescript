@@ -47,7 +47,7 @@ const movieSchema = new mongoose.Schema({
   id: {
     required: false,
     type: String,
-  }
+  },
 })
 
 module.exports = mongoose.model('Movie', movieSchema, "Movies");

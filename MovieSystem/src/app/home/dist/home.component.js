@@ -30,17 +30,6 @@ var HomeComponent = /** @class */ (function () {
         this.user$.subscribe(function (user) {
             _this.userData.username = user.username;
         });
-        // for (const friendName of this.friendNames) {
-        //   this.userService.getUser(friendName).subscribe(data => {
-        //       this.friends.push(data);
-        //   });
-        // }
-        // this.store.dispatch(addFriendList({friends: this.friends}));
-        // this.image$ = store.select('image');
-        // console.log(this.image$);
-        // this.image$.subscribe(image => {
-        //   console.log(image);
-        // });
     }
     HomeComponent.prototype.ngOnInit = function () {
     };

@@ -18,6 +18,7 @@ interface Movie {
   _id: string;
   description: string;
   trailer: string;
+  id?: string;
 }
 
 interface Accordion {

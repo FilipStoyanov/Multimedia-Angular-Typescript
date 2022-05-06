@@ -19,7 +19,6 @@ export interface UserData {
   repeatPassword?: string;
   _id?: string;
   friends?: Array<string>;
-  _v?: string;
 }
 
 @Component({

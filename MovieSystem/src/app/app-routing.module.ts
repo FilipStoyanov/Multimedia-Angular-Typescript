@@ -13,6 +13,7 @@ import { MovieComponent } from './movie/movie.component';
 import {UserComponent} from './user/user.component';
 
 const notRegisteredUser: Routes = [
+  { path: '', redirectTo: 'home', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   { path: 'registration', component: RegistrationComponent },
   { path: 'movies', component: MoviesComponent },
@@ -25,6 +26,7 @@ const notRegisteredUser: Routes = [
 ];
 
 const registeredUser: Routes = [
+  { path: '', redirectTo: 'home', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'movies', component: MoviesComponent },
   { path: 'registration', component: RegistrationComponent },

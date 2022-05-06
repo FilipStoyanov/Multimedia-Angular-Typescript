@@ -3,11 +3,16 @@ const router = express.Router();
 const MovieController = require("../controllers/movie.controller.js");
 const UsersController = require("../controllers/user.controller.js");
 const LoginController = require("../controllers/login.controller.js");
+const CommentController = require("../controllers/comment.controller.js");
 
 
 router.get("/movies", MovieController);
 router.post("/movies", MovieController);
 router.get("/movies/:id", MovieController);
+
+router.get("/comments", CommentController);
+router.post("/comments", CommentController);
+router.get("/comments/:id", CommentController);
 
 router.get("/users", UsersController);
 router.post("/users", UsersController);
