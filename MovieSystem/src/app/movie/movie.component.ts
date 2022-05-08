@@ -24,9 +24,10 @@ export class MovieComponent implements OnInit {
               private datePipe: DatePipe ) {
     this.commentInput = '';
     this.showTextArea = false;
-    this.review = {username: '', image: '', id: '', description: '', date: ''};
+    this.review = {username: '', image: '', id: '', description: '', date: '', _id: ''};
     const movieId: string = localStorage.getItem('movieId');
     this.movieService.getMovieById(movieId).subscribe(data => {
+      console.log(data);
       this.movieData = data; this.videoId = this.getVideoId( data.trailer);
     });
     this.commentService.getCommentById(movieId).subscribe(data => {
@@ -67,5 +68,10 @@ export class MovieComponent implements OnInit {
      this.commentService.addComment(this.review).subscribe();
      this.toggleInput();
      this.comments.push(this.review);
+  }
+  removeComment(comment: Comment): void {
+    const ind = this.comments.indexOf(comment);
+    this.comments.splice(ind, 1);
+    this.commentService.removeComment(comment._id).subscribe();
   }
 }

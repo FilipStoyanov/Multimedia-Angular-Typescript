@@ -48,6 +48,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import { AddCollectionComponent } from './collection/add-collection/add-collection.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -80,6 +85,7 @@ import {MatCardModule} from '@angular/material/card';
     SignInComponent,
     MovieComponent,
     UserComponent,
+    AddCollectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,13 +97,19 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatListModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
     MatSnackBarModule,
     MatIconModule,
+    MatDialogModule,
     MatTabsModule,
+    MatFormFieldModule,
     MatExpansionModule,
+    FormsModule,
     MatCardModule,
     MatButtonToggleModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
     StoreModule.forRoot({user: userReducer}),
     NgbAlertModule,
     NgbModule,

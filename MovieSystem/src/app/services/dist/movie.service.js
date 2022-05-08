@@ -19,6 +19,14 @@ var MovieService = /** @class */ (function () {
     MovieService.prototype.getMovieById = function (id) {
         return this.http.get(baseUrl + ("/" + id));
     };
+    MovieService.prototype.rateMovie = function (movieId, userRating, user) {
+        var body = JSON.stringify({
+            userId: user,
+            rating: userRating
+        });
+        var headers = { 'content-type': 'application/json' };
+        return this.http.put(baseUrl + ("/" + movieId), body, { headers: headers });
+    };
     MovieService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

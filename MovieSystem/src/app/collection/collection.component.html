@@ -1,1 +1,37 @@
-<p>collection works!</p>
+<section class="collection">
+  <h1 class="collection__title my-4">MY COLLECTIONS</h1>
+  <p *ngIf="!userCollections.length" class="collection__empty my-4">Sorry, but you don't have any collections. Create your first collection and share it
+    with your friends.</p>
+  <app-add-collection></app-add-collection>
+  <div *ngFor="let collection of userCollections" class="row">
+    <mat-accordion class="col-10 mx-auto my-4">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{collection.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon" (click) = "removeCollection(collection, $event)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row collection__row">
+          <div *ngFor="let movie of collection.movies" class="col-xl-3 col-lg-4 col-xs-12 col-md-6 mt-2 justify-content-center">
+            <a [routerLink]="movieUrl + movie.id" class="card">
+              <div class="card__wrapper">
+                <img class="card__image" alt="Movie card" [src]="movie.image" />
+                <span class="card__year">{{movie.year}}</span>
+              </div>
+              <h1 class="card__title">{{movie.titleBg}}</h1>
+              <h1 class="card__title">{{movie.titleEn}}</h1>
+            </a>
+            <button (click)="removeMovie(collection,movie)" class="remove-btn my-2" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+              <mat-icon>close icon</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</section>

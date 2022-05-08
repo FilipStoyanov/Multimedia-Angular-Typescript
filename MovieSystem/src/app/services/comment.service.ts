@@ -6,6 +6,7 @@ export interface Comment {
   username: string;
   image?: string;
   id: string;
+  _id: string;
   description: string;
   date: string;
 }
@@ -27,5 +28,8 @@ export class CommentService {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(comment);
     return this.http.post<Comment>(baseURL, body, {headers});
+  }
+  removeComment(id: string): Observable<Comment>{
+    return this.http.delete<Comment>(baseURL + `/${id}`);
   }
 }

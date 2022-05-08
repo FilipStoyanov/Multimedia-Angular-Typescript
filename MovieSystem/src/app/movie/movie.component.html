@@ -30,6 +30,7 @@
         <li class="list__item">Watches: <span>{{movieData.watches}}</span></li>
       </ul>
     </div>
+    <p *ngIf="movieData.averageRating" class="movie__rating mt-5">Rating: <span>{{movieData.averageRating}} </span></p>
     <mat-accordion class="movie__accordion my-5">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -42,6 +43,7 @@
           <mat-card-title class="card__title">
             <span class="card__username">Username: <span>{{comment.username}}</span></span>
             <img class="card__image ml-2" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="profile image" />
+            <button class="card__remove" type="button" (click)="removeComment(comment)"><mat-icon>close</mat-icon></button>
           </mat-card-title>
           <mat-card-content class="card__description">{{comment.description}}</mat-card-content>
           <mat-card-footer class="card__date">Date: <span>{{comment.date}}</span></mat-card-footer>

@@ -56,6 +56,11 @@ var tabs_1 = require("@angular/material/tabs");
 var animations_1 = require("@angular/platform-browser/animations");
 var expansion_1 = require("@angular/material/expansion");
 var card_1 = require("@angular/material/card");
+var dialog_1 = require("@angular/material/dialog");
+var forms_1 = require("@angular/forms");
+var input_1 = require("@angular/material/input");
+var add_collection_component_1 = require("./collection/add-collection/add-collection.component");
+var menu_1 = require("@angular/material/menu");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -89,6 +94,7 @@ var AppModule = /** @class */ (function () {
                 sign_in_component_1.SignInComponent,
                 movie_component_1.MovieComponent,
                 user_component_1.UserComponent,
+                add_collection_component_1.AddCollectionComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -100,13 +106,19 @@ var AppModule = /** @class */ (function () {
                 button_1.MatButtonModule,
                 list_1.MatListModule,
                 form_field_1.MatFormFieldModule,
+                input_1.MatInputModule,
+                menu_1.MatMenuModule,
                 snack_bar_1.MatSnackBarModule,
                 icon_1.MatIconModule,
+                dialog_1.MatDialogModule,
                 tabs_1.MatTabsModule,
+                form_field_1.MatFormFieldModule,
                 expansion_1.MatExpansionModule,
+                forms_1.FormsModule,
                 card_1.MatCardModule,
                 button_toggle_1.MatButtonToggleModule,
                 animations_1.BrowserAnimationsModule,
+                form_field_1.MatFormFieldModule,
                 store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),
                 ng_bootstrap_2.NgbAlertModule,
                 ng_bootstrap_1.NgbModule,

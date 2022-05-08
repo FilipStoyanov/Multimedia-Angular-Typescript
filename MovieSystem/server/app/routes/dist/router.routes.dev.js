@@ -12,12 +12,21 @@ var LoginController = require("../controllers/login.controller.js");
 
 var CommentController = require("../controllers/comment.controller.js");
 
+var CollectionController = require("../controllers/collection.controller.js");
+
 router.get("/movies", MovieController);
 router.post("/movies", MovieController);
 router.get("/movies/:id", MovieController);
+router.put("/movies/:_id", MovieController);
 router.get("/comments", CommentController);
 router.post("/comments", CommentController);
+router["delete"]("/comments/:_id", CommentController);
 router.get("/comments/:id", CommentController);
+router.get("/collections", CollectionController);
+router.post("/collections", CollectionController);
+router.get("/collections/:username", CollectionController);
+router.put("/collections/:_id", CollectionController);
+router["delete"]("/collections/:_id", CollectionController);
 router.get("/users", UsersController);
 router.post("/users", UsersController);
 router.get("/users/:username", UsersController);

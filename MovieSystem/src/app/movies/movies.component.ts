@@ -19,6 +19,7 @@ interface Movie {
   description: string;
   trailer: string;
   id?: string;
+  averageRating?: number;
 }
 
 interface Accordion {
@@ -65,7 +66,6 @@ export class MoviesComponent implements OnInit {
 
   constructor(private movieService: MovieService) {
     this.movieService.getAll().subscribe(data => {
-      console.log(data);
       this.films = (data as any).data;
     });
   }

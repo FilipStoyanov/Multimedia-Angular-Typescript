@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UserData } from '../registration/registration.component';
 
 export interface Movie{
   titleEn: string;
@@ -16,6 +17,7 @@ export interface Movie{
   description: string;
   id?: string;
   trailer: string;
+  averageRating?: string;
 }
 const baseUrl = 'http://localhost:8080/api/movies';
 @Injectable({
@@ -23,6 +25,7 @@ const baseUrl = 'http://localhost:8080/api/movies';
 })
 
 export class MovieService {
+  user: UserData;
 
   constructor(private http: HttpClient){}
   getAll(): Observable<Movie[]>{
@@ -30,5 +33,13 @@ export class MovieService {
   }
   getMovieById(id): Observable<Movie>{
     return this.http.get<Movie>(baseUrl + `/${id}`);
+  }
+  rateMovie(movieId: string, userRating: string, user: string): Observable<Movie>{
+    const body = JSON.stringify({
+      userId: user,
+      rating: userRating,
+    });
+    const headers = { 'content-type': 'application/json'};
+    return this.http.put<Movie>(baseUrl + `/${movieId}`, body, {headers});
   }
 }

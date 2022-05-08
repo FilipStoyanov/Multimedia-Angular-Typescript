@@ -3,9 +3,9 @@
 }
 
 .card {
-  width: 250px;
+  width: 255px;
   margin: 0 auto;
-  background-color: #404040;
+  background-color: #f8f9fa;
   font-size: 20px;
   color: #ffffff;
 }
@@ -38,6 +38,36 @@
 .card__btn {
   background-color: #3f51b5;
 }
+.card__rating {
+  text-align: center;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 10;
+  width: 200px;
+  color: #3f51b5;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+.card__rating-group {
+  margin: 0 auto;
+}
+.card__rating-title {
+  font-weight: 500;
+  margin: 0;
+}
+.card__rating-item {
+  width: 100%;
+}
+.card__rating-item:hover {
+  background-color: #3f51b5;
+}
+.card__rating-btn {
+  width: 100%;
+  background-color: inherit;
+  border: none;
+}
 
 .mask {
   position: absolute;
@@ -51,4 +81,8 @@
 
 .none {
   display: none;
+}
+
+.menu-title {
+  color: #3f51b5;
 }

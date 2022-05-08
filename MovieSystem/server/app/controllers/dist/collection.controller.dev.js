@@ -12,11 +12,11 @@ var express = require("express");
 
 var router = express.Router();
 
+var Collection = require("../models/collection.model.js");
+
 var Movie = require("../models/movie.model.js");
 
-var average = require("../helpers/helpers.js");
-
-router.param('id', function (req, res, next, id) {
+router.param('username', function (req, res, next, id) {
   var modified = id;
   req.id = modified;
   next();
@@ -26,20 +26,20 @@ router.param('_id', function (req, res, next, _id) {
   req._id = modified;
   next();
 });
-router.get('/Movies', function _callee(req, res) {
-  var movies;
+router.get('/Collections', function _callee(req, res) {
+  var collections;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap(Movie.find());
+          return regeneratorRuntime.awrap(Collection.find());
 
         case 3:
-          movies = _context.sent;
+          collections = _context.sent;
           res.send({
-            data: movies
+            data: collections
           });
           _context.next = 10;
           break;
@@ -58,21 +58,21 @@ router.get('/Movies', function _callee(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.get('/Movies/:id', function _callee2(req, res) {
-  var movie;
+router.get('/Collections/:username', function _callee2(req, res) {
+  var collections;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(Movie.findOne({
-            _id: req.params.id
+          return regeneratorRuntime.awrap(Collection.find({
+            user: req.params.username
           }));
 
         case 3:
-          movie = _context2.sent;
-          res.send(movie);
+          collections = _context2.sent;
+          res.send(collections);
           _context2.next = 10;
           break;
 
@@ -90,25 +90,24 @@ router.get('/Movies/:id', function _callee2(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.post('/Movies', function _callee3(req, res) {
-  var movie, newMovie;
+router.post('/Collections', function _callee3(req, res) {
+  var collection, newCollection;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          movie = new Movie({
-            titleEn: req.body.titleEn,
-            titleBg: req.body.titleBg,
-            image: req.body.image,
-            year: req.body.year
+          collection = new Collection({
+            user: req.body.user,
+            movies: req.body.movies,
+            name: req.body.name
           });
           _context3.prev = 1;
           _context3.next = 4;
-          return regeneratorRuntime.awrap(movie.save());
+          return regeneratorRuntime.awrap(collection.save());
 
         case 4:
-          newMovie = _context3.sent;
-          res.status(201).json(newMovie);
+          newCollection = _context3.sent;
+          res.status(201).json(newCollection);
           _context3.next = 11;
           break;
 
@@ -126,66 +125,88 @@ router.post('/Movies', function _callee3(req, res) {
     }
   }, null, null, [[1, 8]]);
 });
-router.put('/Movies/:_id', function _callee4(req, res) {
-  var movie, newUserRatings, index, allRatings, i, av;
+router.put('/Collections/:_id', function _callee4(req, res) {
+  var collectionMovies, movie, index;
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
           _context4.next = 3;
-          return regeneratorRuntime.awrap(Movie.findById(req.params._id));
+          return regeneratorRuntime.awrap(Collection.findById(req.params._id));
 
         case 3:
-          movie = _context4.sent;
-          newUserRatings = _toConsumableArray(movie.userRatings);
-          index = movie.userRatings.findIndex(function (obj) {
-            return obj.userId === req.body.userId;
+          collectionMovies = _context4.sent;
+          movie = new Movie({
+            titleEn: req.body.titleEn,
+            titleBg: req.body.titleBg,
+            image: req.body.image,
+            year: req.body.year,
+            id: req.body.id
           });
-
-          if (index === -1) {
-            newUserRatings.push({
-              userId: req.body.userId,
-              rating: req.body.rating
-            });
-          } else {
-            movie.userRatings.splice(index, 1);
-            newUserRatings = _toConsumableArray(movie.userRatings);
-            newUserRatings.push({
-              userId: req.body.userId,
-              rating: req.body.rating
-            });
-          }
-
-          allRatings = [];
-
-          for (i = 0; i < newUserRatings.length; ++i) {
-            allRatings.push(parseInt(newUserRatings[i].rating));
-          }
-
-          av = average(allRatings).toFixed(2);
-          _context4.next = 12;
-          return regeneratorRuntime.awrap(Movie.findByIdAndUpdate(req.params._id, {
-            userRatings: _toConsumableArray(newUserRatings),
-            averageRating: av
+          _context4.next = 7;
+          return regeneratorRuntime.awrap(collectionMovies.movies.findIndex(function (obj) {
+            return obj.titleEn === req.body.titleEn;
           }));
 
-        case 12:
-          _context4.next = 17;
+        case 7:
+          index = _context4.sent;
+
+          if (index > -1) {
+            collectionMovies.movies.splice(index, 1);
+          } else {
+            collectionMovies.movies.push(movie);
+          }
+
+          _context4.next = 11;
+          return regeneratorRuntime.awrap(Collection.findByIdAndUpdate(req.params._id, {
+            movies: _toConsumableArray(collectionMovies.movies)
+          }));
+
+        case 11:
+          _context4.next = 16;
           break;
 
-        case 14:
-          _context4.prev = 14;
+        case 13:
+          _context4.prev = 13;
           _context4.t0 = _context4["catch"](0);
           res.status(500).json({
             message: _context4.t0.message
           });
 
-        case 17:
+        case 16:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 14]]);
+  }, null, null, [[0, 13]]);
+});
+router["delete"]('/Collections/:_id', function _callee5(req, res) {
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(Collection.findByIdAndDelete(req.params._id));
+
+        case 3:
+          res.status(200);
+          _context5.next = 9;
+          break;
+
+        case 6:
+          _context5.prev = 6;
+          _context5.t0 = _context5["catch"](0);
+          res.status(400).json({
+            message: _context5.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
 });
 module.exports = router;

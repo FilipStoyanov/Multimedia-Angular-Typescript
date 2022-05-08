@@ -48,6 +48,17 @@ const movieSchema = new mongoose.Schema({
     required: false,
     type: String,
   },
+  userRatings: {
+    required: false,
+    type: [{
+      userId: String,
+      rating: String,
+    }]
+  },
+  averageRating: {
+    required: false,
+    type: String,
+  }
 })
 
 module.exports = mongoose.model('Movie', movieSchema, "Movies");

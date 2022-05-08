@@ -1,0 +1,18 @@
+<ng-template #content let-modal style="z-index: 1056">
+  <div class="modal-header">
+    <h4 class="modal-title"> Add new collection</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form class="collection">
+    <div class="form-group px-3 pt-3">
+      <label for="email">What do you call your collection ? </label>
+      <input (keyup) = "onChangeName($event)" value="{{nameInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type collection name">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary form__button" (click) = "createCollection(); modal.close('Close click')">Send</button>
+    </div>
+  </form>
+</ng-template>
+
+<button  class="collection__btn my-2 px-2" type="button" (click) = "openModal(content)">+ add collection</button>

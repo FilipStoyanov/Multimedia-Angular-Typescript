@@ -1,5 +1,6 @@
 <div class="wrapper">
-  <button type="button" class="card" (mouseover) = "showCardButtons($event)" (mouseout) = "hideCardButtons($event)" (click)="openMovieScreen()">
+  <a [routerLink] = 'navigationUrl' class="card" (mouseover)="showCardButtons($event)" (mouseout)="hideCardButtons($event)"
+    (click)="openMovieScreen()">
     <div class="card__wrapper">
       <img class="card__image" alt="Movie card" [src]='movie.image' />
       <span class="card__year">{{movie.year}}</span>
@@ -7,13 +8,33 @@
     <h1 class="card__title">{{movie.titleEn}}</h1>
     <h1 class="card__title">{{movie.titleBg}}</h1>
     <div [ngClass]="showButtons ? 'mask' : 'none'"></div>
-  </button>
+  </a>
   <div class="card__btn-wrapper mt-2">
-    <button mat-mini-fab class="card__btn mr-2" aria-label="Example icon button with a heart icon">
+    <button mat-mini-fab class="card__btn mr-2" aria-label="Example icon button with a heart icon"
+      (click)="openRatingList()">
       <mat-icon>star_border</mat-icon>
     </button>
-    <button mat-mini-fab class="card__btn ml-2" aria-label="Example icon button with a heart icon">
-      <mat-icon>favorite</mat-icon>
+    <button *ngIf="showCollectionBtn" mat-mini-fab class="card__btn ml-2" aria-label="Example icon button with a heart icon">
+      <mat-icon [matMenuTriggerFor]="menu">favorite</mat-icon>
     </button>
+    <mat-menu  #menu="matMenu">
+      <span class="menu-title px-2 my-2">Add to collection</span>
+      <button *ngFor="let movieCol of movieCollection" mat-menu-item class="text-center" (click) = "addToCollection(movieCol)">
+        <span>{{movieCol.name}}</span>
+      </button>
+    </mat-menu>
+    <div *ngIf="showRatingList" class="card__rating">
+      <p class="card__rating-title mt-2">Rate this movie with:</p>
+      <mat-list role="list">
+        <mat-list-item *ngFor="let rate of rates" class="card__rating-item" role="listitem">
+          <button type="button" class="card__rating-btn" (click)="rating(rate)">
+            <div class="card__rating-group">
+              <span>{{rate}}</span>
+              <mat-icon>star_border</mat-icon>
+            </div>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
   </div>
 </div>

@@ -49,5 +49,14 @@ var movieSchema = new mongoose.Schema((_ref = {
 }), _defineProperty(_ref, "id", {
   required: false,
   type: String
+}), _defineProperty(_ref, "userRatings", {
+  required: false,
+  type: [{
+    userId: String,
+    rating: String
+  }]
+}), _defineProperty(_ref, "averageRating", {
+  required: false,
+  type: String
 }), _ref));
 module.exports = mongoose.model('Movie', movieSchema, "Movies");

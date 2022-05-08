@@ -12,7 +12,7 @@
 
 .form {
   padding: calc($default-padding / 2);
-  z-index: 5, .form __button;
+  z-index: 5 .form __button;
   z-index-margin-top: 20px;
 }
 .form__invalid {

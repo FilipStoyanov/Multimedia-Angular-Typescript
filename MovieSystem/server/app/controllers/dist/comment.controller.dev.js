@@ -6,9 +6,16 @@ var router = express.Router();
 
 var Comment = require("../models/comment.model.js");
 
+var ObjectId = require('mongoose').Types.ObjectId;
+
 router.param('id', function (req, res, next, id) {
   var modified = id;
   req.id = modified;
+  next();
+});
+router.param('_id', function (req, res, next, _id) {
+  var modified = _id;
+  req._id = modified;
   next();
 });
 router.get('/Comments', function _callee(req, res) {
@@ -111,5 +118,33 @@ router.post('/Comments', function _callee3(req, res) {
       }
     }
   }, null, null, [[1, 8]]);
+});
+router["delete"]('/Comments/:_id', function _callee4(req, res) {
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(Comment.findByIdAndDelete(req.params._id));
+
+        case 3:
+          res.sendStatus(200).json();
+          _context4.next = 9;
+          break;
+
+        case 6:
+          _context4.prev = 6;
+          _context4.t0 = _context4["catch"](0);
+          res.status(400).json({
+            message: _context4.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
 });
 module.exports = router;

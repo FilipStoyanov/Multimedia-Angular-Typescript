@@ -44,7 +44,6 @@ var MoviesComponent = /** @class */ (function () {
         this.sortButton = [this.btn1, this.btn2, this.btn3, this.btn4];
         this.initialFilms = __spreadArrays(this.films);
         this.movieService.getAll().subscribe(function (data) {
-            console.log(data);
             _this.films = data.data;
         });
     }

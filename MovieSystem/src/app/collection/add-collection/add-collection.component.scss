@@ -1,0 +1,11 @@
+@import "../../../variables";
+.collection {
+  &__btn {
+    display: flex;
+    margin: 0 auto;
+    color: #ffffff;
+    background-color: $default-button-color;
+    border: none;
+    font-size: $font-size-25;
+  }
+}
