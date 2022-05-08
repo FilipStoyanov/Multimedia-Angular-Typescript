@@ -26,7 +26,7 @@ router.param('username', function (req, res, next, username) {
 });
 router.param('id', function (req, res, next, id) {
   var modified = id;
-  req.params.id = modified;
+  req.id = modified;
   next();
 });
 
@@ -183,7 +183,7 @@ router.get('/Users/:username', function _callee3(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.get('/Users/:id', function _callee4(req, res) {
+router.get('/Users/:_id', function _callee4(req, res) {
   var user;
   return regeneratorRuntime.async(function _callee4$(_context5) {
     while (1) {
@@ -192,7 +192,7 @@ router.get('/Users/:id', function _callee4(req, res) {
           _context5.prev = 0;
           _context5.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
-            username: req.params.id
+            _id: req.params._id
           }));
 
         case 3:
@@ -267,5 +267,43 @@ router.put('/Users/:username', function _callee5(req, res) {
       }
     }
   }, null, null, [[0, 10]]);
+});
+router.patch('/Users/:username', function _callee6(req, res) {
+  var body;
+  return regeneratorRuntime.async(function _callee6$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.prev = 0;
+          body = {
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: req.body.password,
+            birthdate: req.body.birthdate
+          };
+          _context7.next = 4;
+          return regeneratorRuntime.awrap(User.updateOne({
+            username: req.params.username
+          }, body));
+
+        case 4:
+          _context7.next = 9;
+          break;
+
+        case 6:
+          _context7.prev = 6;
+          _context7.t0 = _context7["catch"](0);
+          res.status(500).json({
+            message: _context7.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context7.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
 });
 module.exports = router;

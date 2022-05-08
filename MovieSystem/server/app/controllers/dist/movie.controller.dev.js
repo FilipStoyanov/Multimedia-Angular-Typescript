@@ -100,7 +100,13 @@ router.post('/Movies', function _callee3(req, res) {
             titleEn: req.body.titleEn,
             titleBg: req.body.titleBg,
             image: req.body.image,
-            year: req.body.year
+            producer: req.body.producer,
+            country: req.body.country,
+            trailer: req.body.trailer,
+            year: req.body.year,
+            genre: req.body.genre,
+            description: req.body.description,
+            userId: req.body.userId
           });
           _context3.prev = 1;
           _context3.next = 4;
@@ -187,5 +193,72 @@ router.put('/Movies/:_id', function _callee4(req, res) {
       }
     }
   }, null, null, [[0, 14]]);
+});
+router.patch('/Movies/:_id', function _callee5(req, res) {
+  var body;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          body = {
+            image: req.body.image,
+            titleEn: req.body.titleEn,
+            titleBg: req.body.titleBg,
+            description: req.body.description,
+            trailer: req.body.trailer,
+            year: req.body.year,
+            producer: req.body.producer,
+            country: req.body.country,
+            genre: req.body.genre
+          };
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(Movie.findByIdAndUpdate(req.params._id, body));
+
+        case 4:
+          _context5.next = 9;
+          break;
+
+        case 6:
+          _context5.prev = 6;
+          _context5.t0 = _context5["catch"](0);
+          res.status(500).json({
+            message: _context5.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
+});
+router["delete"]('/Movies/:_id', function _callee6(req, res) {
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return regeneratorRuntime.awrap(Movie.findByIdAndDelete(req.params._id));
+
+        case 3:
+          res.status(200).json();
+          _context6.next = 9;
+          break;
+
+        case 6:
+          _context6.prev = 6;
+          _context6.t0 = _context6["catch"](0);
+          res.status(400).json({
+            message: _context6.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
 });
 module.exports = router;

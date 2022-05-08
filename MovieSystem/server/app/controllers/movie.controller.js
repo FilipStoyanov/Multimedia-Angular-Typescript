@@ -36,7 +36,13 @@ router.post('/Movies', async (req,res) => {
     titleEn: req.body.titleEn,
     titleBg: req.body.titleBg,
     image: req.body.image,
+    producer: req.body.producer,
+    country: req.body.country,
+    trailer: req.body.trailer,
     year: req.body.year,
+    genre: req.body.genre,
+    description: req.body.description,
+    userId: req.body.userId,
   })
   try{
     const newMovie = await movie.save()
@@ -68,6 +74,36 @@ router.put('/Movies/:_id', async (req,res) => {
     res.status(500).json({message: error.message});
   }
 });
+
+
+router.patch('/Movies/:_id', async (req,res) => {
+   try{
+     const body = {
+       image: req.body.image,
+       titleEn: req.body.titleEn,
+       titleBg: req.body.titleBg,
+       description: req.body.description,
+       trailer: req.body.trailer,
+       year: req.body.year,
+       producer: req.body.producer,
+       country: req.body.country,
+       genre: req.body.genre,
+     };
+     await Movie.findByIdAndUpdate(req.params._id, body);
+   }catch(error){
+    res.status(500).json({message: error.message});
+   }
+})
+
+router.delete('/Movies/:_id', async (req,res) => {
+  try{
+    await Movie.findByIdAndDelete(req.params._id);
+    res.status(200).json();
+  }catch(err){
+    res.status(400).json({message: err.message});
+  }
+});
+
 
 
 module.exports = router;

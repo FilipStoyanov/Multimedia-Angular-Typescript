@@ -10,6 +10,8 @@ router.get("/movies", MovieController);
 router.post("/movies", MovieController);
 router.get("/movies/:id", MovieController);
 router.put("/movies/:_id", MovieController);
+router.patch("/movies/:_id", MovieController);
+router.delete("/movies/:_id", MovieController);
 
 router.get("/comments", CommentController);
 router.post("/comments", CommentController);
@@ -25,9 +27,10 @@ router.delete("/collections/:_id", CollectionController);
 
 router.get("/users", UsersController);
 router.post("/users", UsersController);
+router.get("/users/:_id", UsersController);
 router.get("/users/:username", UsersController);
-router.get("/users/:id", UsersController);
 router.put("/users/:username", UsersController);
+router.patch("/users/:username", UsersController);
 
 router.post("/login", LoginController);
 router.get("/login", LoginController);

@@ -33,9 +33,9 @@ var movieSchema = new mongoose.Schema((_ref = {
   }
 }, _defineProperty(_ref, "genre", {
   required: true,
-  type: Number
+  type: String
 }), _defineProperty(_ref, "watches", {
-  required: true,
+  required: false,
   type: Number
 }), _defineProperty(_ref, "country", {
   required: true,
@@ -47,6 +47,9 @@ var movieSchema = new mongoose.Schema((_ref = {
   require: true,
   type: String
 }), _defineProperty(_ref, "id", {
+  required: false,
+  type: String
+}), _defineProperty(_ref, "userId", {
   required: false,
   type: String
 }), _defineProperty(_ref, "userRatings", {

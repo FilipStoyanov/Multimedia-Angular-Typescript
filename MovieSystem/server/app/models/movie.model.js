@@ -26,10 +26,10 @@ const movieSchema = new mongoose.Schema({
   },
   genre: {
     required: true,
-    type: Number,
+    type: String,
   },
   watches: {
-    required: true,
+    required: false,
     type: Number,
   },
   country: {
@@ -45,6 +45,10 @@ const movieSchema = new mongoose.Schema({
     type: String,
   },
   id: {
+    required: false,
+    type: String,
+  },
+  userId: {
     required: false,
     type: String,
   },

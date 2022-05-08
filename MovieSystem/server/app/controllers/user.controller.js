@@ -13,12 +13,11 @@ router.param('username', function(req, res, next, username) {
   req.username = modified;
   next();
 });
-router.param('id', function(req, res, next, id) {
+router.param('id', function(req,res,next, id){
   const modified = id;
-
-  req.params.id = modified;
+  req.id = modified;
   next();
-});
+})
 
 const userExists = async (email) => {
  const user = await User.findOne({email: email.toLowerCase().trim()});
@@ -73,9 +72,9 @@ router.get('/Users/:username', async (req,res) => {
 })
 
 
-router.get('/Users/:id', async (req,res) => {
+router.get('/Users/:_id', async (req,res) => {
   try{
-    const user = await User.findOne({username: req.params.id});
+    const user = await User.findOne({_id: req.params._id});
     res.send(user);
   }catch(error){
     res.status(500).json({message: error.message})
@@ -102,6 +101,21 @@ router.put('/Users/:username', async (req,res) => {
   }catch(error){
     res.status(500).json({message: error.message});
   }
+})
 
+router.patch('/Users/:username', async (req,res) => {
+  try{
+    const body = {
+      username: req.body.username,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password,
+      birthdate: req.body.birthdate,
+    };
+  await User.updateOne({username: req.params.username}, body);
+  }catch(error){
+   res.status(500).json({message: error.message});
+  }
 })
 module.exports = router;

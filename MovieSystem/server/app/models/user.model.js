@@ -32,8 +32,8 @@ const userSchema  = new mongoose.Schema({
     required: false,
     type: String,
   },
-  id: {
-    required: false,
+  _id: {
+    required: true,
     type: String,
   },
   friends: {
