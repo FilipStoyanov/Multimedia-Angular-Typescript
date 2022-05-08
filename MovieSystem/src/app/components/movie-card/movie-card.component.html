@@ -36,5 +36,81 @@
         </mat-list-item>
       </mat-list>
     </div>
+    <button *ngIf="showEdit" mat-mini-fab class="card__btn ml-2" aria-label="Example icon button with a heart icon" (click)="deleteMovie()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button *ngIf="showEdit" mat-mini-fab class="card__btn ml-2" aria-label="Example icon button with a heart icon" (click) = "openEditModal(content)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <ng-template #content let-modal style="z-index: 1056" class="px-2">
+      <div class="modal-header">
+        <h4 class="modal-title"> Edit movie</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <form class="collection">
+        <div class="form-group px-3 pt-3">
+          <p>Add image</p>
+          <mat-tab-group>
+            <mat-tab label="Add file">
+              <p>Add image from your filesystem </p>
+              <button class="upload" (click)="onBtnClick()">
+                <input class="upload__input" accept ="image/*" type="file" name="movieImage" id="movieImage" (change) = "readUrl($event);" />
+                <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="editedMovie.image ? 'none' : 'upload__icon'" />
+                <img [ngClass]="editedMovie.image ? 'upload__image' : 'none'" [src] ="movie.image" alt="Your Profile image" />
+                <div [ngClass]="editedMovie.image ? 'upload__mask' : 'none'">
+                  <img [ngClass]="editedMovie.image ? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
+                </div>
+              </button>
+            </mat-tab>
+            <mat-tab label="Add URL">
+              <div class="form-group px-3 pt-3">
+                <label for="email"> Add URL to the movie image </label>
+                <input (keyup) = "onChangeImage($event)" defaultValue={{editedMovie.image}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type image URL">
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Name of the movie (EN) </label>
+          <input (keyup) = "onChangeNameEN($event)" defaultValue={{editedMovie.titleEn}} type="email" class="form-control" id="nameEn" aria-describedby="nameHelp" placeholder="Type movie's name (EN)" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Name of the movie (BG) </label>
+          <input (keyup) = "onChangeNameBG($event)" defaultValue={{editedMovie.titleBg}} type="email" class="form-control" id="nameBg" aria-describedby="nameHelp" placeholder="Type movie's name (BG)" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Trailer (add URL) </label>
+          <input (keyup) = "onChangeTrailer($event)" defaultValue={{editedMovie.trailer}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Add trailer URL" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Description </label>
+          <textarea class="comment-input col-12" type="text" placeholder = "Write description ...." (keyup)="onChangeDescription($event)"  defaultValue={{editedMovie.description}}></textarea>
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Release Year  </label>
+          <input (keyup) = "onChangeYear($event)"  defaultValue={{editedMovie.year}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type release date" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Directed by </label>
+          <input (keyup) = "onChangeDirector($event)"  defaultValue={{editedMovie.producer}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type director" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Genre </label>
+          <input (keyup) = "onChangeGenre($event)" defaultValue={{editedMovie.genre}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type genre" required >
+        </div>
+        <div class="form-group px-3 pt-3">
+          <label for="email"> Country </label>
+          <input (keyup) = "onChangeCountry($event)" defaultValue={{editedMovie.country}} type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type country" required >
+        </div>
+        <!-- <div class="form-group px-3 pt-3">
+          <mat-select-country></mat-select-country>
+        </div> -->
+        <!-- select with countries -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+          <button type="button" class="btn btn-primary form__button" (click) = "editMovie(); modal.close('Close click')">Edit</button>
+        </div>
+      </form>
+    </ng-template>
   </div>
 </div>

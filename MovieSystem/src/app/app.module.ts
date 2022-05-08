@@ -53,7 +53,8 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { AddCollectionComponent } from './collection/add-collection/add-collection.component';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -90,6 +91,8 @@ import {MatMenuModule} from '@angular/material/menu';
   imports: [
     BrowserModule,
     MDBBootstrapModule.forRoot(),
+    MatSelectCountryModule.forRoot('en'),
+    MatRadioModule,
     AppRoutingModule,
     NgbAlertModule,
     MatStepperModule,

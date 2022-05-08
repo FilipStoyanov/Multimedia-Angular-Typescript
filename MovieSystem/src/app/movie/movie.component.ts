@@ -4,6 +4,7 @@ import { Movie } from '../services/movie.service';
 import {Router} from '@angular/router';
 import {CommentService, Comment} from '../services/comment.service';
 import {MovieService} from '../services/movie.service';
+import { HTMLInputEvent } from '../registration/step2/step2.component';
 
 @Component({
   selector: 'app-movie',
@@ -20,9 +21,11 @@ export class MovieComponent implements OnInit {
   showTextArea: boolean;
   review: Comment;
   date: Date;
+  imageUrl: string | ArrayBuffer;
   constructor(private router: Router, private movieService: MovieService, private commentService: CommentService,
               private datePipe: DatePipe ) {
     this.commentInput = '';
+    this.imageUrl = '';
     this.showTextArea = false;
     this.review = {username: '', image: '', id: '', description: '', date: '', _id: ''};
     const movieId: string = localStorage.getItem('movieId');
@@ -41,9 +44,38 @@ export class MovieComponent implements OnInit {
       //    }
       // }
    }
+   removeComment(comment: Comment): void {
+    const ind = this.comments.indexOf(comment);
+    this.comments.splice(ind, 1);
+    this.commentService.removeComment(comment._id).subscribe();
+  }
+  readUrl(event: HTMLInputEvent): void{
+    if ( event.target.files && event.target.files[0] ){
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  uploadImage(): void{
+    document.getElementById('movieImage').click();
+  }
+
+  removeImage(): void{
+    this.imageUrl = '';
+  }
+
+  onBtnClick(): void{
+    if (this.imageUrl === ''){
+       this.uploadImage();
+     }else {
+       this.removeImage();
+     }
+  }
 
   ngOnInit(): void {
-    console.log(this.comments);
   }
 
   getVideoId(str: string): string {
@@ -68,10 +100,5 @@ export class MovieComponent implements OnInit {
      this.commentService.addComment(this.review).subscribe();
      this.toggleInput();
      this.comments.push(this.review);
-  }
-  removeComment(comment: Comment): void {
-    const ind = this.comments.indexOf(comment);
-    this.comments.splice(ind, 1);
-    this.commentService.removeComment(comment._id).subscribe();
   }
 }

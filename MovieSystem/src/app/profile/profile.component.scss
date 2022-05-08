@@ -1,10 +1,33 @@
+@import '../../variables';
 .profile {
   padding: 0;
-  margin: 0;
-  &__profile {
-    margin: 50px;
+  color: $default-button-color;
+  font-size: $font-size-20;
+  &__image {
+    display: flex;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+  }
+  &__label {
+    color: #000000;
+  }
+  &__field {
+    height: 40px;
+    padding: 5px 5px;
     width: 100%;
-    height: auto;
-    border-radius: 50%;
+    border-radius: 5px;
+    border: 1px solid $default-button-color;
+    color: $default-button-color;
+    &:focus {
+      border: 1px solid $default-button-color;
+    }
+  }
+  &__save {
+    background-color: $default-button-color;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
   }
 }

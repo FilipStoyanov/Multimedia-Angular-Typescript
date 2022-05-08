@@ -1,9 +1,71 @@
-<section class="container profile">
-  <div class="row">
-    <div class="col-3">
-      <img class="profile_image" src="" alt="profile image" />
+<section class="profile row justify-content-center mb-5">
+  <div class="row py-5">
+    <div class="col-12 col-md-5">
+      <img src='https://terrigen-cdn-dev.marvel.com/content/prod/1x/spider-mannowayhome_lob_crd_03.jpg'
+        class="profile__image" alt="profile image" />
     </div>
-    <div class="col-3">
+    <div class="col-12 col-md-7 pt-3">
+      <p>Username: <span>DANIEL ILCHEV</span></p>
+      <p>Email: <span>daniel@abv.bg</span></p>
+      <p>Birthday: <span>19/02/2000</span></p>
+      <p>Role: <span>USER</span></p>
+    </div>
+  </div>
+  <div class="profile__account px-5">
+    <h2>Account</h2>
+    <mat-divider></mat-divider>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="username">Username</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" (keyup) = "onChangeUsername($event)" type="text" defaultValue = {{user.username}} placeholder="Username" id="username" />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="firstname">Firstname</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" (keyup) = "onChangeFirstname($event)" type="text"  defaultValue = {{user.firstname}} placeholder="Firstname" id="firstname" />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="lastname">Lastname</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" (keyup) = "onChangeLastname($event)" type="text" defaultValue = {{user.lastname}}  placeholder="Lastname" id="lasttname" />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="email">Email</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" type="text" (keyup) = "onChangeEmail($event)" defaultValue = {{user.email}} placeholder="Email" id="email" />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="birthday">Birthday</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" (keyup) = "onChangeBirthday($event)" type="date" defaultValue = {{user.birthdate}} placeholder = "19/02/2000" id="birhtday" />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <label class="profile__label" for="password">Password</label>
+      </div>
+      <div class="col-12 col-md-8">
+        <input class="profile__field" (keyup) = "onChangePassword($event)" defaultValue = {{user.password}} type="password" placeholder = "Password" id="password" />
+      </div>
+    </div>
+    <div *ngIf="changedValue.indexOf(false) > -1" class="row justify-content-end mr-1" (click) = "saveAccount()">
+      <button type="submit" class="profile__save col-2 col-md-1 p-1">
+        ЗАПАЗИ
+      </button>
     </div>
   </div>
 </section>

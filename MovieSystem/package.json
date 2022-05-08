@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-extensions/select-country": "^6.0.1",
     "@angular/animations": "~13.3.2",
     "@angular/cdk": "^13.3.2",
     "@angular/common": "~13.3.2",
@@ -41,7 +42,8 @@
     "multer-gridfs-storage": "^5.0.2",
     "path": "^0.12.7",
     "rxjs": "^7.5.5",
-    "tslib": "^2.0.0",
+    "svg-country-flags": "^1.2.10",
+    "tslib": "^2.4.0",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {

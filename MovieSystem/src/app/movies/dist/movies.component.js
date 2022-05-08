@@ -16,9 +16,11 @@ exports.__esModule = true;
 exports.MoviesComponent = void 0;
 var core_1 = require("@angular/core");
 var MoviesComponent = /** @class */ (function () {
-    function MoviesComponent(movieService) {
+    function MoviesComponent(movieService, modalService, router) {
         var _this = this;
         this.movieService = movieService;
+        this.modalService = modalService;
+        this.router = router;
         this.filterAccordion = {
             showContent: false,
             searchInput: '',
@@ -42,9 +44,14 @@ var MoviesComponent = /** @class */ (function () {
             type: 'Author'
         };
         this.sortButton = [this.btn1, this.btn2, this.btn3, this.btn4];
+        this.addMovie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
+            genre: '', country: '', description: '', _id: '' };
+        this.userMovies = [];
         this.initialFilms = __spreadArrays(this.films);
+        this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
         this.movieService.getAll().subscribe(function (data) {
             _this.films = data.data;
+            _this.userMovies = data.data.filter(function (obj) { return obj.userId === JSON.parse(localStorage.getItem('user'))._id; });
         });
     }
     MoviesComponent.prototype.onClick = function (currBtn) {
@@ -109,6 +116,64 @@ var MoviesComponent = /** @class */ (function () {
         this.films = filteredMovies;
     };
     MoviesComponent.prototype.ngOnInit = function () {
+    };
+    MoviesComponent.prototype.openMovieModal = function (content) {
+        this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
+    };
+    MoviesComponent.prototype.readUrl = function (event) {
+        var _this = this;
+        if (event.target.files && event.target.files[0]) {
+            var file = event.target.files[0];
+            var reader_1 = new FileReader();
+            reader_1.onload = function (e) {
+                _this.addMovie.image = reader_1.result;
+            };
+            reader_1.readAsDataURL(file);
+        }
+    };
+    MoviesComponent.prototype.uploadImage = function () {
+        document.getElementById('movieImage').click();
+    };
+    MoviesComponent.prototype.removeImage = function () {
+        this.addMovie.image = '';
+    };
+    MoviesComponent.prototype.onBtnClick = function () {
+        if (this.addMovie.image === '') {
+            this.uploadImage();
+        }
+        else {
+            this.removeImage();
+        }
+    };
+    MoviesComponent.prototype.onChangeImage = function (event) {
+        this.addMovie.image = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeNameEN = function (event) {
+        this.addMovie.titleEn = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeNameBG = function (event) {
+        this.addMovie.titleBg = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeTrailer = function (event) {
+        this.addMovie.trailer = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeYear = function (event) {
+        this.addMovie.year = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeDirector = function (event) {
+        this.addMovie.producer = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeGenre = function (event) {
+        this.addMovie.genre = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeCountry = function (event) {
+        this.addMovie.country = event.target.value;
+    };
+    MoviesComponent.prototype.onChangeDescription = function (event) {
+        this.addMovie.description = event.target.value;
+    };
+    MoviesComponent.prototype.createMovie = function () {
+        this.movieService.addMovie(this.addMovie).subscribe();
     };
     MoviesComponent = __decorate([
         core_1.Component({

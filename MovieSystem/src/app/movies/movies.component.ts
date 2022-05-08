@@ -1,25 +1,14 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MovieService} from '../services/movie.service';
+import {HTMLInputEvent} from '../registration/step2/step2.component';
+import {Movie} from '../services/movie.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 
 interface SortBtn {
   isAscending: boolean;
   type: string;
-}
-interface Movie {
-  titleBg: string;
-  titleEn: string;
-  year: string;
-  image: string;
-  genre: string;
-  producer: string;
-  rating: number;
-  watches: number;
-  country: string;
-  _id: string;
-  description: string;
-  trailer: string;
-  id?: string;
-  averageRating?: number;
 }
 
 interface Accordion {
@@ -63,15 +52,17 @@ export class MoviesComponent implements OnInit {
     type: 'Author',
   };
   sortButton: SortBtn[] = [this.btn1, this.btn2, this.btn3, this.btn4];
-
-  constructor(private movieService: MovieService) {
+  addMovie: Movie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
+                     genre: '', country: '', description: '', _id: ''};
+  userMovies: Movie [] = [];
+  constructor(private movieService: MovieService, private modalService: NgbModal, private router: Router ) {
+    this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.movieService.getAll().subscribe(data => {
       this.films = (data as any).data;
+      this.userMovies = (data as any).data.filter(obj => obj.userId === JSON.parse(localStorage.getItem('user'))._id);
     });
   }
   initialFilms = [...this.films];
-
-
 
   onClick(currBtn: SortBtn): void {
     const indexBtn = this.sortButton.indexOf(currBtn);
@@ -135,6 +126,68 @@ export class MoviesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  openMovieModal(content): void {
+    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+  }
+
+  readUrl(event: HTMLInputEvent): void{
+    if ( event.target.files && event.target.files[0] ){
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.addMovie.image = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  uploadImage(): void{
+    document.getElementById('movieImage').click();
+  }
+
+  removeImage(): void{
+    this.addMovie.image = '';
+  }
+
+  onBtnClick(): void{
+    if (this.addMovie.image === ''){
+       this.uploadImage();
+     }else {
+       this.removeImage();
+     }
+  }
+
+  onChangeImage(event: any): void {
+    this.addMovie.image = event.target.value;
+  }
+  onChangeNameEN(event: any): void {
+    this.addMovie.titleEn = event.target.value;
+  }
+  onChangeNameBG(event: any): void {
+    this.addMovie.titleBg = event.target.value;
+  }
+  onChangeTrailer(event: any): void {
+    this.addMovie.trailer = event.target.value;
+  }
+  onChangeYear(event: any): void {
+    this.addMovie.year = event.target.value;
+  }
+  onChangeDirector(event: any): void {
+    this.addMovie.producer = event.target.value;
+  }
+  onChangeGenre(event: any): void {
+    this.addMovie.genre = event.target.value;
+  }
+  onChangeCountry(event: any): void {
+    this.addMovie.country = event.target.value;
+  }
+  onChangeDescription(event: any): void {
+    this.addMovie.description = event.target.value;
+  }
+  createMovie(): void {
+    this.movieService.addMovie(this.addMovie).subscribe();
   }
 
 }

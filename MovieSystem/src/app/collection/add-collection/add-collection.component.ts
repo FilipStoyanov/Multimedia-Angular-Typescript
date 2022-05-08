@@ -29,7 +29,6 @@ export class AddCollectionComponent implements OnInit {
     this.collection.user = JSON.parse(localStorage.getItem('user'))._id;
     this.collectionService.addCollection(this.collection).subscribe();
     window.location.reload();
-
   }
 
 }

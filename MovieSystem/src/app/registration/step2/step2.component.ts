@@ -13,7 +13,7 @@ export interface UserStep2{
   repeatPassword: string;
 }
 
-interface HTMLInputEvent extends Event{
+export interface HTMLInputEvent extends Event{
     target: HTMLInputElement & EventTarget;
 }
 
@@ -53,7 +53,6 @@ export class Step2Component implements OnInit {
     isAnchor: false,
     externalStyles: {
       color: '#ffffff',
-      backgroundColor: 'red',
       width: '150px',
       fontSize: '20px',
     },
@@ -65,7 +64,6 @@ export class Step2Component implements OnInit {
     isAnchor: false,
     externalStyles: {
       color: '#ffffff',
-      backgroundColor: 'red',
       width: '150px',
       fontSize: '20px',
     },
@@ -112,7 +110,7 @@ export class Step2Component implements OnInit {
   }
 
   uploadImage(): void{
-    document.getElementById('imageUpload').click();
+    document.getElementById('movieImage').click();
   }
 
   removeImage(): void{
@@ -193,6 +191,7 @@ export class Step2Component implements OnInit {
 
 
   constructor(private userService: UserService, private store: Store<{user: UserData}>) {
+    this.imageUrl = '';
     this.verticalPosition = 'top';
     this.horizontalPosition = 'center';
   }

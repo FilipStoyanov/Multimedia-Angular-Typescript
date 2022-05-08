@@ -19,6 +19,19 @@ var MovieService = /** @class */ (function () {
     MovieService.prototype.getMovieById = function (id) {
         return this.http.get(baseUrl + ("/" + id));
     };
+    MovieService.prototype.addMovie = function (movie) {
+        var body = JSON.stringify(movie);
+        var headers = { 'content-type': 'application/json' };
+        return this.http.post(baseUrl, body, { headers: headers });
+    };
+    MovieService.prototype.editMovie = function (movie) {
+        var body = JSON.stringify(movie);
+        var headers = { 'content-type': 'application/json' };
+        return this.http.patch(baseUrl + ("/" + movie._id), body, { headers: headers });
+    };
+    MovieService.prototype.removeMovie = function (movie) {
+        return this.http["delete"](baseUrl + ("/" + movie._id));
+    };
     MovieService.prototype.rateMovie = function (movieId, userRating, user) {
         var body = JSON.stringify({
             userId: user,
