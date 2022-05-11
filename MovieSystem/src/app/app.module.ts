@@ -90,11 +90,11 @@ import {MatRadioModule} from '@angular/material/radio';
   ],
   imports: [
     BrowserModule,
-    MDBBootstrapModule.forRoot(),
     MatSelectCountryModule.forRoot('en'),
     MatRadioModule,
     AppRoutingModule,
     NgbAlertModule,
+    MDBBootstrapModule.forRoot(),
     MatStepperModule,
     MatProgressBarModule,
     MatButtonModule,
