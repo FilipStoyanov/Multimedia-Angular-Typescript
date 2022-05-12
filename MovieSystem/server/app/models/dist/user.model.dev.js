@@ -35,8 +35,8 @@ var userSchema = new mongoose.Schema({
     required: false,
     type: String
   },
-  _id: {
-    required: true,
+  id: {
+    required: false,
     type: String
   },
   friends: {

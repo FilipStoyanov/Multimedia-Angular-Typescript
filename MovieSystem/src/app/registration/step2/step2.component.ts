@@ -1,11 +1,15 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { MatStepper } from '@angular/material/stepper';
+import { Component, Input, OnInit, EventEmitter, Output, OnChanges, AfterContentInit, DoCheck} from '@angular/core';
+import { MatStep, MatStepper } from '@angular/material/stepper';
 import { UserData } from '../registration.component';
 import { UserStep1 } from '../step1/step1.component';
 import { UserService } from 'src/app/services/user.service';
 import {Store} from '@ngrx/store';
 import {addUser} from '../../actions/user.actions';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import {throwError, Observable} from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 export interface UserStep2{
   username: string;
@@ -25,13 +29,12 @@ export interface HTMLInputEvent extends Event{
 })
 
 
-export class Step2Component implements OnInit {
+export class Step2Component implements OnInit, DoCheck {
 
   @Input() stepper: MatStepper;
   @Input () userData1: UserStep1;
-  @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
-  @Output() changedUserData: EventEmitter<UserStep2> = new EventEmitter<UserStep2>();
 
+  private statusCode: boolean;
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
   private user: UserData = {username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
   birthdate: ''};
@@ -110,7 +113,7 @@ export class Step2Component implements OnInit {
   }
 
   uploadImage(): void{
-    document.getElementById('movieImage').click();
+    document.getElementById('imageUpload').click();
   }
 
   removeImage(): void{
@@ -164,13 +167,17 @@ export class Step2Component implements OnInit {
     this.user.image = this.imageUrl;
 
     if (this.validation.username && this.validation.password && this.validation.repeatPassword){
-      // this.step++;
-      // this.changedStep.emit(this.step);
-      this.changedUserData.emit(this.data);
       this.userService.addUser(this.user).subscribe(
-        data => {this.finishRegistration(stepper); }, //
-        error => { if (error.status === 409) { this.openAlert(); }}
-      );
+          data => {
+            if (data) {
+              stepper.next();
+              localStorage.setItem('user', JSON.stringify(this.user));
+            }else {
+              alert('Account with this email already exists!');
+            }
+          }
+        );
+
       // POST REQUEST TO THE BACKEND HERE
     }else{
       this.validation.username = (this.validation.username === true);
@@ -184,27 +191,22 @@ export class Step2Component implements OnInit {
      stepper.previous();
   }
 
-  finishRegistration(stepper: MatStepper): void {
-    stepper.next(); this.store.dispatch(addUser({user: this.user}));
-    localStorage.setItem('user', JSON.stringify(this.user));
-  }
-
 
   constructor(private userService: UserService, private store: Store<{user: UserData}>) {
     this.imageUrl = '';
     this.verticalPosition = 'top';
+    this.statusCode = true;
     this.horizontalPosition = 'center';
   }
 
-  openAlert(): void {
-    alert('Account with this email already exists!');
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {
+  ngDoCheck(): void {
     this.user.firstname = this.userData1.firstName;
     this.user.lastname = this.userData1.lastName;
     this.user.email = this.userData1.email;
-    this.user.birthdate = this.userData1.birthday;
+    this.user.birthdate = this.userData1.birthdate;
   }
 
 }

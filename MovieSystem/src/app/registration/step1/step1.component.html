@@ -1,4 +1,4 @@
-<form class="step1">
+<form class="step1 col-12 col-md-8 col-lg-5 justify-content-center">
   <hr class="hr-line" />
   <div>
     <app-default-input [inputConfig]="{ placeholder: 'First name', label: 'First name'}" (changedValue)="updateFirstName($event)"></app-default-input>
@@ -15,7 +15,7 @@
     <span [ngClass]="validation.email ? 'none' : 'error' ">* Your email is incorrect</span>
   </div>
   <hr class="hr-line" />
-  <input class="step1__datepicker" type="date"  min="1920-01-01" max="2018-12-31" (change) = "selectDate($event)" [value]="userData.birthdate" />
+  <input class="step1__datepicker" type="date"  min="1920-01-01" max="2018-12-31" (change) = "selectDate($event)" [value]="data.birthdate" />
   <hr class="hr-line" />
   <div class="btn-wrapper">
     <!-- <app-default-button [stepCounter] = "step" (changeStep) = "goForward(stepper)" [buttonConfig]="nextBtn"></app-default-button> -->

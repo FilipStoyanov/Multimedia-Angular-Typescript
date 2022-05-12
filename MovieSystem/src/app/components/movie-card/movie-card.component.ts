@@ -51,6 +51,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     console.log(this.movie.image);
      this.editedMovie = {image: this.movie.image, titleEn: this.movie.titleEn, titleBg: this.movie.titleBg, year: this.movie.year,
                          trailer: this.movie.trailer, country: this.movie.country, description: this.movie.description,
                          genre: this.movie.genre, producer: this.movie.producer, _id: this.movie._id, userId: this.movie.userId};

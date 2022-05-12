@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
   saveAccount(): void {
     this.userService.editUser(this.user.username, this.editedUser).subscribe();
     localStorage.setItem('user', JSON.stringify(this.editedUser));
+    window.location.reload();
   }
 
 }

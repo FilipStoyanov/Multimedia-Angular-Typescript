@@ -2,12 +2,12 @@
 <mdb-carousel *ngIf="lastFilms" class="carousel slide carousel-fade" [animation]="'fade'">
   <mdb-carousel-item *ngFor="let film of lastFilms" class="carousel-item">
     <div class="view w-100">
-      <img class="d-block w-100 image" [src]="film.image" alt="Random slide">
+      <img *ngIf="film.image" class="d-block w-100 image" [src]="film.image" alt="Random slide">
       <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
     </div>
     <div class="carousel-caption">
-      <h3 class="h3-responsive">{{film.titleEn}}</h3>
-      <a class="description" href='' (click)="openMovieLink(film.link)" target="_blank">{{film.description}}</a>
+      <h3 *ngIf="film.titleEn" class="h3-responsive">{{film.titleEn}}</h3>
+      <a *ngIf="film.description" class="description" href="{{'/movie/' + film._id}}">{{film.description}}</a>
     </div>
   </mdb-carousel-item>
 </mdb-carousel>

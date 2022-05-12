@@ -20,10 +20,10 @@
                   <p>Add image from your filesystem </p>
                   <button class="upload" (click)="onBtnClick()">
                     <input class="upload__input" accept ="image/*" type="file" name="movieImage" id="movieImage" (change) = "readUrl($event);" />
-                    <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="imageUrl ? 'none' : 'upload__icon'" />
-                    <img [ngClass]="imageUrl ? 'upload__image' : 'none'" [src] ="imageUrl" alt="Your Profile image" />
-                    <div [ngClass]="imageUrl ? 'upload__mask' : 'none'">
-                      <img [ngClass]="imageUrl ? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
+                    <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="addMovie.image ? 'none' : 'upload__icon'" />
+                    <img [ngClass]="addMovie.image ? 'upload__image' : 'none'" [src] ="addMovie.image" alt="Your Profile image" />
+                    <div [ngClass]="addMovie.image ? 'upload__mask' : 'none'">
+                      <img [ngClass]="addMovie.image? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
                     </div>
                   </button>
                 </mat-tab>

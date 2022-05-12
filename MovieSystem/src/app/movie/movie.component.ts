@@ -95,7 +95,9 @@ export class MovieComponent implements OnInit {
      this.review.description = this.commentInput;
      this.review.date = this.datePipe.transform(this.date, 'dd-MM-yyyy');
      this.review.id = localStorage.getItem('movieId');
-     this.review.image = 'blabla';
+     if (JSON.parse(localStorage.getItem('user')).image){
+       this.review.image = JSON.parse(localStorage.getItem('user')).image;
+     }
      this.review.username = JSON.parse(localStorage.getItem('user')).username;
      this.commentService.addComment(this.review).subscribe();
      this.toggleInput();

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     }else{
       this.userData = null;
     }
-    if (parseUser){
+    if (parseUser && 'image' in parseUser){
       this.imageData = parseUser.image;
     }
     // this.profileImage.getProfileImage(localStorage.getItem('userId')).subscribe(

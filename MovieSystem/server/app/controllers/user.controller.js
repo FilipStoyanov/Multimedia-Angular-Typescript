@@ -27,6 +27,14 @@ const userExists = async (email) => {
     return false;
 }
 
+const userExistsByUser = async (username) => {
+  const user = await User.findOne({username: username});
+    if(user){
+        return true;
+    }
+    return false;
+}
+
 router.get('/Users', async (req,res) => {
   try{
     const users = await User.find();
@@ -39,19 +47,22 @@ router.get('/Users', async (req,res) => {
 
 router.post('/Users', async (req,res) => {
   const user = new User ({
-     firstname: req.body.firstName,
-     lastname: req.body.lastName,
+     firstname: req.body.firstname,
+     lastname: req.body.lastname,
      email: req.body.email,
-     birthdate: req.body.birthday,
+     image: req.body.image,
+     birthdate: req.body.birthdate,
      username: req.body.username,
      password: req.body.password,
-     role: 'user'
+     role: 'user',
+     id: ''
   })
   try{
     if(await userExists(req.body.email)){
-      res.status(409).json({
-        error: 'Email already exists',
-      })
+      res.send(null);
+      // res.status(409).json({
+      //   error: 'Email already exists',
+      // })
     }else{
       const newUser = await user.save()
       res.status(201).json(newUser);
@@ -64,8 +75,8 @@ router.post('/Users', async (req,res) => {
 
 router.get('/Users/:username', async (req,res) => {
   try{
-    const user = await User.findOne({username: req.params.username});
-    res.send(user);
+      const user = await User.findOne({username: req.params.username});
+      res.send(user);
   }catch(error){
     res.status(500).json({message: error.message})
   }

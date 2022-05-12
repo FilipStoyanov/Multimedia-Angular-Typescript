@@ -31,7 +31,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Step3Component } from './registration/step3/step3.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { StoreModule } from '@ngrx/store';
 import { userReducer } from './reducers/user.reducer';
 import { FriendsComponent } from './friends/friends.component';
 import { AboutUsComponent } from './about-us/about-us.component';
@@ -55,7 +54,7 @@ import { AddCollectionComponent } from './collection/add-collection/add-collecti
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import {MatRadioModule} from '@angular/material/radio';
-
+import {StoreModule} from '@ngrx/store';
 
 @NgModule({
   declarations: [

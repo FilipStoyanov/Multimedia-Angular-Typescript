@@ -1,90 +1,115 @@
-<!--Navbar-->
-<mdb-navbar  SideClass="navbar navbar-expand-lg navbar-dark indigo">
+ <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark indigo">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
 
-  <!-- Navbar brand -->
-  <mdb-navbar-brand><a class="navbar-brand" [routerLink]="links[0]">Movie System</a></mdb-navbar-brand>
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" [routerLink] = "links[0]" style="color: white">
+        <img class="logo-image mr-5" src='../../../assets/logo.svg' alt="logo image" />
+        <span class="mobile-center">Movie System</span>
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLinkActive]="['active']" [routerLink]="links[0]" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLinkActive]="['active']" [routerLink]="links[1]" class="nav-link">Movies</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLinkActive]="['active']" [routerLink]="links[2]" class="nav-link">Movies Collection</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLinkActive]="['active']" [routerLink]="links[3]" class="nav-link">Reviewed Movies</a>
+        </li>
+        <li class="nav-item login">
+          <app-sign-in></app-sign-in>
+        </li>
+        <li class="nav-item ml-lg-5">
+          <form class="form-inline waves-light" mdbWavesEffect>
+            <div class="md-form my-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            </div>
+          </form>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
 
-  <!-- Collapsible content -->
-  <links>
-
-    <!-- Links -->
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect  [routerLink]="links[0]">Home</a>
-      </li>
-      <li class="nav-item">
-        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[1]">Movies</a>
-      </li>
-      <li class="nav-item">
-        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[2]">Movies Collection</a>
-      </li>
-      <li class="nav-item">
-        <a [routerLinkActive]="['active']" class="nav-link waves-light" mdbWavesEffect [routerLink]="links[3]">Reviewed movies</a>
-      </li>
-      <li class="nav-item login">
-        <app-sign-in></app-sign-in>
-      </li>
-      <!-- Dropdown -->
-    </ul>
-    <!-- Links -->
-
-    <!-- Search form -->
-    <form class="form-inline waves-light" mdbWavesEffect>
-      <div class="md-form my-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <!-- Icon -->
+      <!-- Notifications -->
+      <div *ngIf="userData" class="dropdown">
+        <a
+          class="text-reset me-3 dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Profile</a>
+          </li>
+        </ul>
       </div>
-    </form>
-    <ul *ngIf="userData" class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item">
-        <a class="nav-link">1 <mdb-icon fas icon="envelope"></mdb-icon></a>
-      </li>
-      <li class="nav-item avatar dropdown" dropdown>
-        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          Hello, <span>{{userData.username}}</span><img [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profile Image" class="img-fluid rounded-circle z-depth-0 profile__image"></a>
-        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect (click) = "logOut()">Notifications</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect [routerLink] = "links[4]">Profile</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect routerLink='/friends'>Friends</a>
-          <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect (click) = "logOut()">Log out</a>
-        </div>
-      </li>
-    </ul>
-  </links>
-  <!-- Collapsible content -->
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+          *ngIf="userData"
+          class="dropdown-toggle d-flex align-items-center hidden-arrow color-white"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        Hello, <span>{{userData.username}}</span><img [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profile Image" class="img-fluid rounded-circle z-depth-0 profile__image"></a>
+        <ul
 
-</mdb-navbar>
-<!--/.Navbar-->
-
-<!-- <section class="header">
-  <div class="header__search-wrapper">
-    <a [routerLink]="links[0]">
-      <img class="header__logo" src="../../../assets/logo.svg" alt="Movie logo" />
-    </a>
-    <input class="header__search" type="search" placeholder="Search movies" />
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          <li>
+            <a class="dropdown-item" [routerLink] = "links[4]">Profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click) = "logOut()">Notifications</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/friends">Friends</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click) = "logOut()">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Right elements -->
   </div>
-  <ul class="nav">
-    <li class="nav__item"><app-sign-in></app-sign-in></li>
-    <li class="nav__item"><a class="nav__link" [routerLink]="links[0]">Home</a></li>
-    <li class="nav__item"><a class="nav__link" [routerLink]="links[1]">Movies</a></li>
-    <li class="nav__item"><a class="nav__link" [routerLink]="links[2]">Movies Collection</a></li>
-    <li class="nav__item"><a class="nav__link" [routerLink]="links[3]">Reviewed Movies</a></li>
-    <li *ngIf="userData"><button type="button" class="nav__link no-background" (click) = "toggleProfileMenu()"><span id="profileText">Hello, </span><span>{{userData.username}}
-    </span><img  class="profile__image" [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profileImage" id="profileImage" /><span [ngClass]=" isShownProfileMenu ? 'none' : 'header__icon'"><mat-icon id="arrowDown">keyboard_arrow_down</mat-icon></span>
-    <span [ngClass]="isShownProfileMenu ? 'header__icon' : 'none'"><mat-icon id="arrowUp">keyboard_arrow_up</mat-icon></span></button></li>
-    <ul [ngClass]="isShownProfileMenu ? 'profile' : 'none'" #profileList>
-      <li class="profile__item">
-        <a class="profile__link" (click) = "logOut()">Notifications</a>
-      </li>
-      <li class="profile__item">
-        <a class="profile__link" [routerLink] = "links[4]">Profile</a>
-      </li>
-      <li class="profile__item">
-        <a class="profile__link"(click) = "logOut()">Log out -></a>
-      </li>
-      <li class="profile__item">
-        <a class="profile__link" routerLink='/friends'>Friends</a>
-      </li>
-    </ul>
-  </ul>
-</section> -->
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

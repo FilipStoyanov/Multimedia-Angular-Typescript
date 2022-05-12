@@ -11,9 +11,9 @@ const baseURL = 'http://localhost:8080/api/users';
 export class UserService {
   constructor(private http: HttpClient){}
   user: UserData;
-  addUser(user: UserData): Observable<UserData>{
+  addUser(newUser: UserData): Observable<UserData>{
       const headers = { 'content-type': 'application/json'};
-      const body = JSON.stringify(user);
+      const body = JSON.stringify(newUser);
       return this.http.post<UserData>(baseURL, body, {headers});
   }
   getUsers(): Observable<UserData[]>{

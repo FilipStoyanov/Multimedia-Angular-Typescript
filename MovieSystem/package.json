@@ -28,7 +28,7 @@
     "@ng-bootstrap/ng-bootstrap": "^12.0.2",
     "@ngrx/effects": "^13.1.0",
     "@ngrx/entity": "^13.1.0",
-    "@ngrx/store": "^13.1.0",
+    "@ngrx/store": "^13.2.0",
     "@popperjs/core": "^2.11.5",
     "@types/chart.js": "^2.9.37",
     "angular-bootstrap-md": "^13.0.0",

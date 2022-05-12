@@ -39,7 +39,6 @@ var progress_bar_1 = require("@angular/material/progress-bar");
 var form_field_1 = require("@angular/material/form-field");
 var step3_component_1 = require("./registration/step3/step3.component");
 var snack_bar_1 = require("@angular/material/snack-bar");
-var store_1 = require("@ngrx/store");
 var user_reducer_1 = require("./reducers/user.reducer");
 var friends_component_1 = require("./friends/friends.component");
 var about_us_component_1 = require("./about-us/about-us.component");
@@ -63,6 +62,7 @@ var add_collection_component_1 = require("./collection/add-collection/add-collec
 var menu_1 = require("@angular/material/menu");
 var select_country_1 = require("@angular-material-extensions/select-country");
 var radio_1 = require("@angular/material/radio");
+var store_1 = require("@ngrx/store");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }

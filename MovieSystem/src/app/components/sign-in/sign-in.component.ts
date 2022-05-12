@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UserData } from 'src/app/registration/registration.component';
 import { Store } from '@ngrx/store';
 import { addUser } from 'src/app/actions/user.actions';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-sign-in',
@@ -33,14 +34,22 @@ export class SignInComponent implements OnInit {
   }
 
   logIn(): void {
-     this.userService.addLoggedUser(this.user).subscribe(
-       data => { },
-       error => this.invalidCredentials = true ) ;
-     this.userDataService.getUser(this.emailInput).subscribe(
-    data => { localStorage.setItem('user', JSON.stringify(data));
-              this.router.navigate([`/`]).then( () => window.location.reload()); },
-    );
-
+     this.userDataService.getUser(this.user.username).subscribe(
+       res => {
+         if (res === null){
+            console.log('invalid username or password');
+            this.invalidCredentials = true;
+         }else if ('password' in res && res.password !== this.user.password){
+           console.log('invalid password');
+           this.invalidCredentials = true;
+         }else if (res && 'password' in res && res.password === this.user.password){
+          console.log(res);
+          this.invalidCredentials = false;
+          localStorage.setItem('user', JSON.stringify(res));
+          this.router.navigate([`/`]).then( () => window.location.reload());
+         }
+       },
+     );
   }
 
     // this.store.dispatch(addUser({user: data}));

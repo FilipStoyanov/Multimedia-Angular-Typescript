@@ -1,14 +1,16 @@
 <section class="profile row justify-content-center mb-5">
   <div class="row py-5">
-    <div class="col-12 col-md-5">
-      <img src='https://terrigen-cdn-dev.marvel.com/content/prod/1x/spider-mannowayhome_lob_crd_03.jpg'
+    <div class="col-12 col-md-4">
+      <img *ngIf="user.image" [src] = "user.image"
+        class="profile__image" alt="profile image" />
+      <img *ngIf="!user.image || !'image' in user" src="../../../assets/icons/profile-icon-png-898.png"
         class="profile__image" alt="profile image" />
     </div>
-    <div class="col-12 col-md-7 pt-3">
-      <p>Username: <span>DANIEL ILCHEV</span></p>
-      <p>Email: <span>daniel@abv.bg</span></p>
-      <p>Birthday: <span>19/02/2000</span></p>
-      <p>Role: <span>USER</span></p>
+    <div class="col-12 col-md-8 pt-3">
+      <p *ngIf="user.username">Username: <span>{{user.username}}</span></p>
+      <p *ngIf="user.email">Email: <span>{{user.email}}</span></p>
+      <p *ngIf="user.birthdate">Birthday: <span>{{user.birthdate}}</span></p>
+      <p *ngIf="user.role">Role: <span>{{user.role}}</span></p>
     </div>
   </div>
   <div class="profile__account px-5">
@@ -62,8 +64,8 @@
         <input class="profile__field" (keyup) = "onChangePassword($event)" defaultValue = {{user.password}} type="password" placeholder = "Password" id="password" />
       </div>
     </div>
-    <div *ngIf="changedValue.indexOf(false) > -1" class="row justify-content-end mr-1" (click) = "saveAccount()">
-      <button type="submit" class="profile__save col-2 col-md-1 p-1">
+    <div *ngIf="changedValue.indexOf(false) > -1" class="row justify-content-end mr-1">
+      <button type="submit" class="profile__save col-2 col-md-1 p-1" (click) = "saveAccount()">
         ЗАПАЗИ
       </button>
     </div>

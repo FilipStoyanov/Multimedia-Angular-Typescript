@@ -6,7 +6,7 @@ export interface UserStep1{
   firstName: string;
   lastName: string;
   email: string;
-  birthday?: string;
+  birthdate?: string;
 }
 
 @Component({
@@ -19,10 +19,8 @@ export class Step1Component implements OnInit {
 
   // @Input() step: number;
   @Input() stepper: MatStepper;
-  @Output() changedStep: EventEmitter<number> = new EventEmitter<number>();
   @Output() changedUserData: EventEmitter<UserStep1> = new EventEmitter<UserStep1>();
-  @Input()  userData: UserData;
-  @Output () private data: UserStep1 = {firstName: '', lastName: '', email: '', birthday: ''};
+  public data: UserStep1 = {firstName: '', lastName: '', email: '', birthdate: ''};
 
   constructor() {
   }
@@ -85,9 +83,7 @@ export class Step1Component implements OnInit {
        this.validation.lastName = this.data.lastName.length !== 0 ? this.validateName(this.data.lastName) : false;
        this.validation.email = this.data.email.length !== 0 ? this.validateEmail(this.data.email) : false;
        if (this.validation.firstName && this.validation.lastName && this.validation.email){
-        // this.step++;
         stepper.next();
-        // this.changedStep.emit(this.step);
         this.changedUserData.emit(this.data);
        }else{
           this.validation.firstName = (this.validation.firstName === true);
@@ -97,8 +93,7 @@ export class Step1Component implements OnInit {
   }
 
   selectDate(event: any): void{
-    this.data.birthday = event.target.value;
-    this.changedUserData.emit(this.data);
+    this.data.birthdate = event.target.value;
   }
 
   updateFirstName(newFirstName: string): void{
@@ -116,10 +111,7 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data.firstName = this.userData.firstname;
-    this.data.lastName = this.userData.lastname;
-    this.userData.email = this.userData.email;
-    this.userData.birthdate = this.userData.birthdate;
+    console.log('child1');
   }
 
   ngOnChange(): void{

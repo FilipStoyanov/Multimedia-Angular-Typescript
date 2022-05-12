@@ -62,137 +62,140 @@ var userExists = function userExists(email) {
   });
 };
 
-router.get('/Users', function _callee(req, res) {
-  var users;
-  return regeneratorRuntime.async(function _callee$(_context2) {
+var userExistsByUser = function userExistsByUser(username) {
+  var user;
+  return regeneratorRuntime.async(function userExistsByUser$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
+          _context2.next = 2;
+          return regeneratorRuntime.awrap(User.findOne({
+            username: username
+          }));
+
+        case 2:
+          user = _context2.sent;
+
+          if (!user) {
+            _context2.next = 5;
+            break;
+          }
+
+          return _context2.abrupt("return", true);
+
+        case 5:
+          return _context2.abrupt("return", false);
+
+        case 6:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  });
+};
+
+router.get('/Users', function _callee(req, res) {
+  var users;
+  return regeneratorRuntime.async(function _callee$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
           return regeneratorRuntime.awrap(User.find());
 
         case 3:
-          users = _context2.sent;
+          users = _context3.sent;
           res.send({
             data: users
           });
-          _context2.next = 10;
+          _context3.next = 10;
           break;
 
         case 7:
-          _context2.prev = 7;
-          _context2.t0 = _context2["catch"](0);
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
           res.status(500).json({
-            message: _context2.t0.message
+            message: _context3.t0.message
           });
 
         case 10:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
     }
   }, null, null, [[0, 7]]);
 });
 router.post('/Users', function _callee2(req, res) {
   var user, newUser;
-  return regeneratorRuntime.async(function _callee2$(_context3) {
+  return regeneratorRuntime.async(function _callee2$(_context4) {
     while (1) {
-      switch (_context3.prev = _context3.next) {
+      switch (_context4.prev = _context4.next) {
         case 0:
           user = new User({
-            firstname: req.body.firstName,
-            lastname: req.body.lastName,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
             email: req.body.email,
-            birthdate: req.body.birthday,
+            image: req.body.image,
+            birthdate: req.body.birthdate,
             username: req.body.username,
             password: req.body.password,
-            role: 'user'
+            role: 'user',
+            id: ''
           });
-          _context3.prev = 1;
-          _context3.next = 4;
+          _context4.prev = 1;
+          _context4.next = 4;
           return regeneratorRuntime.awrap(userExists(req.body.email));
 
         case 4:
-          if (!_context3.sent) {
-            _context3.next = 8;
+          if (!_context4.sent) {
+            _context4.next = 8;
             break;
           }
 
-          res.status(409).json({
-            error: 'Email already exists'
-          });
-          _context3.next = 12;
+          res.send(null); // res.status(409).json({
+          //   error: 'Email already exists',
+          // })
+
+          _context4.next = 12;
           break;
 
         case 8:
-          _context3.next = 10;
+          _context4.next = 10;
           return regeneratorRuntime.awrap(user.save());
 
         case 10:
-          newUser = _context3.sent;
+          newUser = _context4.sent;
           res.status(201).json(newUser);
 
         case 12:
-          _context3.next = 17;
+          _context4.next = 17;
           break;
 
         case 14:
-          _context3.prev = 14;
-          _context3.t0 = _context3["catch"](1);
+          _context4.prev = 14;
+          _context4.t0 = _context4["catch"](1);
           res.status(400).json({
-            message: _context3.t0.message
+            message: _context4.t0.message
           });
 
         case 17:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
     }
   }, null, null, [[1, 14]]);
 });
 router.get('/Users/:username', function _callee3(req, res) {
   var user;
-  return regeneratorRuntime.async(function _callee3$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
-          return regeneratorRuntime.awrap(User.findOne({
-            username: req.params.username
-          }));
-
-        case 3:
-          user = _context4.sent;
-          res.send(user);
-          _context4.next = 10;
-          break;
-
-        case 7:
-          _context4.prev = 7;
-          _context4.t0 = _context4["catch"](0);
-          res.status(500).json({
-            message: _context4.t0.message
-          });
-
-        case 10:
-        case "end":
-          return _context4.stop();
-      }
-    }
-  }, null, null, [[0, 7]]);
-});
-router.get('/Users/:_id', function _callee4(req, res) {
-  var user;
-  return regeneratorRuntime.async(function _callee4$(_context5) {
+  return regeneratorRuntime.async(function _callee3$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
-            _id: req.params._id
+            username: req.params.username
           }));
 
         case 3:
@@ -215,20 +218,52 @@ router.get('/Users/:_id', function _callee4(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.put('/Users/:username', function _callee5(req, res) {
-  var updateUser, newFriends, index;
-  return regeneratorRuntime.async(function _callee5$(_context6) {
+router.get('/Users/:_id', function _callee4(req, res) {
+  var user;
+  return regeneratorRuntime.async(function _callee4$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
           _context6.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
+            _id: req.params._id
+          }));
+
+        case 3:
+          user = _context6.sent;
+          res.send(user);
+          _context6.next = 10;
+          break;
+
+        case 7:
+          _context6.prev = 7;
+          _context6.t0 = _context6["catch"](0);
+          res.status(500).json({
+            message: _context6.t0.message
+          });
+
+        case 10:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[0, 7]]);
+});
+router.put('/Users/:username', function _callee5(req, res) {
+  var updateUser, newFriends, index;
+  return regeneratorRuntime.async(function _callee5$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.prev = 0;
+          _context7.next = 3;
+          return regeneratorRuntime.awrap(User.findOne({
             username: req.params.username
           }));
 
         case 3:
-          updateUser = _context6.sent;
+          updateUser = _context7.sent;
           newFriends = _toConsumableArray(updateUser.friends);
 
           if (updateUser.friends) {
@@ -243,7 +278,7 @@ router.put('/Users/:username', function _callee5(req, res) {
             newFriends = _toConsumableArray(updateUser.friends);
           }
 
-          _context6.next = 8;
+          _context7.next = 8;
           return regeneratorRuntime.awrap(User.updateOne({
             username: req.params.username
           }, {
@@ -251,30 +286,30 @@ router.put('/Users/:username', function _callee5(req, res) {
           }));
 
         case 8:
-          _context6.next = 13;
+          _context7.next = 13;
           break;
 
         case 10:
-          _context6.prev = 10;
-          _context6.t0 = _context6["catch"](0);
+          _context7.prev = 10;
+          _context7.t0 = _context7["catch"](0);
           res.status(500).json({
-            message: _context6.t0.message
+            message: _context7.t0.message
           });
 
         case 13:
         case "end":
-          return _context6.stop();
+          return _context7.stop();
       }
     }
   }, null, null, [[0, 10]]);
 });
 router.patch('/Users/:username', function _callee6(req, res) {
   var body;
-  return regeneratorRuntime.async(function _callee6$(_context7) {
+  return regeneratorRuntime.async(function _callee6$(_context8) {
     while (1) {
-      switch (_context7.prev = _context7.next) {
+      switch (_context8.prev = _context8.next) {
         case 0:
-          _context7.prev = 0;
+          _context8.prev = 0;
           body = {
             username: req.body.username,
             firstname: req.body.firstname,
@@ -283,25 +318,25 @@ router.patch('/Users/:username', function _callee6(req, res) {
             password: req.body.password,
             birthdate: req.body.birthdate
           };
-          _context7.next = 4;
+          _context8.next = 4;
           return regeneratorRuntime.awrap(User.updateOne({
             username: req.params.username
           }, body));
 
         case 4:
-          _context7.next = 9;
+          _context8.next = 9;
           break;
 
         case 6:
-          _context7.prev = 6;
-          _context7.t0 = _context7["catch"](0);
+          _context8.prev = 6;
+          _context8.t0 = _context8["catch"](0);
           res.status(500).json({
-            message: _context7.t0.message
+            message: _context8.t0.message
           });
 
         case 9:
         case "end":
-          return _context7.stop();
+          return _context8.stop();
       }
     }
   }, null, null, [[0, 6]]);

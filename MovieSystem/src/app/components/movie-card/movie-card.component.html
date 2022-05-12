@@ -56,7 +56,7 @@
               <button class="upload" (click)="onBtnClick()">
                 <input class="upload__input" accept ="image/*" type="file" name="movieImage" id="movieImage" (change) = "readUrl($event);" />
                 <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="editedMovie.image ? 'none' : 'upload__icon'" />
-                <img [ngClass]="editedMovie.image ? 'upload__image' : 'none'" [src] ="movie.image" alt="Your Profile image" />
+                <img [ngClass]="editedMovie.image ? 'upload__image' : 'none'" [src] ="editedMovie.image" alt="Your Profile image" />
                 <div [ngClass]="editedMovie.image ? 'upload__mask' : 'none'">
                   <img [ngClass]="editedMovie.image ? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
                 </div>

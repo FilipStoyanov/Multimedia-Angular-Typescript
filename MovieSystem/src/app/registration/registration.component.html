@@ -1,16 +1,16 @@
 <section class="registration">
   <h2 class="registration__title">Registration</h2>
   <h3 class="registration__subtitle">Login Details</h3>
-  <mat-stepper orientation="horizontal" #stepper>
+  <mat-stepper orientation="horizontal" #stepper >
     <mat-step>
       <ng-template matStepContent>
-        <app-step1 [userData] = "user"(changedUserData) = "updateUserData1($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step1>
+        <app-step1 (changedUserData) = "getDataFromStep1($event)"  [stepper]="stepper"></app-step1>
       </ng-template>
       <ng-template matStepLabel>Step1</ng-template>
     </mat-step>
     <mat-step>
       <ng-template matStepContent>
-        <app-step2 [userData1] = "user" (changedUserData) = "updateUserData2($event)" (changedStep) = "updateStepCounter($event)"  [stepper]="stepper"></app-step2>
+        <app-step2 [userData1] = "user" [stepper]="stepper"></app-step2>
       </ng-template>
       <ng-template matStepLabel>Step2</ng-template>
     </mat-step>

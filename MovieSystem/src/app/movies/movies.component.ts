@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MovieService} from '../services/movie.service';
 import {HTMLInputEvent} from '../registration/step2/step2.component';
 import {Movie} from '../services/movie.service';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 
 interface SortBtn {
@@ -187,6 +186,8 @@ export class MoviesComponent implements OnInit {
     this.addMovie.description = event.target.value;
   }
   createMovie(): void {
+    this.films.push(this.addMovie);
+    this.userMovies.push(this.addMovie);
     this.movieService.addMovie(this.addMovie).subscribe();
   }
 

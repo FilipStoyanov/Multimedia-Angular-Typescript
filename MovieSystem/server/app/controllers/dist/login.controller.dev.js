@@ -11,8 +11,7 @@ var Login = require("../models/login.model.js");
 var jwt = require('jsonwebtoken');
 
 router.post('/Login', function _callee(req, res) {
-  var LogUser, _req$body, username, password, user, passwordCorrect, userForToken, token, newUser;
-
+  var LogUser, userForToken, token, newUser;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -23,54 +22,34 @@ router.post('/Login', function _callee(req, res) {
             password: req.body.password
           });
           _context.prev = 1;
-          _req$body = req.body, username = _req$body.username, password = _req$body.password;
-          _context.next = 5;
-          return regeneratorRuntime.awrap(User.findOne({
-            username: username
-          }));
-
-        case 5:
-          user = _context.sent;
-          passwordCorrect = user === null ? false : user.password === password;
-
-          if (!(!user || !passwordCorrect)) {
-            _context.next = 9;
-            break;
-          }
-
-          return _context.abrupt("return", res.status(401).json({
-            error: 'invalid username or password'
-          }));
-
-        case 9:
           userForToken = {
-            username: user.username,
-            id: user._id
+            username: req.body.username,
+            id: req.body._id
           };
           token = jwt.sign(userForToken, "secret");
           LogUser.token = token;
-          _context.next = 14;
+          _context.next = 7;
           return regeneratorRuntime.awrap(LogUser.save());
 
-        case 14:
+        case 7:
           newUser = _context.sent;
           res.status(201).json(newUser);
-          _context.next = 21;
+          _context.next = 14;
           break;
 
-        case 18:
-          _context.prev = 18;
+        case 11:
+          _context.prev = 11;
           _context.t0 = _context["catch"](1);
           res.status(500).json({
             message: _context.t0.message
           });
 
-        case 21:
+        case 14:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 18]]);
+  }, null, null, [[1, 11]]);
 });
 router.get('/Login', function _callee2(req, res) {
   var loggedUsers;
