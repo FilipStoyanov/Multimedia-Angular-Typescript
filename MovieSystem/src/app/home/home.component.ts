@@ -12,7 +12,6 @@ import { UserService } from '../services/user.service';
 export class HomeComponent implements OnInit {
 
   user$: Observable<UserData>;
-  friendNames: string[];
   friends: UserData[];
   public linkConfig = {
     isAnchor: true,
@@ -24,15 +23,17 @@ export class HomeComponent implements OnInit {
   };
 
   public userData: UserData = {firstname: '', lastname: '', email: '', username: '', password: '', _id: '', friends: []};
+  public showRegistrationButton: boolean;
   constructor(private store: Store<{user: UserData}>, private userService: UserService) {
     this.friends = [];
+    this.showRegistrationButton = false;
     this.user$ = store.select('user');
-    if (localStorage.getItem('user')){
-       this.friendNames = JSON.parse(localStorage.getItem('user')).friends;
-    }
     this.user$.subscribe( user => {
       this.userData.username = user.username;
     });
+    if (JSON.parse(localStorage.getItem('user'))){
+     this.showRegistrationButton = true;
+    }
   }
 
   ngOnInit(): void {

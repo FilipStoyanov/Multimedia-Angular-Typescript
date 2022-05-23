@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   public closeResult: string;
   public emailInput: string;
   public passwordInput: string;
-  private user: Login = {token: '', username: '', password: ''};
+  private user: Login = {token: '', email: '', password: ''};
   public invalidCredentials: boolean;
   constructor(private modalService: NgbModal, private userService: LoginService, private userDataService: UserService,
               private router: Router, private store: Store<{user: UserData}>) {
@@ -34,13 +34,11 @@ export class SignInComponent implements OnInit {
   }
 
   logIn(): void {
-     this.userDataService.getUser(this.user.username).subscribe(
+     this.userDataService.getUserByEmail(this.user.email).subscribe(
        res => {
          if (res === null){
-            console.log('invalid username or password');
             this.invalidCredentials = true;
          }else if ('password' in res && res.password !== this.user.password){
-           console.log('invalid password');
            this.invalidCredentials = true;
          }else if (res && 'password' in res && res.password === this.user.password){
           console.log(res);
@@ -55,7 +53,7 @@ export class SignInComponent implements OnInit {
     // this.store.dispatch(addUser({user: data}));
   onChangeEmail(event): void {
     this.emailInput = event.target.value;
-    this.user.username = this.emailInput;
+    this.user.email = this.emailInput;
   }
   onChangePassword(event): void {
     this.passwordInput = event.target.value;

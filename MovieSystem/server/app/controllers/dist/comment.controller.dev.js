@@ -90,6 +90,7 @@ router.post('/Comments', function _callee3(req, res) {
         case 0:
           comment = new Comment({
             username: req.body.username,
+            userId: req.body.userId,
             image: req.body.image,
             description: req.body.description,
             date: req.body.date,

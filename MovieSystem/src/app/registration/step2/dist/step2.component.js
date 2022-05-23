@@ -14,7 +14,7 @@ var Step2Component = /** @class */ (function () {
         this.store = store;
         this.data = { username: '', password: '', repeatPassword: '' };
         this.user = { username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
-            birthdate: '' };
+            birthdate: '', friends: [] };
         this.validation = { username: true, password: true, repeatPassword: true };
         this.genres = [
             'Action',
@@ -48,6 +48,7 @@ var Step2Component = /** @class */ (function () {
         };
         this.favoriteGenres = [];
         this.durationInSeconds = 5;
+        this.showAlert = false;
         this.imageUrl = '';
         this.verticalPosition = 'top';
         this.statusCode = true;
@@ -142,7 +143,7 @@ var Step2Component = /** @class */ (function () {
                     localStorage.setItem('user', JSON.stringify(_this.user));
                 }
                 else {
-                    alert('Account with this email already exists!');
+                    _this.showAlert = true;
                 }
             });
             // POST REQUEST TO THE BACKEND HERE
@@ -156,6 +157,9 @@ var Step2Component = /** @class */ (function () {
     Step2Component.prototype.goBack = function (stepper) {
         //  this.step --;
         stepper.previous();
+    };
+    Step2Component.prototype.close = function () {
+        this.showAlert = false;
     };
     Step2Component.prototype.ngOnInit = function () {
     };

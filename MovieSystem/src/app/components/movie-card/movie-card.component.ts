@@ -22,10 +22,14 @@ export class MovieCardComponent implements OnInit {
   rates: Array<string>;
   navigationUrl: string;
   userId: string;
+  userRole: string;
   showCollectionBtn: boolean;
   constructor(private router: Router, private movieService: MovieService, private collectionService: CollectionService,
-              private modalService: NgbModal) {
-    this.userId = JSON.parse(localStorage.getItem('user'))._id;
+              private modalService: NgbModal, private deleteModal: NgbModal) {
+    if (JSON.parse(localStorage.getItem('user'))){
+      this.userId = JSON.parse(localStorage.getItem('user'))._id;
+      this.userRole = JSON.parse(localStorage.getItem('user')).role;
+    }
     this.showButtons = false;
     this.rates = ['5', '4', '3', '2', '1'];
     this.collectionService.getAllForUser(this.userId).subscribe(
@@ -37,7 +41,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   hideCardButtons(event): void{
-        this.showButtons = false;
+    this.showButtons = false;
   }
 
   showCardButtons(event): void{
@@ -47,18 +51,20 @@ export class MovieCardComponent implements OnInit {
   openMovieScreen(): void {
      localStorage.setItem('movieId', this.movie._id);
      this.navigationUrl = `/movie/${this.movie._id}`;
-    //  this.router.navigate([`/movie/${this.movie._id}`]);
   }
 
   ngOnInit(): void {
-     console.log(this.movie.image);
      this.editedMovie = {image: this.movie.image, titleEn: this.movie.titleEn, titleBg: this.movie.titleBg, year: this.movie.year,
                          trailer: this.movie.trailer, country: this.movie.country, description: this.movie.description,
                          genre: this.movie.genre, producer: this.movie.producer, _id: this.movie._id, userId: this.movie.userId};
      if ('userId' in this.movie){
-      this.showEdit = (this.userId === this.movie.userId);
+      this.showEdit = (this.userId === this.movie.userId) || this.userRole === 'admin';
     }else{
-      this.showEdit = false;
+      if (this.userRole){
+      this.showEdit = this.userRole === 'admin';
+      }else{
+        this.showEdit = false;
+      }
     }
   }
 
@@ -66,8 +72,21 @@ export class MovieCardComponent implements OnInit {
     this.showRatingList = !this.showRatingList;
   }
 
+  showRegistrationMessage(): void {
+    this.showRatingList = true;
+  }
+
+  closeRegistrationMessage(e: Event): void {
+    e.preventDefault();
+    e.stopPropagation();
+    this.showRatingList = false;
+  }
+
   rating(rate: string): void {
-     const userId = JSON.parse(localStorage.getItem('user'))._id;
+     let userId;
+     if (JSON.parse(localStorage.getItem('user'))){
+       userId = JSON.parse(localStorage.getItem('user'))._id;
+     }
      this.movieService.rateMovie(this.movie._id, rate, userId).subscribe({});
      this.openRatingList();
     //  setTimeout( () => {
@@ -80,6 +99,9 @@ export class MovieCardComponent implements OnInit {
       this.movie.image, this.movie.year, this.movie._id).subscribe();
   }
 
+  openDeleteModal(deleteMod): void {
+    this.deleteModal.open(deleteMod, {backdropClass: 'light-blue-backdrop'});
+  }
   deleteMovie(): void {
     this.movieService.removeMovie(this.movie).subscribe();
     window.location.reload();

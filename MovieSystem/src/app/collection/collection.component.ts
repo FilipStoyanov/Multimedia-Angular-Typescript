@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CollectionService } from '../services/collection.service';
 import { Movie } from '../services/movie.service';
+import { Preference, PreferenceService } from '../services/preference.service';
+import { UserData } from '../registration/registration.component';
 
 
 export interface Collection {
@@ -32,10 +34,23 @@ export class CollectionComponent implements OnInit {
   userCollections: Collection [] = [];
   userId: string;
   movieUrl: string;
-
-  constructor(private collectionService: CollectionService) {
+  user: UserData;
+  friends: Array<string>;
+  showSendAlert: boolean;
+  showSendIcon: string;
+  constructor(private collectionService: CollectionService, private preferenceService: PreferenceService) {
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.movieUrl = '/movie/';
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.friends = [];
+    if (localStorage.getItem('show')){
+      this.showSendIcon = localStorage.getItem('show');
+    }else{
+      this.showSendIcon = 'true';
+    }
+    for (const  fr of this.user.friends){
+       this.friends.push(fr.id);
+    }
     this.collectionService.getAllForUser(this.userId).subscribe(
       result => {
         this.userCollections = (result as any);
@@ -44,8 +59,21 @@ export class CollectionComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  sendCollection(collection: Collection, event: Event): void {
+    event.stopPropagation();
+    const preference: Preference = {senderId: this.user._id, senderUsername: this.user.username, movies: collection.movies,
+    receivers: this.friends };
+    this.preferenceService.addPreference(preference).subscribe({});
+    this.showSendAlert = true;
+    setTimeout( () => {
+      this.showSendAlert = false;
+    }, 3000);
+    localStorage.setItem('show', 'false');
+    this.showSendIcon = 'false';
+
+  }
   removeCollection(collection: Collection, event: any): void {
-    event.preventDefault();
+    event.stopPropagation();
     this.collectionService.removeCollection(collection._id).subscribe();
     window.location.reload();
   }

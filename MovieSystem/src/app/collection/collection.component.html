@@ -4,6 +4,11 @@
     with your friends.</p>
   <app-add-collection></app-add-collection>
   <div *ngFor="let collection of userCollections" class="row">
+    <p *ngIf="showSendAlert" class="alert col-10 text-center my-2 mx-auto">
+      <ngb-alert type="success">
+        <strong>Warning!</strong> Added successfully
+      </ngb-alert>
+    </p>
     <mat-accordion class="col-10 mx-auto my-4">
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
@@ -11,7 +16,10 @@
             {{collection.name}}
           </mat-panel-title>
           <mat-panel-description>
-            <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon" (click) = "removeCollection(collection, $event)">
+            <button *ngIf="showSendIcon === 'true'" class="btn-send" mat-icon color="accent" aria-label="Example icon button with a send icon" (click)="sendCollection(collection, $event)">
+              <mat-icon>send</mat-icon>
+            </button>
+            <button class="btn" mat-icon color="accent" aria-label="Example icon button with a delete icon" (click) = "removeCollection(collection, $event)">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-panel-description>

@@ -12,7 +12,7 @@ export class Step3Component implements OnInit {
   constructor(private router: Router)  {}
 
   goToHome(): void {
-     this.router.navigate([`/`]).then(() => window.location.reload());
+     this.router.navigate(['']).then(() => window.location.reload());
   }
   ngOnInit(): void {
     setTimeout(() => {

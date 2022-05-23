@@ -2,37 +2,18 @@ import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, OnDestroy }
 import {UserService} from '../services/user.service';
 import { UserData } from '../registration/registration.component';
 import { Router } from '@angular/router';
+import { EventManager } from '@angular/platform-browser';
 
-export class User implements UserData {
-   firstname: string;
-   lastname: string;
-   email: string;
-   username: string;
-   password: string;
-   role?: string;
-   birthdate?: string;
-   image?: string | ArrayBuffer;
-   repeatPassword?: string;
-   id?: string;
-   friends?: Array<string>;
-   constructor(user: UserData){
-     this.firstname = user.firstname;
-     this.lastname = user.lastname;
-     this.email = user.email;
-     this.username = user.username;
-     this.password = user.password;
-     this.friends = user.friends;
-     this.image = user.image;
-     this.role = user.role;
-     this.birthdate = user.birthdate;
-     this.id = user._id;
-   }
+export interface Friend {
+  username: string;
+  id: string;
 }
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.scss']
 })
+
 export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
 
   users: UserData[];
@@ -43,30 +24,55 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   searchValue: string;
   searchValueFriend: string;
   filteredUser: UserData [];
-  friendsUsername: Array<string>;
+  friendsUsername: Array<Friend>;
   friends: UserData[];
   filteredFriends: UserData[];
   username: string;
   showAddAlert: boolean;
   showRemoveAlert: boolean;
+  navigationUrl: string;
+  navUrl: string;
+  role: string;
+  friendIds: Array<string>;
+  friendNames: Array<string>;
+
 
   @ViewChild('friendInput') friendInput: ElementRef;
   @ViewChild('userInput') userInput: ElementRef;
   constructor(private userService: UserService, private router: Router) {
       this.filteredFriends = [];
+      this.friendIds = [];
+      this.friendNames = [];
+      this.friendsUsername = [];
       this.showAddAlert = false;
       this.showRemoveAlert = false;
       if (localStorage.getItem('user')){
-        this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+        const us: UserData = JSON.parse(localStorage.getItem('user'));
+        if ('friends' in us){
+          this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+        }
+        for (const u of this.friendsUsername){
+         this.friendIds.push(u.id);
+         this.friendNames.push(u.username);
+        }
       }
+
       this.userService.getUsers().subscribe(data => {
         this.users = (data as any).data;
-        this.filteredUser = (data as any).data.filter(user => this.friendsUsername.indexOf(user.username) === -1);
+        this.filteredUser = [...(data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
+        && user.id !== JSON.parse(localStorage.getItem('user'))._id)];
         this.friends = (data as any).data;
-        this.filteredFriends = (data as any).data.filter(user => this.friendsUsername.indexOf(user.username) > -1);
+        // tslint:disable-next-line:max-line-length
+        this.filteredFriends = [...(data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
+        && user.id !== JSON.parse(localStorage.getItem('user'))._id)];
       });
-      this.username = JSON.parse(localStorage.getItem('user')).username;
+
+      if (JSON.parse(localStorage.getItem('user'))){
+        this.username = JSON.parse(localStorage.getItem('user')).username;
+        this.role = JSON.parse(localStorage.getItem('user')).role;
+      }
       this.searchValue = '';
+      this.navUrl = '/user/';
   }
 
   ngOnInit(): void {
@@ -76,32 +82,36 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.filteredFriends = [];
-    this.filteredUser = [];
+    this.filteredFriends = null;
+    this.filteredUser = null;
   }
 
-  routeToUserProfile(e): void {
-    this.userName = e.currentTarget.name;
+  routeToUserProfile(friend: UserData, event: Event): void {
+    this.navigationUrl = `/user/${friend._id}`;
+    this.userName = friend._id;
     localStorage.setItem('userName', this.userName);
-    this.userId = e.currentTarget.id;
-    this.router.navigate([`/user/${this.userId}`]);
+    this.userId = friend._id;
   }
   filterUsers(event): void{
     this.searchValue = event.target.value;
     if (this.searchValue === ''){
-      this.filteredUser = this.users.filter(user => this.friendsUsername.indexOf(user.username) === -1);
+      this.filteredUser = this.users.filter(user => this.friendIds.indexOf(user._id) === -1);
     }else{
-      this.filteredUser = this.filteredUser.filter(user => user.username.indexOf(this.searchValue) > -1);
+      this.filteredUser = this.users.filter(user => this.friendIds.indexOf(user._id) === -1
+      && user._id !== JSON.parse(localStorage.getItem('user'))._id
+      && user.username.toLowerCase().indexOf(this.searchValue.toLowerCase()) > -1);
     }
     this.notFoundUser = (this.filteredUser.length === 0);
   }
   filterFriends(event): void {
     this.searchValueFriend = event.target.value;
     if (this.searchValueFriend === ''){
-      this.filteredFriends = [...this.users.filter(user => this.friendsUsername.indexOf(user.username) > -1)];
+      this.filteredFriends = [...this.users.filter(user => this.friendIds.indexOf(user._id) > -1
+       && user._id !== JSON.parse(localStorage.getItem('user'))._id)];
     }else{
-      this.filteredFriends = [...this.users.filter(user => this.friendsUsername.indexOf(user.username) > -1
-      && user.username.indexOf(this.searchValueFriend) > -1) ];
+      this.filteredFriends = [...this.users.filter(user => this.friendIds.indexOf(user._id) > -1
+      && user._id !== JSON.parse(localStorage.getItem('user'))._id
+      && user.username.toLowerCase().indexOf(this.searchValueFriend.toLowerCase()) > -1) ];
     }
     if (this.searchValueFriend.length > 0){
       this.notFoundFriend = (this.filteredFriends.length === 0);
@@ -110,26 +120,33 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  removeFriend(friend: UserData, event): void {
-     event.stopPropagation();
+  removeFriend(friend: UserData, event: Event): void {
+     event.preventDefault();
+     const fr: Friend = {username: friend.username, id: friend._id};
      const user: UserData = JSON.parse(localStorage.getItem('user'));
-     this.userService.addFriend(user.username, friend.username).subscribe();
-     const ind = user.friends.indexOf(friend.username);
-     if (ind > -1){
-         user.friends.splice(ind, 1);
-         localStorage.setItem('user', JSON.stringify(user));
-         window.location.reload();
+     this.userService.addFriend(user._id, fr).subscribe();
+     let indFriends = -1;
+     user.friends.forEach( (u, i) => {
+       if (u.id === fr.id){
+           indFriends = i;
+       }
+     });
+     if (indFriends > -1){
+       this.filteredFriends.splice(indFriends, 1);
+       user.friends.splice(indFriends, 1);
+       localStorage.setItem('user', JSON.stringify(user));
      }
   }
-  addFriend(friend: UserData, event): void {
-    event.stopImmediatePropagation();
+  addFriend(friend: UserData, event: Event): void {
+    event.preventDefault();
     this.filteredFriends = [];
+    const fr: Friend = {username: friend.username, id:  friend._id};
     const user: UserData = JSON.parse(localStorage.getItem('user'));
-    this.userService.addFriend(user.username, friend.username).subscribe(
+    this.userService.addFriend(user._id, fr).subscribe(
     );
-    const ind = user.friends.indexOf(friend.username);
+    const ind = this.friendIds.indexOf(fr.id);
     if (ind === -1){
-      user.friends.push(friend.username);
+      user.friends.push(fr);
       localStorage.setItem('user', JSON.stringify(user));
     }
     this.showAddAlert = true;
@@ -137,21 +154,45 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.showAddAlert = false;
     }, 3000);
  }
- onTabChanged(event): void {
-  this.friendInput.nativeElement.value = '';
-  this.userInput.nativeElement.value = '';
-  if (localStorage.getItem('user')){
-    this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
-  }
-  this.userService.getUsers().subscribe(data => {
-    this.users = (data as any).data;
-    this.filteredUser = (data as any).data.filter(user => this.friendsUsername.indexOf(user.username) === -1);
-    this.friends = (data as any).data;
-    this.filteredFriends = (data as any).data.filter(user => this.friendsUsername.indexOf(user.username) > -1);
-  });
-  console.log(this.filteredFriends);
-  this.username = JSON.parse(localStorage.getItem('user')).username;
-  this.searchValue = '';
+ onTabChanged(event: Event): void {
+  this.filteredFriends = [];
+  this.friendIds = [];
+  this.friendNames = [];
+  this.friendsUsername = [];
+  // this.friendInput.nativeElement.value = '';
+  // this.userInput.nativeElement.value = '';
+  // this.friendIds = [];
+  // this.friendNames = [];
+  // this.friendsUsername = [];
+  // if (localStorage.getItem('user')){
+  //   const us: UserData = JSON.parse(localStorage.getItem('user'));
+  //   if ('friends' in us){
+  //     this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
+  //   }
+  //   for (const u of this.friendsUsername){
+  //     this.friendIds.push(u.id);
+  //     this.friendNames.push(u.username);
+  //    }
+  // }
+  // this.userService.getUsers().subscribe(data => {
+  //   this.users = (data as any).data;
+  //   this.filteredUser = (data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
+  //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
+  //   this.friends = (data as any).data;
+  //   this.filteredFriends = (data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
+  //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
+  // });
+  // this.username = JSON.parse(localStorage.getItem('user')).username;
+  // this.searchValue = '';
+ }
+
+ removeUser(user: UserData, event: Event): void {
+   event.preventDefault();
+   const ind = this.filteredUser.indexOf(user);
+   if (ind > -1){
+      this.filteredUser.splice(ind, 1);
+   }
+   this.userService.deleteUser(user).subscribe({});
  }
 
 }

@@ -4,7 +4,7 @@
       <h1 class="tab__title">Friends</h1>
       <input class="input" placeholder="Search user by username" (keyup)="filterFriends($event)" #friendInput />
       <mat-list role="list" #friends}>
-        <a *ngFor="let friend of filteredFriends" (click)="routeToUserProfile($event)" id={{friend._id}}
+        <a *ngFor="let friend of filteredFriends" [routerLink] = "navigationUrl" (click)="routeToUserProfile(friend)" id={{friend._id}}
           name={{friend.username}}>
           <mat-list-item class="list__item row" role="listitem" *ngFor="let friend of filteredFriends" id={{friend._id}}
           name={{friend.username}}>
@@ -16,7 +16,7 @@
               <span>Collections</span>
             </div>
             <div class="list__buttons col-3 justify-content-end">
-              <button (click)="routeToUserProfile($event)" class="btn" mat-icon color="accent"
+              <button (click)="routeToUserProfile(friend, $event)" class="btn" mat-icon color="accent"
                 aria-label="Example icon button with a bookmark icon">
                 See more
               </button>
@@ -26,7 +26,7 @@
               <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>chat bubble outline icon</mat-icon>
               </button>
-              <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+              <button  *ngIf="role === 'admin'" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
@@ -39,8 +39,8 @@
       <h1 class="tab__title">Users</h1>
       <input class="input" placeholder="Search user by username" (keyup)="filterUsers($event)" #userInput />
       <mat-list role="list" #users>
-        <a *ngFor="let user of filteredUser" (click)="routeToUserProfile($event)" id={{user._id}}
-          name={{user.username}}>
+        <a *ngFor="let user of filteredUser" [routerLink] = "navigationUrl" (click)="routeToUserProfile(user)" id={{user._id}}
+          name={{user._id}}>
           <mat-list-item class="list__item row" role="listitem">
             <div class="col-3 px-2">
               <img class="list__image" src="https://i.ytimg.com/vi/8WXp6UutPgE/maxresdefault.jpg" alt="user image" />
@@ -50,14 +50,14 @@
               <span>Collections</span>
             </div>
             <div class="list__buttons col-3 justify-content-end">
-              <button (click)="routeToUserProfile($event)" class="btn" mat-icon color="accent"
+              <button (click)="routeToUserProfile(user, $event)" class="btn" mat-icon color="accent"
                 aria-label="Example icon button with a bookmark icon">
                 See more
               </button>
               <button (click) = "addFriend(user,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>add</mat-icon>
               </button>
-              <button class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+              <button type="button" *ngIf="role === 'admin'" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon" (click)="removeUser(user, $event)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

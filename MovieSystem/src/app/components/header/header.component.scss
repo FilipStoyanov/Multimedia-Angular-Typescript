@@ -36,6 +36,29 @@
   color: #ffffff;
 }
 
+.notification {
+  display: flex;
+}
+
+.notification-btn {
+  border: none;
+  background-color: white;
+  color: $default-button-color;
+  margin: 7.5px 10px 0 0;
+}
+
+.notification-title {
+  font-size: $font-size-25;
+  text-decoration: underline;
+  color: $default-button-color;
+  padding-left: 10px;
+}
+
+.dropdown-item {
+  color: $default-button-color;
+  margin: 10px 0;
+}
+
 
 @media (max-width: 992px) {
   .mobile-center {

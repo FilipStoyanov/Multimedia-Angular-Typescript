@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { UserData } from '../registration/registration.component';
+import { Friend } from '../friends/friends.component';
 
 const baseURL = 'http://localhost:8080/api/users';
 @Injectable({
@@ -23,14 +24,14 @@ export class UserService {
     return this.http.get<UserData>(baseURL + `/${username}`);
   }
   getUserByEmail(email: string): Observable<UserData>{
-    return this.http.get<UserData>(baseURL + `/${email}`);
+    return this.http.get<UserData>(baseURL + `/${email}/1`);
   }
   editUser(username: string, editedUser: UserData): Observable<UserData>{
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(editedUser);
     return this.http.patch<UserData>(baseURL + `/${username}`, body, {headers});
   }
-  addFriend(username: string, friendName: string): Observable<UserData>{
+  addFriend(id: string, friendName: Friend): Observable<UserData>{
     this.user = JSON.parse(localStorage.getItem('user'));
     const findIndex = this.user.friends.indexOf(friendName);
     if (findIndex === -1){
@@ -40,8 +41,12 @@ export class UserService {
     }
     localStorage.setItem('user', JSON.stringify(this.user));
     const headers = { 'content-type': 'application/json'};
-    const body = JSON.stringify({friend: friendName});
+    const body = JSON.stringify({friends: friendName});
 
-    return this.http.put<UserData>(baseURL + `/${username}`, body, {headers});
+    return this.http.put<UserData>(baseURL + `/${id}`, body, {headers});
+  }
+
+  deleteUser(user: UserData): Observable<UserData> {
+    return this.http.delete<UserData>(baseURL + `/${user._id}`);
   }
 }

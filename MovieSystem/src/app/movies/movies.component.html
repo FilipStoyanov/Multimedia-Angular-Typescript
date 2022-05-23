@@ -6,77 +6,7 @@
         <app-sort-button [btn] = "btn2" (btnEmitter) = "onClick($event)"></app-sort-button>
         <app-sort-button [btn] = "btn3" (btnEmitter) = "onClick($event)"></app-sort-button>
         <app-sort-button [btn] = "btn4" (btnEmitter) = "onClick($event)"></app-sort-button>
-        <button  class="movies__btn my-2 mx-5 px-2" type="button" (click) = "openMovieModal(content)">+ add movie</button>
-        <ng-template #content let-modal style="z-index: 1056" class="px-2">
-          <div class="modal-header">
-            <h4 class="modal-title"> Add new movie</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-          </div>
-          <form class="collection">
-            <div class="form-group px-3 pt-3">
-              <p>Add image</p>
-              <mat-tab-group>
-                <mat-tab label="Add file">
-                  <p>Add image from your filesystem </p>
-                  <button class="upload" (click)="onBtnClick()">
-                    <input class="upload__input" accept ="image/*" type="file" name="movieImage" id="movieImage" (change) = "readUrl($event);" />
-                    <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="addMovie.image ? 'none' : 'upload__icon'" />
-                    <img [ngClass]="addMovie.image ? 'upload__image' : 'none'" [src] ="addMovie.image" alt="Your Profile image" />
-                    <div [ngClass]="addMovie.image ? 'upload__mask' : 'none'">
-                      <img [ngClass]="addMovie.image? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
-                    </div>
-                  </button>
-                </mat-tab>
-                <mat-tab label="Add URL">
-                  <div class="form-group px-3 pt-3">
-                    <label for="email"> Add URL to the movie image </label>
-                    <input (keyup) = "onChangeImage($event)" value="{{imageUrl}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type image URL">
-                  </div>
-                </mat-tab>
-              </mat-tab-group>
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Name of the movie (EN) </label>
-              <input (keyup) = "onChangeNameEN($event)" value="{{nameENInput}}" type="email" class="form-control" id="nameEn" aria-describedby="nameHelp" placeholder="Type movie's name (EN)" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Name of the movie (BG) </label>
-              <input (keyup) = "onChangeNameBG($event)" value="{{nameBGInput}}" type="email" class="form-control" id="nameBg" aria-describedby="nameHelp" placeholder="Type movie's name (BG)" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Trailer (add URL) </label>
-              <input (keyup) = "onChangeTrailer($event)" value="{{trailerInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Add trailer URL" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Description </label>
-              <textarea class="comment-input col-12" type="text" placeholder = "Write description ...." (keyup)="onChangeDescription($event)"></textarea>
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Release Year  </label>
-              <input (keyup) = "onChangeYear($event)" value="{{yearInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type release date" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Directed by </label>
-              <input (keyup) = "onChangeDirector($event)" value="{{directorInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type director" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Genre </label>
-              <input (keyup) = "onChangeGenre($event)" value="{{genreInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type genre" required >
-            </div>
-            <div class="form-group px-3 pt-3">
-              <label for="email"> Country </label>
-              <input (keyup) = "onChangeCountry($event)" value="{{countryInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type country" required >
-            </div>
-            <!-- <div class="form-group px-3 pt-3">
-              <mat-select-country></mat-select-country>
-            </div> -->
-            <!-- select with countries -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-              <button type="button" class="btn btn-primary form__button" (click) = "createMovie(); modal.close('Close click')">Send</button>
-            </div>
-          </form>
-        </ng-template>
+        <button *ngIf="addMovie.userId" class="movies__btn my-2 mx-5 px-2" type="button" (click) = "openMovieModal(content)">+ add movie</button>
       </div>
     </div>
   <app-accordion (changeFilterValues)="onFilterChange($event)" [accordionConfig]="filterAccordion"></app-accordion>
@@ -89,7 +19,7 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Your movies">
+    <mat-tab *ngIf="addMovie.userId" label="Your movies">
       <p class="tab-title ml-5 mt-5"> Your movies </p>
       <div class="row mb-5">
         <div *ngFor="let film of userMovies" class="col-xl-3 col-lg-4 col-xs-12 col-md-6 mt-5 justify-content-center">
@@ -99,3 +29,75 @@
     </mat-tab>
   </mat-tab-group>
 </section>
+
+
+<ng-template #content let-modal class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title"> Add new movie</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form class="collection">
+    <div class="form-group px-3 pt-3">
+      <p>Add image</p>
+      <mat-tab-group>
+        <mat-tab label="Add file">
+          <p>Add image from your filesystem </p>
+          <button class="upload" (click)="onBtnClick()">
+            <input class="upload__input" accept ="image/*" type="file" name="movieImage" id="movieImage" (change) = "readUrl($event);" />
+            <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="addMovie.image ? 'none' : 'upload__icon'" />
+            <img [ngClass]="addMovie.image ? 'upload__image' : 'none'" [src] ="addMovie.image" alt="Your Profile image" />
+            <div [ngClass]="addMovie.image ? 'upload__mask' : 'none'">
+              <img [ngClass]="addMovie.image? 'upload__close' : 'none'" src="../../assets/icons/close.svg" alt="close icon" />
+            </div>
+          </button>
+        </mat-tab>
+        <mat-tab label="Add URL">
+          <div class="form-group px-3 pt-3">
+            <label for="email"> Add URL to the movie image </label>
+            <input (keyup) = "onChangeImage($event)" value="{{imageUrl}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type image URL">
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Name of the movie (EN) </label>
+      <input (keyup) = "onChangeNameEN($event)" value="{{nameENInput}}" type="email" class="form-control" id="nameEn" aria-describedby="nameHelp" placeholder="Type movie's name (EN)" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Name of the movie (BG) </label>
+      <input (keyup) = "onChangeNameBG($event)" value="{{nameBGInput}}" type="email" class="form-control" id="nameBg" aria-describedby="nameHelp" placeholder="Type movie's name (BG)" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Trailer (add URL) </label>
+      <input (keyup) = "onChangeTrailer($event)" value="{{trailerInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Add trailer URL" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Description </label>
+      <textarea class="comment-input col-12" type="text" placeholder = "Write description ...." (keyup)="onChangeDescription($event)"></textarea>
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Release Year  </label>
+      <input (keyup) = "onChangeYear($event)" value="{{yearInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type release date" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Directed by </label>
+      <input (keyup) = "onChangeDirector($event)" value="{{directorInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type director" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Genre </label>
+      <input (keyup) = "onChangeGenre($event)" value="{{genreInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type genre" required >
+    </div>
+    <div class="form-group px-3 pt-3">
+      <label for="email"> Country </label>
+      <input (keyup) = "onChangeCountry($event)" value="{{countryInput}}" type="email" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Type country" required >
+    </div>
+    <!-- <div class="form-group px-3 pt-3">
+      <mat-select-country></mat-select-country>
+    </div> -->
+    <!-- select with countries -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary form__button" (click) = "createMovie(); modal.close('Close click')">Send</button>
+    </div>
+  </form>
+</ng-template>

@@ -7,12 +7,6 @@ router.param('email', function(req, res, next, email) {
     req.email = modified;
     next();
 });
-router.param('username', function(req, res, next, username) {
-  const modified = username;
-
-  req.username = modified;
-  next();
-});
 router.param('id', function(req,res,next, id){
   const modified = id;
   req.id = modified;
@@ -54,7 +48,7 @@ router.post('/Users', async (req,res) => {
      birthdate: req.body.birthdate,
      username: req.body.username,
      password: req.body.password,
-     role: 'user',
+     role: req.body.role || 'user',
      id: ''
   })
   try{
@@ -73,48 +67,51 @@ router.post('/Users', async (req,res) => {
 })
 
 
-router.get('/Users/:username', async (req,res) => {
+router.get('/Users/:id', async (req,res) => {
   try{
-      const user = await User.findOne({username: req.params.username});
+      let user = await User.findById(req.params.id);
       res.send(user);
   }catch(error){
     res.status(500).json({message: error.message})
   }
 })
 
-
-router.get('/Users/:_id', async (req,res) => {
+router.get('/Users/:email/:description', async (req,res) => {
   try{
-    const user = await User.findOne({_id: req.params._id});
-    res.send(user);
+      let user = await User.findOne({email: req.params.email});
+      res.send(user);
   }catch(error){
     res.status(500).json({message: error.message})
   }
 })
 
-router.put('/Users/:username', async (req,res) => {
+router.put('/Users/:id', async (req,res) => {
   try{
-    const updateUser = await User.findOne({username:req.params.username});
+    const updateUser = await User.findOne({_id: req.params.id});
     let newFriends = [...updateUser.friends];
+    let friendIds = [];
+    for (const friend of updateUser.friends){
+        friendIds.push(friend.id);
+    }
+    console.log(friendIds);
     if(updateUser.friends){
-      if(updateUser.friends.indexOf(req.body.friend) === -1){
-        newFriends.push(req.body.friend);
+      if(friendIds.indexOf(req.body.friends.id) === -1){
+        newFriends.push(req.body.friends);
       }else{
-        let index = updateUser.friends.indexOf(req.body.friends);
+        let index = friendIds.indexOf(req.body.friends.id);
         updateUser.friends.splice(index,1);
         newFriends = [...updateUser.friends];
-
       }
     }else{
       newFriends = [...updateUser.friends];
     }
-    await User.updateOne({username: req.params.username}, {friends: [...newFriends]});
+    await User.updateOne({_id: req.params.id}, {friends: [...newFriends]});
   }catch(error){
     res.status(500).json({message: error.message});
   }
 })
 
-router.patch('/Users/:username', async (req,res) => {
+router.patch('/Users/:id', async (req,res) => {
   try{
     const body = {
       username: req.body.username,
@@ -124,9 +121,19 @@ router.patch('/Users/:username', async (req,res) => {
       password: req.body.password,
       birthdate: req.body.birthdate,
     };
-  await User.updateOne({username: req.params.username}, body);
+  await User.updateOne({username: req.params.id}, body);
   }catch(error){
    res.status(500).json({message: error.message});
   }
 })
+
+router.delete('/Users/:id', async (req,res) => {
+  try{
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json();
+  }catch(err){
+    res.status(400).json({message: err.message});
+  }
+});
+
 module.exports = router;

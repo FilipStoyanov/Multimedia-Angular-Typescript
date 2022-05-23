@@ -37,10 +37,11 @@ export class Step2Component implements OnInit, DoCheck {
   private statusCode: boolean;
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
   private user: UserData = {username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
-  birthdate: ''};
+  birthdate: '', friends: []};
   public validation = { username: true, password: true, repeatPassword: true };
   showWarning: boolean;
   public imageUrl: string | ArrayBuffer;
+  public showAlert: boolean;
   genres = [
     'Action',
     'Comedy',
@@ -173,7 +174,7 @@ export class Step2Component implements OnInit, DoCheck {
               stepper.next();
               localStorage.setItem('user', JSON.stringify(this.user));
             }else {
-              alert('Account with this email already exists!');
+              this.showAlert = true;
             }
           }
         );
@@ -190,9 +191,14 @@ export class Step2Component implements OnInit, DoCheck {
     //  this.step --;
      stepper.previous();
   }
+  close(): void {
+    this.showAlert = false;
+  }
+
 
 
   constructor(private userService: UserService, private store: Store<{user: UserData}>) {
+    this.showAlert = false;
     this.imageUrl = '';
     this.verticalPosition = 'top';
     this.statusCode = true;

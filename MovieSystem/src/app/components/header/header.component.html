@@ -25,26 +25,19 @@
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a [routerLinkActive]="['active']" [routerLink]="links[0]" class="nav-link">Home</a>
+          <a routerLinkActive='active' [routerLink]="links[0]" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-          <a [routerLinkActive]="['active']" [routerLink]="links[1]" class="nav-link">Movies</a>
+          <a routerLinkActive='active' [routerLink]="links[1]" class="nav-link">Movies</a>
         </li>
         <li class="nav-item">
-          <a [routerLinkActive]="['active']" [routerLink]="links[2]" class="nav-link">Movies Collection</a>
+          <a routerLinkActive='active' [routerLink]="links[2]" class="nav-link">Movies Collection</a>
         </li>
         <li class="nav-item">
-          <a [routerLinkActive]="['active']" [routerLink]="links[3]" class="nav-link">Reviewed Movies</a>
+          <a routerLinkActive='active' [routerLink]="links[3]" class="nav-link">Friend Collections</a>
         </li>
-        <li class="nav-item login">
+        <li *ngIf="!userData.username" class="nav-item login">
           <app-sign-in></app-sign-in>
-        </li>
-        <li class="nav-item ml-lg-5">
-          <form class="form-inline waves-light" mdbWavesEffect>
-            <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            </div>
-          </form>
         </li>
       </ul>
       <!-- Left links -->
@@ -55,7 +48,7 @@
     <div class="d-flex align-items-center">
       <!-- Icon -->
       <!-- Notifications -->
-      <div *ngIf="userData" class="dropdown">
+      <div *ngIf="userData.username && notifications.length > 0" class="dropdown">
         <a
           class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"
@@ -65,21 +58,23 @@
           aria-expanded="false"
         >
           <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+          <span *ngIf="notSeenNotifications.length > 0" class="badge rounded-pill badge-notification bg-danger">{{notSeenNotifications.length}}</span>
         </a>
         <ul
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li>
-            <a class="dropdown-item" href="#">Profile</a>
+          *ngIf="notifications.length > 0">
+          <p class="notification-title">Notifications</p>
+          <li *ngFor="let notification of notifications" class="notification">
+            <a class="dropdown-item" (click) = "readNotification(notification)" [routerLink]='"/movie/" + notification.movieId' notification.movieId>User {{notification.senderUsername}} review your movie.
+            See review <span><u>here</u></span></a>
+            <button type="button" class="notification-btn" (click)="removeNotification(notification)"><mat-icon>close</mat-icon></button>
           </li>
         </ul>
       </div>
       <!-- Avatar -->
-      <div class="dropdown">
+      <div class="dropdown" *ngIf="userData.username">
         <a
-          *ngIf="userData"
           class="dropdown-toggle d-flex align-items-center hidden-arrow color-white"
           href="#"
           id="navbarDropdownMenuAvatar"
@@ -89,7 +84,6 @@
         >
         Hello, <span>{{userData.username}}</span><img [src]="imageData ? imageData : '../../../assets/icons/profile-icon-png-898.png'" alt="profile Image" class="img-fluid rounded-circle z-depth-0 profile__image"></a>
         <ul
-
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuAvatar"
         >

@@ -9,13 +9,17 @@ exports.__esModule = true;
 exports.MovieCardComponent = void 0;
 var core_1 = require("@angular/core");
 var MovieCardComponent = /** @class */ (function () {
-    function MovieCardComponent(router, movieService, collectionService, modalService) {
+    function MovieCardComponent(router, movieService, collectionService, modalService, deleteModal) {
         var _this = this;
         this.router = router;
         this.movieService = movieService;
         this.collectionService = collectionService;
         this.modalService = modalService;
-        this.userId = JSON.parse(localStorage.getItem('user'))._id;
+        this.deleteModal = deleteModal;
+        if (JSON.parse(localStorage.getItem('user'))) {
+            this.userId = JSON.parse(localStorage.getItem('user'))._id;
+            this.userRole = JSON.parse(localStorage.getItem('user')).role;
+        }
         this.showButtons = false;
         this.rates = ['5', '4', '3', '2', '1'];
         this.collectionService.getAllForUser(this.userId).subscribe(function (res) {
@@ -32,25 +36,39 @@ var MovieCardComponent = /** @class */ (function () {
     MovieCardComponent.prototype.openMovieScreen = function () {
         localStorage.setItem('movieId', this.movie._id);
         this.navigationUrl = "/movie/" + this.movie._id;
-        //  this.router.navigate([`/movie/${this.movie._id}`]);
     };
     MovieCardComponent.prototype.ngOnInit = function () {
-        console.log(this.movie.image);
         this.editedMovie = { image: this.movie.image, titleEn: this.movie.titleEn, titleBg: this.movie.titleBg, year: this.movie.year,
             trailer: this.movie.trailer, country: this.movie.country, description: this.movie.description,
             genre: this.movie.genre, producer: this.movie.producer, _id: this.movie._id, userId: this.movie.userId };
         if ('userId' in this.movie) {
-            this.showEdit = (this.userId === this.movie.userId);
+            this.showEdit = (this.userId === this.movie.userId) || this.userRole === 'admin';
         }
         else {
-            this.showEdit = false;
+            if (this.userRole) {
+                this.showEdit = this.userRole === 'admin';
+            }
+            else {
+                this.showEdit = false;
+            }
         }
     };
     MovieCardComponent.prototype.openRatingList = function () {
         this.showRatingList = !this.showRatingList;
     };
+    MovieCardComponent.prototype.showRegistrationMessage = function () {
+        this.showRatingList = true;
+    };
+    MovieCardComponent.prototype.closeRegistrationMessage = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.showRatingList = false;
+    };
     MovieCardComponent.prototype.rating = function (rate) {
-        var userId = JSON.parse(localStorage.getItem('user'))._id;
+        var userId;
+        if (JSON.parse(localStorage.getItem('user'))) {
+            userId = JSON.parse(localStorage.getItem('user'))._id;
+        }
         this.movieService.rateMovie(this.movie._id, rate, userId).subscribe({});
         this.openRatingList();
         //  setTimeout( () => {
@@ -59,6 +77,9 @@ var MovieCardComponent = /** @class */ (function () {
     };
     MovieCardComponent.prototype.addToCollection = function (collection) {
         this.collectionService.updateCollection(collection._id, this.movie.titleEn, this.movie.titleBg, this.movie.image, this.movie.year, this.movie._id).subscribe();
+    };
+    MovieCardComponent.prototype.openDeleteModal = function (deleteMod) {
+        this.deleteModal.open(deleteMod, { backdropClass: 'light-blue-backdrop' });
     };
     MovieCardComponent.prototype.deleteMovie = function () {
         this.movieService.removeMovie(this.movie).subscribe();

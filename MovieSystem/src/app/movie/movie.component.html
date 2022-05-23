@@ -44,7 +44,7 @@
             <span class="card__username">Username: <span>{{comment.username}}</span></span>
             <img *ngIf="!comment.image" class="card__image ml-2" src="../../../assets/icons/profile-icon-png-898.png" alt="profile image" />
             <img *ngIf="comment.image" class="card__image ml-2" [src]="comment.image " alt="profile image" />
-            <button class="card__remove" type="button" (click)="removeComment(comment)"><mat-icon>close</mat-icon></button>
+            <button *ngIf="comment.userId === parserUser._id || parserUser.role === 'admin'" class="card__remove" type="button" (click)="removeComment(comment)"><mat-icon>close</mat-icon></button>
           </mat-card-title>
           <mat-card-content *ngIf = "comment.description" class="card__description">{{comment.description}}</mat-card-content>
           <mat-card-footer *ngIf = "comment.date" class="card__date">Date: <span>{{comment.date}}</span></mat-card-footer>

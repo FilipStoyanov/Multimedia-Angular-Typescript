@@ -16,17 +16,15 @@ exports.__esModule = true;
 exports.MoviesComponent = void 0;
 var core_1 = require("@angular/core");
 var MoviesComponent = /** @class */ (function () {
-    function MoviesComponent(movieService, modalService, router) {
+    function MoviesComponent(movieService, modalService) {
         var _this = this;
         this.movieService = movieService;
         this.modalService = modalService;
-        this.router = router;
         this.filterAccordion = {
             showContent: false,
             searchInput: '',
             selectInput: ''
         };
-        this.films = [];
         this.btn1 = {
             isAscending: false,
             type: 'Popular'
@@ -47,12 +45,17 @@ var MoviesComponent = /** @class */ (function () {
         this.addMovie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
             genre: '', country: '', description: '', _id: '' };
         this.userMovies = [];
-        this.initialFilms = __spreadArrays(this.films);
-        this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
+        this.films = [];
+        if (JSON.parse(localStorage.getItem('user'))) {
+            this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
+        }
         this.movieService.getAll().subscribe(function (data) {
             _this.films = data.data;
-            _this.userMovies = data.data.filter(function (obj) { return obj.userId === JSON.parse(localStorage.getItem('user'))._id; });
+            if (JSON.parse(localStorage.getItem('user'))) {
+                _this.userMovies = data.data.filter(function (obj) { return obj.userId === JSON.parse(localStorage.getItem('user'))._id; });
+            }
         });
+        this.initialFilms = __spreadArrays(this.films);
     }
     MoviesComponent.prototype.onClick = function (currBtn) {
         var indexBtn = this.sortButton.indexOf(currBtn);
@@ -101,7 +104,6 @@ var MoviesComponent = /** @class */ (function () {
                 break;
             }
         }
-        console.log(this.films);
     };
     MoviesComponent.prototype.onFilterChange = function (res) {
         var _this = this;

@@ -1,0 +1,56 @@
+.list {
+  min-height: 420px;
+}
+.list__toggle {
+  margin: 20px 0 20px 20px;
+}
+.list__image {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  align-self: center;
+  margin-right: 10px;
+  display: inline-block;
+}
+.list__item {
+  padding: 15px 0px;
+  display: flex;
+  min-height: 60px;
+  border-bottom: 0.5px solid lightgray;
+}
+.list__buttons {
+  display: flex;
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  display: flex;
+  height: auto;
+}
+
+.btn {
+  margin: 0 10px;
+}
+
+.input {
+  width: 300px;
+  height: 35px;
+  margin: 20px 0 0 20px;
+  padding-left: 5px;
+}
+
+.tab__title {
+  margin: 20px 0 0 20px;
+  text-decoration: underline;
+}
+
+.not-found {
+  margin: 20px;
+  font-size: 25px;
+  color: #3f51b5;
+}
+
+.alert {
+  position: fixed;
+  top: 0;
+  right: 20px;
+}

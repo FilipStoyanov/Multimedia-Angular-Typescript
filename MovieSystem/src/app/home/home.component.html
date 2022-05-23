@@ -10,7 +10,7 @@
     </div>
   </div>
   <app-carousel></app-carousel>
-  <div class="home__register">
+  <div *ngIf="!showRegistrationButton" class="home__register">
     <div class="btn-wrapper mt-5">
       <app-default-button [buttonConfig]="linkConfig"></app-default-button>
     </div>

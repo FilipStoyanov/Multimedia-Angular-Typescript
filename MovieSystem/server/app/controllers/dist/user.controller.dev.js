@@ -19,11 +19,6 @@ router.param('email', function (req, res, next, email) {
   req.email = modified;
   next();
 });
-router.param('username', function (req, res, next, username) {
-  var modified = username;
-  req.username = modified;
-  next();
-});
 router.param('id', function (req, res, next, id) {
   var modified = id;
   req.id = modified;
@@ -140,7 +135,7 @@ router.post('/Users', function _callee2(req, res) {
             birthdate: req.body.birthdate,
             username: req.body.username,
             password: req.body.password,
-            role: 'user',
+            role: req.body.role || 'user',
             id: ''
           });
           _context4.prev = 1;
@@ -186,7 +181,7 @@ router.post('/Users', function _callee2(req, res) {
     }
   }, null, null, [[1, 14]]);
 });
-router.get('/Users/:username', function _callee3(req, res) {
+router.get('/Users/:id', function _callee3(req, res) {
   var user;
   return regeneratorRuntime.async(function _callee3$(_context5) {
     while (1) {
@@ -194,9 +189,7 @@ router.get('/Users/:username', function _callee3(req, res) {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return regeneratorRuntime.awrap(User.findOne({
-            username: req.params.username
-          }));
+          return regeneratorRuntime.awrap(User.findById(req.params.id));
 
         case 3:
           user = _context5.sent;
@@ -218,7 +211,7 @@ router.get('/Users/:username', function _callee3(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.get('/Users/:_id', function _callee4(req, res) {
+router.get('/Users/:email/:description', function _callee4(req, res) {
   var user;
   return regeneratorRuntime.async(function _callee4$(_context6) {
     while (1) {
@@ -227,7 +220,7 @@ router.get('/Users/:_id', function _callee4(req, res) {
           _context6.prev = 0;
           _context6.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
-            _id: req.params._id
+            email: req.params.email
           }));
 
         case 3:
@@ -250,8 +243,9 @@ router.get('/Users/:_id', function _callee4(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.put('/Users/:username', function _callee5(req, res) {
-  var updateUser, newFriends, index;
+router.put('/Users/:id', function _callee5(req, res) {
+  var updateUser, newFriends, friendIds, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, friend, index;
+
   return regeneratorRuntime.async(function _callee5$(_context7) {
     while (1) {
       switch (_context7.prev = _context7.next) {
@@ -259,18 +253,64 @@ router.put('/Users/:username', function _callee5(req, res) {
           _context7.prev = 0;
           _context7.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
-            username: req.params.username
+            _id: req.params.id
           }));
 
         case 3:
           updateUser = _context7.sent;
           newFriends = _toConsumableArray(updateUser.friends);
+          friendIds = [];
+          _iteratorNormalCompletion = true;
+          _didIteratorError = false;
+          _iteratorError = undefined;
+          _context7.prev = 9;
+
+          for (_iterator = updateUser.friends[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            friend = _step.value;
+            friendIds.push(friend.id);
+          }
+
+          _context7.next = 17;
+          break;
+
+        case 13:
+          _context7.prev = 13;
+          _context7.t0 = _context7["catch"](9);
+          _didIteratorError = true;
+          _iteratorError = _context7.t0;
+
+        case 17:
+          _context7.prev = 17;
+          _context7.prev = 18;
+
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+
+        case 20:
+          _context7.prev = 20;
+
+          if (!_didIteratorError) {
+            _context7.next = 23;
+            break;
+          }
+
+          throw _iteratorError;
+
+        case 23:
+          return _context7.finish(20);
+
+        case 24:
+          return _context7.finish(17);
+
+        case 25:
+          console.log(friendIds);
 
           if (updateUser.friends) {
-            if (updateUser.friends.indexOf(req.body.friend) === -1) {
-              newFriends.push(req.body.friend);
+            if (friendIds.indexOf(req.body.friends.id) === -1) {
+              newFriends.push(req.body.friends);
             } else {
-              index = updateUser.friends.indexOf(req.body.friends);
+              index = friendIds.indexOf(req.body.friends.id);
               updateUser.friends.splice(index, 1);
               newFriends = _toConsumableArray(updateUser.friends);
             }
@@ -278,32 +318,32 @@ router.put('/Users/:username', function _callee5(req, res) {
             newFriends = _toConsumableArray(updateUser.friends);
           }
 
-          _context7.next = 8;
+          _context7.next = 29;
           return regeneratorRuntime.awrap(User.updateOne({
-            username: req.params.username
+            _id: req.params.id
           }, {
             friends: _toConsumableArray(newFriends)
           }));
 
-        case 8:
-          _context7.next = 13;
+        case 29:
+          _context7.next = 34;
           break;
 
-        case 10:
-          _context7.prev = 10;
-          _context7.t0 = _context7["catch"](0);
+        case 31:
+          _context7.prev = 31;
+          _context7.t1 = _context7["catch"](0);
           res.status(500).json({
-            message: _context7.t0.message
+            message: _context7.t1.message
           });
 
-        case 13:
+        case 34:
         case "end":
           return _context7.stop();
       }
     }
-  }, null, null, [[0, 10]]);
+  }, null, null, [[0, 31], [9, 13, 17, 25], [18,, 20, 24]]);
 });
-router.patch('/Users/:username', function _callee6(req, res) {
+router.patch('/Users/:id', function _callee6(req, res) {
   var body;
   return regeneratorRuntime.async(function _callee6$(_context8) {
     while (1) {
@@ -320,7 +360,7 @@ router.patch('/Users/:username', function _callee6(req, res) {
           };
           _context8.next = 4;
           return regeneratorRuntime.awrap(User.updateOne({
-            username: req.params.username
+            username: req.params.id
           }, body));
 
         case 4:
@@ -337,6 +377,34 @@ router.patch('/Users/:username', function _callee6(req, res) {
         case 9:
         case "end":
           return _context8.stop();
+      }
+    }
+  }, null, null, [[0, 6]]);
+});
+router["delete"]('/Users/:id', function _callee7(req, res) {
+  return regeneratorRuntime.async(function _callee7$(_context9) {
+    while (1) {
+      switch (_context9.prev = _context9.next) {
+        case 0:
+          _context9.prev = 0;
+          _context9.next = 3;
+          return regeneratorRuntime.awrap(User.findByIdAndDelete(req.params.id));
+
+        case 3:
+          res.status(200).json();
+          _context9.next = 9;
+          break;
+
+        case 6:
+          _context9.prev = 6;
+          _context9.t0 = _context9["catch"](0);
+          res.status(400).json({
+            message: _context9.t0.message
+          });
+
+        case 9:
+        case "end":
+          return _context9.stop();
       }
     }
   }, null, null, [[0, 6]]);

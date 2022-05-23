@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {MovieService} from '../services/movie.service';
 import {HTMLInputEvent} from '../registration/step2/step2.component';
 import {Movie} from '../services/movie.service';
-import { Router } from '@angular/router';
 
 interface SortBtn {
   isAscending: boolean;
@@ -28,7 +27,8 @@ export class MoviesComponent implements OnInit {
     selectInput: '',
   };
 
-  films: Movie[] = [];
+  films: Movie[];
+  initialFilms: Movie[];
 
 
   btn1: SortBtn = {
@@ -54,14 +54,19 @@ export class MoviesComponent implements OnInit {
   addMovie: Movie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
                      genre: '', country: '', description: '', _id: ''};
   userMovies: Movie [] = [];
-  constructor(private movieService: MovieService, private modalService: NgbModal, private router: Router ) {
-    this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
+  constructor(private movieService: MovieService, private modalService: NgbModal) {
+    this.films = [];
+    if (JSON.parse(localStorage.getItem('user'))){
+      this.addMovie.userId = JSON.parse(localStorage.getItem('user'))._id;
+    }
     this.movieService.getAll().subscribe(data => {
       this.films = (data as any).data;
-      this.userMovies = (data as any).data.filter(obj => obj.userId === JSON.parse(localStorage.getItem('user'))._id);
+      if (JSON.parse(localStorage.getItem('user'))){
+        this.userMovies = (data as any).data.filter(obj => obj.userId === JSON.parse(localStorage.getItem('user'))._id);
+      }
     });
+    this.initialFilms = [...this.films];
   }
-  initialFilms = [...this.films];
 
   onClick(currBtn: SortBtn): void {
     const indexBtn = this.sortButton.indexOf(currBtn);
@@ -108,7 +113,6 @@ export class MoviesComponent implements OnInit {
         break;
       }
     }
-    console.log(this.films);
   }
 
 

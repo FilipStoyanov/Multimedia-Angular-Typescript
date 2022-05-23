@@ -34,6 +34,7 @@ router.get('/Comments/:id', async (req, res) => {
 router.post('/Comments', async (req,res) => {
   const comment = new Comment ({
     username: req.body.username,
+    userId: req.body.userId,
     image: req.body.image,
     description: req.body.description,
     date: req.body.date,

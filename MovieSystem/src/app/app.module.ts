@@ -11,7 +11,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { DefaultInputComponent } from './components/common/default-input/default-input.component';
 import { MoviesComponent } from './movies/movies.component';
 import { CollectionComponent } from './collection/collection.component';
-import { ReviewedMoviesComponent } from './reviewed-movies/reviewed-movies.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DefaultSelectComponent } from './components/common/default-select/default-select.component';
 import { Step1Component } from './registration/step1/step1.component';
@@ -55,6 +54,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import {MatRadioModule} from '@angular/material/radio';
 import {StoreModule} from '@ngrx/store';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { FriendPreferencesComponent } from './friend-preferences/friend-preferences.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,6 @@ import {StoreModule} from '@ngrx/store';
     DefaultInputComponent,
     MoviesComponent,
     CollectionComponent,
-    ReviewedMoviesComponent,
     ProfileComponent,
     DefaultSelectComponent,
     Step1Component,
@@ -86,10 +86,11 @@ import {StoreModule} from '@ngrx/store';
     MovieComponent,
     UserComponent,
     AddCollectionComponent,
+    NotFoundComponent,
+    FriendPreferencesComponent,
   ],
   imports: [
     BrowserModule,
-    MatSelectCountryModule.forRoot('en'),
     MatRadioModule,
     AppRoutingModule,
     NgbAlertModule,

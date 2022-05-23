@@ -9,40 +9,39 @@ exports.__esModule = true;
 exports.HeaderComponent = void 0;
 var core_1 = require("@angular/core");
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(store, renderer, router) {
+    function HeaderComponent(store, renderer, router, notificationService) {
         var _this = this;
         this.store = store;
         this.renderer = renderer;
         this.router = router;
-        this.links = ['home', 'movies', 'collections', 'reviews', 'profile', "/friends"];
+        this.notificationService = notificationService;
+        this.links = ['', 'movies', 'collections', 'rateCollection', 'profile', "/friends"];
         this.userData = { firstname: '', lastname: '', email: '', username: '', password: '', image: '', _id: '' };
         this.user$ = store.select('user');
+        this.notifications = [];
         this.user$.subscribe(function (user) {
             _this.userData.username = user.username;
         });
         var parseUser;
         if (JSON.parse(localStorage.getItem('user'))) {
             parseUser = JSON.parse(localStorage.getItem('user'));
+            this.notificationService.getAllNotificationsByUserId(parseUser._id).subscribe(function (data) {
+                console.log(data);
+                _this.notifications = data.data;
+                _this.notSeenNotifications = data.data.filter(function (note) { return note.seen === false; });
+            });
             this.userData.username = parseUser.username;
         }
         else {
-            this.userData = null;
+            console.log(this.userData);
         }
         if (parseUser && 'image' in parseUser) {
             this.imageData = parseUser.image;
         }
-        // this.profileImage.getProfileImage(localStorage.getItem('userId')).subscribe(
-        //   data => {
-        //     this.userData.username = localStorage.getItem('userId');
-        //     this.imageData = data.data;
-        //   }
-        //  );   //NOW WITHOUT MAKING REQUEST
         this.isShownProfileMenu = false;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('init');
-        console.log(this.userData);
         this.unlistener = this.renderer.listen('document', 'click', function (event) {
             if (event.target.id !== 'profileText' && event.target.id !== 'arrowDown' && event.target.id !== 'arrowUp' &&
                 event.target.id !== 'profileImage') {
@@ -55,6 +54,19 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.toggleProfileMenu = function () {
         this.isShownProfileMenu = !this.isShownProfileMenu;
+    };
+    HeaderComponent.prototype.readNotification = function (notification) {
+        notification.seen = true;
+        var ind = this.notSeenNotifications.indexOf(notification);
+        this.notSeenNotifications.splice(ind, 1);
+        this.notificationService.readNotification(notification).subscribe({});
+    };
+    HeaderComponent.prototype.removeNotification = function (notification) {
+        var ind1 = this.notSeenNotifications.indexOf(notification);
+        this.notSeenNotifications.splice(ind1, 1);
+        var ind2 = this.notifications.indexOf(notification);
+        this.notifications.splice(ind2, 1);
+        this.notificationService.removeNotification(notification).subscribe({});
     };
     HeaderComponent.prototype.logOut = function () {
         this.router.navigate(["/"]).then(function () { return window.location.reload(); });

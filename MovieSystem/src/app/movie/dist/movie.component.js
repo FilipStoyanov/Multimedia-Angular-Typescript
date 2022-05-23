@@ -10,25 +10,27 @@ exports.MovieComponent = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var MovieComponent = /** @class */ (function () {
-    function MovieComponent(router, movieService, commentService, datePipe) {
+    function MovieComponent(router, movieService, commentService, datePipe, notificationService) {
         var _this = this;
         this.router = router;
         this.movieService = movieService;
         this.commentService = commentService;
         this.datePipe = datePipe;
+        this.notificationService = notificationService;
         this.commentInput = '';
+        this.parserUser = null;
         this.imageUrl = '';
         this.showTextArea = false;
-        this.review = { username: '', image: '', id: '', description: '', date: '', _id: '' };
-        var movieId = localStorage.getItem('movieId');
-        this.movieService.getMovieById(movieId).subscribe(function (data) {
-            console.log(data);
+        this.review = { username: '', userId: '', image: '', id: '', description: '', date: '', _id: '' };
+        this.movieId = this.router.snapshot.paramMap.get('movieId');
+        this.movieService.getMovieById(this.movieId).subscribe(function (data) {
             _this.movieData = data;
             _this.videoId = _this.getVideoId(data.trailer);
         });
-        this.commentService.getCommentById(movieId).subscribe(function (data) {
+        this.commentService.getCommentById(this.movieId).subscribe(function (data) {
             _this.comments = data;
         });
+        this.parserUser = JSON.parse(localStorage.getItem('user'));
         // PASSING DATA WITH PROPS
         // if (this.router.getCurrentNavigation().extras.state){
         //    this.hasData = this.router.getCurrentNavigation().extras.state;
@@ -87,7 +89,13 @@ var MovieComponent = /** @class */ (function () {
         if (JSON.parse(localStorage.getItem('user')).image) {
             this.review.image = JSON.parse(localStorage.getItem('user')).image;
         }
+        var notification = { senderId: this.parserUser._id, senderUsername: this.parserUser.username,
+            receiver: this.movieData.userId, movieId: this.movieData._id };
+        if ('userId' in this.movieData && notification.senderId !== notification.receiver) {
+            this.notificationService.addNotification(notification).subscribe({});
+        }
         this.review.username = JSON.parse(localStorage.getItem('user')).username;
+        this.review.userId = this.parserUser._id;
         this.commentService.addComment(this.review).subscribe();
         this.toggleInput();
         this.comments.push(this.review);

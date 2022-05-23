@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 const baseUrl =  'http://localhost:8080/api/login';
 export interface Login {
   token?: string;
-  username: string;
+  email: string;
   password: string;
 }
 

@@ -4,8 +4,12 @@ const commentSchema = new mongoose.Schema({
     required: true,
     type: String
   },
-  image: {
+  userId: {
     required: true,
+    type: String,
+  },
+  image: {
+    required: false,
     type: String
   },
   description: {

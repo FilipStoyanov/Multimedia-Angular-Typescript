@@ -6,6 +6,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { select, Store } from '@ngrx/store';
 // import { User } from '../store/entity';
 import { Observable } from 'rxjs';
+import { Friend } from '../friends/friends.component';
 
 export interface UserData {
   firstname: string;
@@ -18,7 +19,7 @@ export interface UserData {
   image?: string | ArrayBuffer;
   repeatPassword?: string;
   _id?: string;
-  friends?: Array<string>;
+  friends?: Array<Friend> | null;
 }
 
 @Component({

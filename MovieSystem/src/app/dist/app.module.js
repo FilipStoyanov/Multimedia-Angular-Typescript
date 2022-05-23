@@ -19,7 +19,6 @@ var registration_component_1 = require("./registration/registration.component");
 var default_input_component_1 = require("./components/common/default-input/default-input.component");
 var movies_component_1 = require("./movies/movies.component");
 var collection_component_1 = require("./collection/collection.component");
-var reviewed_movies_component_1 = require("./reviewed-movies/reviewed-movies.component");
 var profile_component_1 = require("./profile/profile.component");
 var default_select_component_1 = require("./components/common/default-select/default-select.component");
 var step1_component_1 = require("./registration/step1/step1.component");
@@ -60,9 +59,10 @@ var forms_1 = require("@angular/forms");
 var input_1 = require("@angular/material/input");
 var add_collection_component_1 = require("./collection/add-collection/add-collection.component");
 var menu_1 = require("@angular/material/menu");
-var select_country_1 = require("@angular-material-extensions/select-country");
 var radio_1 = require("@angular/material/radio");
 var store_1 = require("@ngrx/store");
+var not_found_component_1 = require("./not-found/not-found.component");
+var friend_preferences_component_1 = require("./friend-preferences/friend-preferences.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -78,7 +78,6 @@ var AppModule = /** @class */ (function () {
                 default_input_component_1.DefaultInputComponent,
                 movies_component_1.MoviesComponent,
                 collection_component_1.CollectionComponent,
-                reviewed_movies_component_1.ReviewedMoviesComponent,
                 profile_component_1.ProfileComponent,
                 default_select_component_1.DefaultSelectComponent,
                 step1_component_1.Step1Component,
@@ -97,10 +96,11 @@ var AppModule = /** @class */ (function () {
                 movie_component_1.MovieComponent,
                 user_component_1.UserComponent,
                 add_collection_component_1.AddCollectionComponent,
+                not_found_component_1.NotFoundComponent,
+                friend_preferences_component_1.FriendPreferencesComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
-                select_country_1.MatSelectCountryModule.forRoot('en'),
                 radio_1.MatRadioModule,
                 app_routing_module_1.AppRoutingModule,
                 ng_bootstrap_2.NgbAlertModule,

@@ -25,14 +25,14 @@ var UserService = /** @class */ (function () {
         return this.http.get(baseURL + ("/" + username));
     };
     UserService.prototype.getUserByEmail = function (email) {
-        return this.http.get(baseURL + ("/" + email));
+        return this.http.get(baseURL + ("/" + email + "/1"));
     };
     UserService.prototype.editUser = function (username, editedUser) {
         var headers = { 'content-type': 'application/json' };
         var body = JSON.stringify(editedUser);
         return this.http.patch(baseURL + ("/" + username), body, { headers: headers });
     };
-    UserService.prototype.addFriend = function (username, friendName) {
+    UserService.prototype.addFriend = function (id, friendName) {
         this.user = JSON.parse(localStorage.getItem('user'));
         var findIndex = this.user.friends.indexOf(friendName);
         if (findIndex === -1) {
@@ -43,8 +43,11 @@ var UserService = /** @class */ (function () {
         }
         localStorage.setItem('user', JSON.stringify(this.user));
         var headers = { 'content-type': 'application/json' };
-        var body = JSON.stringify({ friend: friendName });
-        return this.http.put(baseURL + ("/" + username), body, { headers: headers });
+        var body = JSON.stringify({ friends: friendName });
+        return this.http.put(baseURL + ("/" + id), body, { headers: headers });
+    };
+    UserService.prototype.deleteUser = function (user) {
+        return this.http["delete"](baseURL + ("/" + user._id));
     };
     UserService = __decorate([
         core_1.Injectable({

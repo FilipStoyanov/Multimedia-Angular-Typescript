@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Movie } from '../services/movie.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CommentService, Comment} from '../services/comment.service';
 import {MovieService} from '../services/movie.service';
 import { HTMLInputEvent } from '../registration/step2/step2.component';
+import { NotificationService } from '../services/notification.service';
+import { Notification } from '../services/notification.service';
+import { UserData } from '../registration/registration.component';
 
 @Component({
   selector: 'app-movie',
@@ -21,21 +24,25 @@ export class MovieComponent implements OnInit {
   showTextArea: boolean;
   review: Comment;
   date: Date;
+  movieId: string;
   imageUrl: string | ArrayBuffer;
-  constructor(private router: Router, private movieService: MovieService, private commentService: CommentService,
-              private datePipe: DatePipe ) {
+  parserUser: UserData;
+  constructor(private router: ActivatedRoute, private movieService: MovieService, private commentService: CommentService,
+              private datePipe: DatePipe, private notificationService: NotificationService ) {
     this.commentInput = '';
+    this.parserUser = null;
     this.imageUrl = '';
     this.showTextArea = false;
-    this.review = {username: '', image: '', id: '', description: '', date: '', _id: ''};
-    const movieId: string = localStorage.getItem('movieId');
-    this.movieService.getMovieById(movieId).subscribe(data => {
-      console.log(data);
+    this.review = {username: '', userId: '', image: '', id: '', description: '', date: '', _id: ''};
+    this.movieId = this.router.snapshot.paramMap.get('movieId');
+    this.movieService.getMovieById(this.movieId).subscribe(data => {
       this.movieData = data; this.videoId = this.getVideoId( data.trailer);
     });
-    this.commentService.getCommentById(movieId).subscribe(data => {
+    this.commentService.getCommentById(this.movieId).subscribe(data => {
       this.comments = (data as any);
     });
+    this.parserUser = JSON.parse(localStorage.getItem('user'));
+
       // PASSING DATA WITH PROPS
       // if (this.router.getCurrentNavigation().extras.state){
       //    this.hasData = this.router.getCurrentNavigation().extras.state;
@@ -98,7 +105,13 @@ export class MovieComponent implements OnInit {
      if (JSON.parse(localStorage.getItem('user')).image){
        this.review.image = JSON.parse(localStorage.getItem('user')).image;
      }
+     const notification: Notification = {senderId: this.parserUser._id , senderUsername: this.parserUser.username,
+     receiver: this.movieData.userId, movieId: this.movieData._id};
+     if ('userId' in this.movieData && notification.senderId !== notification.receiver){
+        this.notificationService.addNotification(notification).subscribe({});
+     }
      this.review.username = JSON.parse(localStorage.getItem('user')).username;
+     this.review.userId = this.parserUser._id;
      this.commentService.addComment(this.review).subscribe();
      this.toggleInput();
      this.comments.push(this.review);

@@ -70,6 +70,33 @@
     background-color: inherit;
     border: none;
   }
+  &__nouser-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: $default-button-color;
+    border: none;
+  }
+  &__nouser {
+    position: absolute;
+    left: 75px;
+    bottom: -70px;
+    display: flex;
+    z-index: 10;
+    width: 200px;
+    height: 90px;
+    border-radius: 20px;
+    padding: 30px 15px 15px;
+    color: $default-font-color;
+    background-color: white;
+    color: $default-button-color;
+    border: 1px solid $default-button-color;
+    &--bold {
+      font-weight: 700;
+      text-decoration: underline;
+    }
+ }
 }
 
 .mask {

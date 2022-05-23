@@ -63,6 +63,21 @@
   right: 0;
 }
 
+.alert {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+}
+
+.btn-send {
+  z-index: 20;
+  position: absolute;
+  top: 12px;
+  right: 65px;
+  border: none;
+  background: none;
+}
+
 .remove-btn {
   display: flex;
   margin: 0 auto;

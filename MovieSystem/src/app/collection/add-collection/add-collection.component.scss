@@ -9,3 +9,7 @@
     font-size: $font-size-25;
   }
 }
+
+::ng-deep ngb-modal-backdrop {
+  z-index: 1040 !important;
+}

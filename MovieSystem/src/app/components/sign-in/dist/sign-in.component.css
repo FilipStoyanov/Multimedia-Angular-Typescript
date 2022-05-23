@@ -1,0 +1,21 @@
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
+::ng-deep ngb-modal-backdrop {
+  z-index: 1040 !important;
+}
+
+.modal {
+  z-index: 1056;
+}
+
+.form {
+  padding: calc($default-padding / 2);
+  z-index: 5 .form __button;
+  z-index-margin-top: 20px;
+}
+.form__invalid {
+  color: red;
+  display: block;
+}

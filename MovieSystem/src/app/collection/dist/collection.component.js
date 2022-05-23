@@ -17,20 +17,46 @@ var MyCollection = /** @class */ (function () {
 }());
 exports.MyCollection = MyCollection;
 var CollectionComponent = /** @class */ (function () {
-    function CollectionComponent(collectionService) {
+    function CollectionComponent(collectionService, preferenceService) {
         var _this = this;
         this.collectionService = collectionService;
+        this.preferenceService = preferenceService;
         this.userCollections = [];
         this.userId = JSON.parse(localStorage.getItem('user'))._id;
         this.movieUrl = '/movie/';
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.friends = [];
+        if (localStorage.getItem('show')) {
+            this.showSendIcon = localStorage.getItem('show');
+        }
+        else {
+            this.showSendIcon = 'true';
+        }
+        for (var _i = 0, _a = this.user.friends; _i < _a.length; _i++) {
+            var fr = _a[_i];
+            this.friends.push(fr.id);
+        }
         this.collectionService.getAllForUser(this.userId).subscribe(function (result) {
             _this.userCollections = result;
         });
     }
     CollectionComponent.prototype.ngOnInit = function () {
     };
+    CollectionComponent.prototype.sendCollection = function (collection, event) {
+        var _this = this;
+        event.stopPropagation();
+        var preference = { senderId: this.user._id, senderUsername: this.user.username, movies: collection.movies,
+            receivers: this.friends };
+        this.preferenceService.addPreference(preference).subscribe({});
+        this.showSendAlert = true;
+        setTimeout(function () {
+            _this.showSendAlert = false;
+        }, 3000);
+        localStorage.setItem('show', 'false');
+        this.showSendIcon = 'false';
+    };
     CollectionComponent.prototype.removeCollection = function (collection, event) {
-        event.preventDefault();
+        event.stopPropagation();
         this.collectionService.removeCollection(collection._id).subscribe();
         window.location.reload();
     };

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserData } from '../registration/registration.component';
+import {Router, CanActivate} from '@angular/router';
 
 export interface Movie{
   titleEn: string;
@@ -25,15 +26,22 @@ const baseUrl = 'http://localhost:8080/api/movies';
   providedIn: 'root',
 })
 
-export class MovieService {
+export class MovieService implements CanActivate {
   user: UserData;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private router: Router){}
   getAll(): Observable<Movie[]>{
     return this.http.get<Movie[]>(baseUrl);
   }
   getMovieById(id): Observable<Movie>{
     return this.http.get<Movie>(baseUrl + `/${id}`);
+  }
+  canActivate(id): Observable<boolean> {
+    this.getMovieById(id).subscribe(
+      data => {
+      this.router.navigate(['movie/' + data._id]);
+    });
+    return of(false);
   }
   addMovie(movie: Movie): Observable<Movie> {
     const body = JSON.stringify(movie);
