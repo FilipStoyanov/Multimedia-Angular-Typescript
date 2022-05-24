@@ -106,7 +106,7 @@ export class MovieComponent implements OnInit {
        this.review.image = JSON.parse(localStorage.getItem('user')).image;
      }
      const notification: Notification = {senderId: this.parserUser._id , senderUsername: this.parserUser.username,
-     receiver: this.movieData.userId, movieId: this.movieData._id};
+     receiver: this.movieData.userId, movieId: this.movieData._id, type: 'review'};
      if ('userId' in this.movieData && notification.senderId !== notification.receiver){
         this.notificationService.addNotification(notification).subscribe({});
      }

@@ -26,4 +26,12 @@
     width: 159px;
     height: 75px;
   }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      color: white;
+    }
+  }
 }

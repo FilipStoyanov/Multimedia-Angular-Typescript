@@ -17,6 +17,14 @@ const preferencesSchema = new mongoose.Schema({
       id: String,
     },
   ],
+  collectionId: {
+    required: true,
+    type: String,
+  },
+  collectionName: {
+    required: true,
+    type: String,
+  },
   receivers: {
     required: true,
     type: Array,

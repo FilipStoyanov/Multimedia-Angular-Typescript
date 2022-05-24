@@ -1,0 +1,21 @@
+@import "../../variables";
+.terms {
+  min-height: 400px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  color: $default-button-color;
+  text-align: left;
+  &__title {
+    margin: 40px 0 20px;
+    font-size: $font-size-30;
+    font-weight: $font-weight-500;
+  }
+  &__subtitle{
+    margin: 20px 0 0;
+    font-size: $font-size-25;
+  }
+  &__section {
+    margin-bottom: 40px;
+  }
+}

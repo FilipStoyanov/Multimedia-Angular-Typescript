@@ -10,6 +10,8 @@ export interface Preference{
   senderUsername: string;
   movies: Array<Movie>;
   receivers: Array<string>;
+  collectionId: string;
+  collectionName: string;
   seen?: boolean;
   _id?: string;
 }
@@ -32,5 +34,11 @@ export class PreferenceService {
     const body = JSON.stringify(preference);
     const headers = { 'content-type': 'application/json'};
     return this.http.post<Preference>(baseUrl, body, {headers});
+  }
+  deletePreference(preference): Observable<Preference>{
+    const body = JSON.stringify(preference);
+    console.log(body);
+    const headers = { 'content-type': 'application/json'};
+    return this.http.patch<Preference>(baseUrl + `/${preference._id}`, body, {headers});
   }
 }

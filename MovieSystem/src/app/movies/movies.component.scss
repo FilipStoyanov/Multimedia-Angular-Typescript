@@ -2,6 +2,7 @@
 
 .movies{
  position: relative;
+ min-height: 420px;
  &__column4{
    flex: 0 0 25%;
    display: flex;

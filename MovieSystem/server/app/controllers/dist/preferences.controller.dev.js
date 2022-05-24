@@ -85,39 +85,60 @@ router.get('/Preferences/user/:id', function _callee2(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-router.patch('/Preference/:id', function _callee3(req, res) {
-  var preference, ind, newReceivers, body;
+router.patch('/Preferences/:id', function _callee3(req, res) {
+  var preference, ind, newReceivers;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          preference = Preferences.findById(req.params.id);
-          ind = preference.receivers.indexOf(req.body.userId);
-          newReceivers = _toConsumableArray(preference.splice(ind, 1));
-          body = {
-            receivers: newReceivers
-          };
-          _context3.next = 7;
-          return regeneratorRuntime.awrap(Preferences.findByIdAndUpdate(req.params.id, body));
+          _context3.next = 3;
+          return regeneratorRuntime.awrap(Preferences.findById(req.params.id));
 
-        case 7:
-          _context3.next = 12;
+        case 3:
+          preference = _context3.sent;
+          ind = preference.receivers.indexOf(req.body.userId);
+          newReceivers = _toConsumableArray(preference.receivers);
+
+          if (ind > -1) {
+            newReceivers.splice(ind, 1);
+          }
+
+          if (!(newReceivers.length > 0)) {
+            _context3.next = 12;
+            break;
+          }
+
+          _context3.next = 10;
+          return regeneratorRuntime.awrap(Preferences.findByIdAndUpdate(req.params.id, {
+            receivers: newReceivers
+          }));
+
+        case 10:
+          _context3.next = 14;
           break;
 
-        case 9:
-          _context3.prev = 9;
+        case 12:
+          _context3.next = 14;
+          return regeneratorRuntime.awrap(Preferences.findByIdAndDelete(req.params.id));
+
+        case 14:
+          _context3.next = 19;
+          break;
+
+        case 16:
+          _context3.prev = 16;
           _context3.t0 = _context3["catch"](0);
           res.status(400).json({
             message: _context3.t0.message
           });
 
-        case 12:
+        case 19:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 16]]);
 });
 router.post('/Preferences', function _callee4(req, res) {
   var preference, newPreference;
@@ -130,6 +151,8 @@ router.post('/Preferences', function _callee4(req, res) {
             senderUsername: req.body.senderUsername,
             movies: req.body.movies,
             receivers: req.body.receivers,
+            collectionId: req.body.collectionId,
+            collectionName: req.body.collectionName,
             seen: false
           });
           _context4.prev = 1;

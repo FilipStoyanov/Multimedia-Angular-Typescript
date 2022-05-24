@@ -51,18 +51,20 @@ export class CollectionComponent implements OnInit {
     for (const  fr of this.user.friends){
        this.friends.push(fr.id);
     }
+
     this.collectionService.getAllForUser(this.userId).subscribe(
       result => {
         this.userCollections = (result as any);
       },
     );
+
   }
   ngOnInit(): void {
   }
   sendCollection(collection: Collection, event: Event): void {
     event.stopPropagation();
     const preference: Preference = {senderId: this.user._id, senderUsername: this.user.username, movies: collection.movies,
-    receivers: this.friends };
+    collectionId: collection._id, collectionName: collection.name, receivers: this.friends };
     this.preferenceService.addPreference(preference).subscribe({});
     this.showSendAlert = true;
     setTimeout( () => {

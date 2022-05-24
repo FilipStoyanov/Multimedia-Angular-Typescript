@@ -11,6 +11,7 @@ export interface Notification{
   movieId: string;
   seen?: boolean;
   _id?: string;
+  type: string;
 }
 const baseUrl = 'http://localhost:8080/api/notification';
 @Injectable({

@@ -21,18 +21,18 @@ var movie_component_1 = require("./movie/movie.component");
 var user_component_1 = require("./user/user.component");
 var not_found_component_1 = require("./not-found/not-found.component");
 var friend_preferences_component_1 = require("./friend-preferences/friend-preferences.component");
+var ratings_component_1 = require("./ratings/ratings.component");
+var terms_component_1 = require("./terms/terms.component");
 var notRegisteredUser = [
     { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
     { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'about', component: about_us_component_1.AboutUsComponent },
-    { path: 'profile', component: profile_component_1.ProfileComponent },
-    { path: 'user/:userId', component: user_component_1.UserComponent },
-    { path: 'friends', component: friends_component_1.FriendsComponent },
-    { path: 'movie/:movieId', component: movie_component_1.MovieComponent },
-    { path: 'rateCollection', component: friend_preferences_component_1.FriendPreferencesComponent },
-    { path: '', pathMatch: 'full', component: home_component_1.HomeComponent },
-    { path: '**', component: not_found_component_1.NotFoundComponent },
+    { path: 'terms', component: terms_component_1.TermsComponent },
+    { path: 'home', pathMatch: 'full', component: home_component_1.HomeComponent },
+    { path: '404', component: not_found_component_1.NotFoundComponent },
+    { path: '', redirectTo: 'home' },
+    { path: '**', redirectTo: '404' },
 ];
 var registeredUser = [
     { path: 'movies', component: movies_component_1.MoviesComponent },
@@ -44,8 +44,12 @@ var registeredUser = [
     { path: 'user/:userId', component: user_component_1.UserComponent },
     { path: 'movie/:movieId', component: movie_component_1.MovieComponent },
     { path: 'rateCollection', component: friend_preferences_component_1.FriendPreferencesComponent },
-    { path: '', pathMatch: 'full', component: home_component_1.HomeComponent },
-    { path: '**', component: not_found_component_1.NotFoundComponent },
+    { path: 'ratings', component: ratings_component_1.RatingsComponent },
+    { path: 'terms', component: terms_component_1.TermsComponent },
+    { path: 'home', pathMatch: 'full', component: home_component_1.HomeComponent },
+    { path: '404', component: not_found_component_1.NotFoundComponent },
+    { path: '', redirectTo: 'home' },
+    { path: '**', redirectTo: '404' },
 ];
 var UserRole;
 (function (UserRole) {

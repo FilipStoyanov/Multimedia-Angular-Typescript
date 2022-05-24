@@ -88,7 +88,8 @@ router.post('/Notification', function _callee3(req, res) {
             senderUsername: req.body.senderUsername,
             receiver: req.body.receiver,
             movieId: req.body.movieId,
-            seen: false
+            seen: false,
+            type: req.body.type
           });
           _context3.prev = 1;
           _context3.next = 4;
@@ -126,7 +127,8 @@ router.patch('/Notification/:id', function _callee4(req, res) {
             senderUsername: req.body.senderUsername,
             receiver: req.body.receiver,
             movieId: req.body.movieId,
-            seen: req.body.seen
+            seen: req.body.seen,
+            type: req.body.type
           };
           _context4.next = 4;
           return regeneratorRuntime.awrap(Notification.findByIdAndUpdate(req.params.id, body));

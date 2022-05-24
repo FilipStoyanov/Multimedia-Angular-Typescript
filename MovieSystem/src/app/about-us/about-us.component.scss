@@ -1,0 +1,14 @@
+@import "../../variables";
+.about {
+  min-height: 400px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  color: $default-button-color;
+  text-align: left;
+  &__title {
+    margin: 40px 0 20px;
+    font-size: $font-size-30;
+    font-weight: $font-weight-500;
+  }
+}

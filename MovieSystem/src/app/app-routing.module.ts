@@ -12,19 +12,19 @@ import { MovieComponent } from './movie/movie.component';
 import {UserComponent} from './user/user.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FriendPreferencesComponent } from './friend-preferences/friend-preferences.component';
+import { RatingsComponent } from './ratings/ratings.component';
+import { TermsComponent } from './terms/terms.component';
 
 const notRegisteredUser: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'collections', component: CollectionComponent },
   { path: 'about', component: AboutUsComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'user/:userId', component: UserComponent },
-  { path: 'friends', component: FriendsComponent },
-  { path: 'movie/:movieId', component: MovieComponent},
-  { path: 'rateCollection', component: FriendPreferencesComponent},
-  {path: '', pathMatch: 'full', component: HomeComponent},
-  { path: '**', component: NotFoundComponent},
+  { path: 'terms', component: TermsComponent },
+  {path: 'home', pathMatch: 'full', component: HomeComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '', redirectTo: 'home'},
+  { path: '**',  redirectTo: '404'},
 ];
 
 const registeredUser: Routes = [
@@ -37,8 +37,12 @@ const registeredUser: Routes = [
   { path: 'user/:userId', component: UserComponent },
   { path: 'movie/:movieId', component: MovieComponent},
   { path: 'rateCollection', component: FriendPreferencesComponent},
-  {path: '', pathMatch: 'full', component: HomeComponent},
-  { path: '**', component: NotFoundComponent },
+  { path: 'ratings', component: RatingsComponent},
+  { path: 'terms', component: TermsComponent },
+  {path: 'home', pathMatch: 'full', component: HomeComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '', redirectTo: 'home'},
+  { path: '**',  redirectTo: '404'},
 ];
 enum UserRole {
   admin,

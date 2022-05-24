@@ -90,7 +90,7 @@ var MovieComponent = /** @class */ (function () {
             this.review.image = JSON.parse(localStorage.getItem('user')).image;
         }
         var notification = { senderId: this.parserUser._id, senderUsername: this.parserUser.username,
-            receiver: this.movieData.userId, movieId: this.movieData._id };
+            receiver: this.movieData.userId, movieId: this.movieData._id, type: 'review' };
         if ('userId' in this.movieData && notification.senderId !== notification.receiver) {
             this.notificationService.addNotification(notification).subscribe({});
         }

@@ -4,10 +4,19 @@
   color: $default-font-color;
   padding: $default-padding;
 
+  &__registration {
+    margin-right: 7.5px;
+    color: white;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
   &__wrapper {
     padding: 20px;
-    background-color: $background-wrapper;
-    margin-bottom: 100px;
+    background-color: $default-button-color;
+    margin-bottom: 50px;
   }
 
   &__title {

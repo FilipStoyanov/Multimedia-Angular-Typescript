@@ -1,11 +1,23 @@
 <section class="home">
-  <div class="row">
+  <div class="row justify-content-between">
     <div class="home__wrapper col-sm-12 col-md-8 col-lg-4">
       <h1 class="home__title">MOVIES</h1>
       <p class="home__text">
         Movies move us like nothing can else, whether they're scary, funny,
         dramatic, romantic or anywhere in-between.So many titles, so much to
         experience.
+      </p>
+    </div>
+    <div class="home__wrapper col-sm-12 col-md-8 col-lg-4">
+      <p *ngIf="!showRegistrationButton" class="home__text" >
+        <a routerLink="/registration" class="home__registration"><b><u>REGISTER NOW</u></b></a>and we provides opportunity to store your favorite movies and collection. Registration
+        gives you opportunity to add friends and share your collections with them, receive notifications
+        about all reviews above your movies and so on.
+      </p>
+      <p *ngIf="showRegistrationButton" class="home__text">
+        We provides opportunity to store your favorite movies and collection. Registration
+        gives you opportunity to add friends and share your collections with them, receive notifications
+        about all reviews above your movies and so on.
       </p>
     </div>
   </div>

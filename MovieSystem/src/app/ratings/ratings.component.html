@@ -1,0 +1,42 @@
+<section class="rating">
+<div *ngFor="let collection of rankingCollections" class="row">
+  <p *ngIf="showApplyAlert" class="alert col-10 text-center my-2 mx-auto">
+    <ngb-alert type="success">
+      <strong>Warning!</strong> Changed order in collection successfully!
+    </ngb-alert>
+  </p>
+  <p class="rating__title">See how your friends rated your collections.</p>
+  <div class="col-10 mx-auto">
+  <div class="d-flex">
+    <h1 class="rating__collection">Collection: {{collection.collectionName}}</h1>
+    <button  mat-button color="primary" class="rating__apply" (click)="applyChanges(collection, $event)"> apply changes </button>
+    <button class="rating__btn" type="button" (click)="removeCollection(collection,$event)"><mat-icon>delete</mat-icon></button>
+  </div>
+  <mat-accordion *ngFor="let movies of collection.movies; let indexOfElement = index" class="col-10 mx-auto my-2">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <a>User: {{collection.senderUsername[indexOfElement]}}</a>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row collection__row">
+        <div *ngFor="let movie of movies; let indexOfElement=index;" class="col-xl-3 col-lg-4 col-xs-12 col-md-6 mt-2 justify-content-center">
+          <a [routerLink]="movieUrl + movie.id" class="card">
+            <div class="card__wrapper">
+              <img class="card__image" alt="Movie card" [src]="movie.image" />
+              <span class="card__year">{{movie.year}}</span>
+            </div>
+            <h1 class="card__title">{{movie.titleBg}}</h1>
+            <h1 class="card__title">{{movie.titleEn}}</h1>
+          </a>
+          <p class="rating__subtitle">{{indexOfElement+1}}</p>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  </div>
+</div>
+<div *ngIf="rankingCollections.length === 0" class="rating__notfound">
+  <p>Not found rated collections from your friends</p>
+</div>
+</section>

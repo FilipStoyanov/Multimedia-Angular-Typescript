@@ -18,6 +18,8 @@ var NotificationController = require("../controllers/notification.controller.js"
 
 var PreferenceController = require("../controllers/preferences.controller.js");
 
+var RankingController = require("../controllers/ranking.controller.js");
+
 router.get("/movies", MovieController);
 router.post("/movies", MovieController);
 router.get("/movies/:id", MovieController);
@@ -33,6 +35,10 @@ router.get("/preferences/user/:id", PreferenceController);
 router.post("/preferences", PreferenceController);
 router.patch("/preferences/:id", PreferenceController);
 router["delete"]("/preferences/:id", PreferenceController);
+router.get("/ranking", RankingController);
+router.get("/ranking/user/:id", RankingController);
+router.put("/ranking", RankingController);
+router["delete"]("/ranking/:id", RankingController);
 router.get("/collections", CollectionController);
 router.post("/collections", CollectionController);
 router.get("/collections/:username", CollectionController);

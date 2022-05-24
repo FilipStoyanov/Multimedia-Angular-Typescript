@@ -56,6 +56,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import {StoreModule} from '@ngrx/store';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FriendPreferencesComponent } from './friend-preferences/friend-preferences.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { RatingsComponent } from './ratings/ratings.component';
+import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +91,8 @@ import { FriendPreferencesComponent } from './friend-preferences/friend-preferen
     AddCollectionComponent,
     NotFoundComponent,
     FriendPreferencesComponent,
+    RatingsComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +112,7 @@ import { FriendPreferencesComponent } from './friend-preferences/friend-preferen
     MatDialogModule,
     MatTabsModule,
     MatFormFieldModule,
+    DragDropModule,
     MatExpansionModule,
     FormsModule,
     MatCardModule,

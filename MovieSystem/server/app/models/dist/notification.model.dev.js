@@ -22,6 +22,10 @@ var notificationSchema = new mongoose.Schema({
   seen: {
     required: true,
     type: Boolean
+  },
+  type: {
+    required: true,
+    type: String
   }
 });
 module.exports = mongoose.model('Notification', notificationSchema, "Notification");

@@ -1,1 +1,22 @@
-<p>friend-preferences works!</p>
+<section class="preference">
+  <p *ngIf="prefData.length > 0" class="preference__title"> Reorder movies by your preferences with drag and drop. Then send to your friend. </p>
+  <div class="preference__wrapper" *ngFor = "let preference of prefData">
+    <div cdkDropList class="preference-list" (cdkDropListDropped)="drop(preference.movies, $event)">
+      <div class="preference-box" *ngFor="let movie of preference.movies" cdkDrag>{{movie.titleEn}}</div>
+      <div class="col-12 text-right">
+        <button class="preference__button" type="submit" (click)="sendPreference(preference, $event)">
+          <mat-icon>send</mat-icon>
+        </button>
+        <button class="preference__button preference__button--delete" type="submit" (click) = "deletePreference(preference,$event)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ngb-alert *ngIf="showSendAlert" class="preference__alert" type="success">
+    <strong>Warning!</strong> Send successfully!
+  </ngb-alert>
+  <div *ngIf="prefData.length === 0" class="preference__notfound">
+    <p class="preference__text"> Sorry, but you don't have any collections from your friends </p>
+  </div>
+</section>

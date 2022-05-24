@@ -18,6 +18,14 @@ var preferencesSchema = new mongoose.Schema({
     year: String,
     id: String
   }],
+  collectionId: {
+    required: true,
+    type: String
+  },
+  collectionName: {
+    required: true,
+    type: String
+  },
   receivers: {
     required: true,
     type: Array

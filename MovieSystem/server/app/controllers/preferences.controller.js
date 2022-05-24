@@ -25,15 +25,19 @@ router.get('/Preferences/user/:id', async (req, res) => {
   }
 })
 
-router.patch('/Preference/:id', async (req,res) => {
+router.patch('/Preferences/:id', async (req,res) => {
   try{
-    const preference = Preferences.findById(req.params.id);
+    const preference = await Preferences.findById(req.params.id);
     const ind = preference.receivers.indexOf(req.body.userId);
-    const newReceivers = [...preference.splice(ind,1)];
-    const body = {
-      receivers: newReceivers,
-    };
-    await Preferences.findByIdAndUpdate(req.params.id, body);
+    const newReceivers = [...preference.receivers];
+    if(ind > -1){
+      newReceivers.splice(ind, 1);
+    }
+    if(newReceivers.length > 0){
+      await Preferences.findByIdAndUpdate(req.params.id, { receivers: newReceivers, });
+    }else{
+      await Preferences.findByIdAndDelete(req.params.id);
+    }
   }catch(err){
     res.status(400).json({message: err.message});
   }
@@ -46,6 +50,8 @@ router.post('/Preferences', async (req,res) => {
     senderUsername: req.body.senderUsername,
     movies: req.body.movies,
     receivers: req.body.receivers,
+    collectionId: req.body.collectionId,
+    collectionName: req.body.collectionName,
     seen: false,
   })
   try{
@@ -54,8 +60,7 @@ router.post('/Preferences', async (req,res) => {
   }catch(err){
     res.status(400).json({message: err.message});
   }
-})
-
+});
 router.delete('/Preferences/:id', async (req,res) => {
   try{
     await Preferences.findByIdAndDelete(req.params.id);

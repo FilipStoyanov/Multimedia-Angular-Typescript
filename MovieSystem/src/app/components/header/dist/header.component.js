@@ -15,7 +15,7 @@ var HeaderComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.router = router;
         this.notificationService = notificationService;
-        this.links = ['', 'movies', 'collections', 'rateCollection', 'profile', "/friends"];
+        this.links = ['home', 'movies', 'collections', 'rateCollection', 'profile', 'ratings', "/friends"];
         this.userData = { firstname: '', lastname: '', email: '', username: '', password: '', image: '', _id: '' };
         this.user$ = store.select('user');
         this.notifications = [];
@@ -24,15 +24,16 @@ var HeaderComponent = /** @class */ (function () {
         });
         var parseUser;
         if (JSON.parse(localStorage.getItem('user'))) {
+            this.showNotRegistered = false;
             parseUser = JSON.parse(localStorage.getItem('user'));
             this.notificationService.getAllNotificationsByUserId(parseUser._id).subscribe(function (data) {
-                console.log(data);
                 _this.notifications = data.data;
                 _this.notSeenNotifications = data.data.filter(function (note) { return note.seen === false; });
             });
             this.userData.username = parseUser.username;
         }
         else {
+            this.showNotRegistered = true;
             console.log(this.userData);
         }
         if (parseUser && 'image' in parseUser) {
@@ -55,13 +56,27 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.prototype.toggleProfileMenu = function () {
         this.isShownProfileMenu = !this.isShownProfileMenu;
     };
+    HeaderComponent.prototype.returnRouterLink = function (notification) {
+        var res;
+        if (notification.type === 'review') {
+            res = '/movie/' + notification.movieId;
+        }
+        else if (notification.type === 'ranking') {
+            res = '/ratings';
+        }
+        return res;
+    };
     HeaderComponent.prototype.readNotification = function (notification) {
         notification.seen = true;
         var ind = this.notSeenNotifications.indexOf(notification);
         this.notSeenNotifications.splice(ind, 1);
         this.notificationService.readNotification(notification).subscribe({});
+        var ind2 = this.notifications.indexOf(notification);
+        this.notifications.splice(ind2, 1);
+        this.notificationService.removeNotification(notification).subscribe({});
     };
-    HeaderComponent.prototype.removeNotification = function (notification) {
+    HeaderComponent.prototype.removeNotification = function (notification, event) {
+        event.stopPropagation();
         var ind1 = this.notSeenNotifications.indexOf(notification);
         this.notSeenNotifications.splice(ind1, 1);
         var ind2 = this.notifications.indexOf(notification);

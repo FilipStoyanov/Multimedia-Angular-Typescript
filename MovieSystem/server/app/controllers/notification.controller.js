@@ -33,6 +33,7 @@ router.post('/Notification', async (req,res) => {
     receiver: req.body.receiver,
     movieId: req.body.movieId,
     seen: false,
+    type: req.body.type,
   })
   try{
     const newNotification = await notification.save()
@@ -50,6 +51,7 @@ router.patch('/Notification/:id', async (req,res) => {
       receiver: req.body.receiver,
       movieId: req.body.movieId,
       seen: req.body.seen,
+      type: req.body.type,
     };
   await Notification.findByIdAndUpdate(req.params.id, body);
   }catch(error){

@@ -31,10 +31,12 @@
           <a routerLinkActive='active' [routerLink]="links[1]" class="nav-link">Movies</a>
         </li>
         <li class="nav-item">
-          <a routerLinkActive='active' [routerLink]="links[2]" class="nav-link">Movies Collection</a>
+          <a *ngIf="!showNotRegistered" routerLinkActive='active' [routerLink]="links[2]" class="nav-link">Movies Collection</a>
+          <a *ngIf="showNotRegistered" routerLinkActive='active' routerLink="registration" class="nav-link">Registration</a>
         </li>
         <li class="nav-item">
-          <a routerLinkActive='active' [routerLink]="links[3]" class="nav-link">Friend Collections</a>
+          <a *ngIf="!showNotRegistered" routerLinkActive='active' [routerLink]="links[3]" class="nav-link">Friend Collections</a>
+          <a *ngIf="showNotRegistered" routerLinkActive='active' routerLink="about" class="nav-link">About us</a>
         </li>
         <li *ngIf="!userData.username" class="nav-item login">
           <app-sign-in></app-sign-in>
@@ -66,9 +68,11 @@
           *ngIf="notifications.length > 0">
           <p class="notification-title">Notifications</p>
           <li *ngFor="let notification of notifications" class="notification">
-            <a class="dropdown-item" (click) = "readNotification(notification)" [routerLink]='"/movie/" + notification.movieId' notification.movieId>User {{notification.senderUsername}} review your movie.
+            <a *ngIf="notification.type === 'review'" class="dropdown-item" (click) = "readNotification(notification)" [routerLink]="returnRouterLink(notification)" notification.movieId>User {{notification.senderUsername}} review your movie.
             See review <span><u>here</u></span></a>
-            <button type="button" class="notification-btn" (click)="removeNotification(notification)"><mat-icon>close</mat-icon></button>
+            <a *ngIf="notification.type === 'ranking'" class="dropdown-item" (click) = "readNotification(notification)" [routerLink]="returnRouterLink(notification)" notification.movieId>User {{notification.senderUsername}} rated your collection.
+              See <span><u>here</u></span></a>
+            <button type="button" class="notification-btn" (click)="removeNotification(notification, $event)"><mat-icon>close</mat-icon></button>
           </li>
         </ul>
       </div>
@@ -91,7 +95,7 @@
             <a class="dropdown-item" [routerLink] = "links[4]">Profile</a>
           </li>
           <li>
-            <a class="dropdown-item" (click) = "logOut()">Notifications</a>
+            <a class="dropdown-item" [routerLink] = "links[5]">Collection ratings</a>
           </li>
           <li>
             <a class="dropdown-item" href="/friends">Friends</a>

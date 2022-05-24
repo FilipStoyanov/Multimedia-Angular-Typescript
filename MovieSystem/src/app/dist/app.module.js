@@ -63,6 +63,7 @@ var radio_1 = require("@angular/material/radio");
 var store_1 = require("@ngrx/store");
 var not_found_component_1 = require("./not-found/not-found.component");
 var friend_preferences_component_1 = require("./friend-preferences/friend-preferences.component");
+var drag_drop_1 = require("@angular/cdk/drag-drop");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -117,6 +118,7 @@ var AppModule = /** @class */ (function () {
                 dialog_1.MatDialogModule,
                 tabs_1.MatTabsModule,
                 form_field_1.MatFormFieldModule,
+                drag_drop_1.DragDropModule,
                 expansion_1.MatExpansionModule,
                 forms_1.FormsModule,
                 card_1.MatCardModule,

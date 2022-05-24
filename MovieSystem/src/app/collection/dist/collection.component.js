@@ -46,7 +46,7 @@ var CollectionComponent = /** @class */ (function () {
         var _this = this;
         event.stopPropagation();
         var preference = { senderId: this.user._id, senderUsername: this.user.username, movies: collection.movies,
-            receivers: this.friends };
+            collectionId: collection._id, collectionName: collection.name, receivers: this.friends };
         this.preferenceService.addPreference(preference).subscribe({});
         this.showSendAlert = true;
         setTimeout(function () {
