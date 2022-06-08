@@ -11,7 +11,6 @@ export class CarouselComponent implements OnInit {
   lastFilms = [];
   constructor(private movies: MovieService) {
      this.movies.getAll().subscribe(data => {
-       console.log(data);
        this.films = (data as any).data;
        this.films.sort((a, b) => parseFloat(b.year) - parseFloat(a.year));
        this.lastFilms = [

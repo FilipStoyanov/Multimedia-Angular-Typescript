@@ -26,7 +26,6 @@ export class CommentService {
     return this.http.get<Comment>(baseURL + `/${id}`);
   }
   addComment(comment: Comment): Observable<Comment>{
-    console.log(comment);
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(comment);
     return this.http.post<Comment>(baseURL, body, {headers});

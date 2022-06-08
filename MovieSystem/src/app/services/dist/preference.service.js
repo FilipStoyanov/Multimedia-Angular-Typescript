@@ -27,7 +27,6 @@ var PreferenceService = /** @class */ (function () {
     };
     PreferenceService.prototype.deletePreference = function (preference) {
         var body = JSON.stringify(preference);
-        console.log(body);
         var headers = { 'content-type': 'application/json' };
         return this.http.patch(baseUrl + ("/" + preference._id), body, { headers: headers });
     };

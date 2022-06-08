@@ -37,7 +37,6 @@ export class PreferenceService {
   }
   deletePreference(preference): Observable<Preference>{
     const body = JSON.stringify(preference);
-    console.log(body);
     const headers = { 'content-type': 'application/json'};
     return this.http.patch<Preference>(baseUrl + `/${preference._id}`, body, {headers});
   }

@@ -7,6 +7,7 @@ import { EventManager } from '@angular/platform-browser';
 export interface Friend {
   username: string;
   id: string;
+  image: string | ArrayBuffer;
 }
 @Component({
   selector: 'app-friends',
@@ -35,6 +36,7 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   role: string;
   friendIds: Array<string>;
   friendNames: Array<string>;
+  currentUser: UserData;
 
 
   @ViewChild('friendInput') friendInput: ElementRef;
@@ -46,6 +48,7 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.friendsUsername = [];
       this.showAddAlert = false;
       this.showRemoveAlert = false;
+      this.currentUser = JSON.parse(localStorage.getItem('user'));
       if (localStorage.getItem('user')){
         const us: UserData = JSON.parse(localStorage.getItem('user'));
         if ('friends' in us){
@@ -59,12 +62,12 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
 
       this.userService.getUsers().subscribe(data => {
         this.users = (data as any).data;
-        this.filteredUser = [...(data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
-        && user.id !== JSON.parse(localStorage.getItem('user'))._id)];
+        this.filteredUser = (data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
+        && user.id !== JSON.parse(localStorage.getItem('user'))._id);
         this.friends = (data as any).data;
         // tslint:disable-next-line:max-line-length
-        this.filteredFriends = [...(data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
-        && user.id !== JSON.parse(localStorage.getItem('user'))._id)];
+        this.filteredFriends = (data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
+        && user.id !== JSON.parse(localStorage.getItem('user'))._id);
       });
 
       if (JSON.parse(localStorage.getItem('user'))){
@@ -86,6 +89,14 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
     this.filteredUser = null;
   }
 
+  isFriend(user: Friend): boolean {
+    this.currentUser.friends.forEach( u  => {
+       if (u.id === user.id){
+         return true;
+       }
+    });
+    return false;
+  }
   routeToUserProfile(friend: UserData, event: Event): void {
     this.navigationUrl = `/user/${friend._id}`;
     this.userName = friend._id;
@@ -121,32 +132,34 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   removeFriend(friend: UserData, event: Event): void {
-     event.preventDefault();
-     const fr: Friend = {username: friend.username, id: friend._id};
-     const user: UserData = JSON.parse(localStorage.getItem('user'));
-     this.userService.addFriend(user._id, fr).subscribe();
-     let indFriends = -1;
-     user.friends.forEach( (u, i) => {
-       if (u.id === fr.id){
-           indFriends = i;
+    event.preventDefault();
+    event.stopPropagation();
+    const fr: Friend = {username: friend.username, id: friend._id, image: friend.image};
+    const user: UserData = JSON.parse(localStorage.getItem('user'));
+    this.userService.addFriend(user._id, fr).subscribe();
+    let indFriends = -1;
+    user.friends.forEach( (u, i) => {
+      if (u.id === fr.id){
+          indFriends = i;
        }
      });
-     if (indFriends > -1){
-       this.filteredFriends.splice(indFriends, 1);
-       user.friends.splice(indFriends, 1);
-       localStorage.setItem('user', JSON.stringify(user));
-     }
+    console.log(indFriends);
+    if (indFriends > -1){
+      this.filteredFriends.splice(indFriends, 1);
+      user.friends.splice(indFriends, 1);
+      localStorage.setItem('user', JSON.stringify(user));
+    }
   }
   addFriend(friend: UserData, event: Event): void {
     event.preventDefault();
-    this.filteredFriends = [];
-    const fr: Friend = {username: friend.username, id:  friend._id};
+    const fr: Friend = {username: friend.username, id:  friend._id, image: ''};
     const user: UserData = JSON.parse(localStorage.getItem('user'));
     this.userService.addFriend(user._id, fr).subscribe(
     );
     const ind = this.friendIds.indexOf(fr.id);
     if (ind === -1){
       user.friends.push(fr);
+      this.filteredFriends.push(friend);
       localStorage.setItem('user', JSON.stringify(user));
     }
     this.showAddAlert = true;
@@ -155,35 +168,6 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
     }, 3000);
  }
  onTabChanged(event: Event): void {
-  this.filteredFriends = [];
-  this.friendIds = [];
-  this.friendNames = [];
-  this.friendsUsername = [];
-  // this.friendInput.nativeElement.value = '';
-  // this.userInput.nativeElement.value = '';
-  // this.friendIds = [];
-  // this.friendNames = [];
-  // this.friendsUsername = [];
-  // if (localStorage.getItem('user')){
-  //   const us: UserData = JSON.parse(localStorage.getItem('user'));
-  //   if ('friends' in us){
-  //     this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
-  //   }
-  //   for (const u of this.friendsUsername){
-  //     this.friendIds.push(u.id);
-  //     this.friendNames.push(u.username);
-  //    }
-  // }
-  // this.userService.getUsers().subscribe(data => {
-  //   this.users = (data as any).data;
-  //   this.filteredUser = (data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
-  //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
-  //   this.friends = (data as any).data;
-  //   this.filteredFriends = (data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
-  //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
-  // });
-  // this.username = JSON.parse(localStorage.getItem('user')).username;
-  // this.searchValue = '';
  }
 
  removeUser(user: UserData, event: Event): void {

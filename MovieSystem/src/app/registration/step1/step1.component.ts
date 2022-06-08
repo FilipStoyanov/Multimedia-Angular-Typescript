@@ -111,7 +111,6 @@ export class Step1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('child1');
   }
 
   ngOnChange(): void{

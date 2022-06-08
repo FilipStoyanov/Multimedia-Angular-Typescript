@@ -26,6 +26,7 @@ var FriendsComponent = /** @class */ (function () {
         this.friendsUsername = [];
         this.showAddAlert = false;
         this.showRemoveAlert = false;
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
         if (localStorage.getItem('user')) {
             var us = JSON.parse(localStorage.getItem('user'));
             if ('friends' in us) {
@@ -39,12 +40,12 @@ var FriendsComponent = /** @class */ (function () {
         }
         this.userService.getUsers().subscribe(function (data) {
             _this.users = data.data;
-            _this.filteredUser = __spreadArrays(data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1
-                && user.id !== JSON.parse(localStorage.getItem('user'))._id; }));
+            _this.filteredUser = data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1
+                && user.id !== JSON.parse(localStorage.getItem('user'))._id; });
             _this.friends = data.data;
             // tslint:disable-next-line:max-line-length
-            _this.filteredFriends = __spreadArrays(data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) > -1
-                && user.id !== JSON.parse(localStorage.getItem('user'))._id; }));
+            _this.filteredFriends = data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) > -1
+                && user.id !== JSON.parse(localStorage.getItem('user'))._id; });
         });
         if (JSON.parse(localStorage.getItem('user'))) {
             this.username = JSON.parse(localStorage.getItem('user')).username;
@@ -60,6 +61,14 @@ var FriendsComponent = /** @class */ (function () {
     FriendsComponent.prototype.ngOnDestroy = function () {
         this.filteredFriends = null;
         this.filteredUser = null;
+    };
+    FriendsComponent.prototype.isFriend = function (user) {
+        this.currentUser.friends.forEach(function (u) {
+            if (u.id === user.id) {
+                return true;
+            }
+        });
+        return false;
     };
     FriendsComponent.prototype.routeToUserProfile = function (friend, event) {
         this.navigationUrl = "/user/" + friend._id;
@@ -101,7 +110,8 @@ var FriendsComponent = /** @class */ (function () {
     };
     FriendsComponent.prototype.removeFriend = function (friend, event) {
         event.preventDefault();
-        var fr = { username: friend.username, id: friend._id };
+        event.stopPropagation();
+        var fr = { username: friend.username, id: friend._id, image: friend.image };
         var user = JSON.parse(localStorage.getItem('user'));
         this.userService.addFriend(user._id, fr).subscribe();
         var indFriends = -1;
@@ -110,6 +120,7 @@ var FriendsComponent = /** @class */ (function () {
                 indFriends = i;
             }
         });
+        console.log(indFriends);
         if (indFriends > -1) {
             this.filteredFriends.splice(indFriends, 1);
             user.friends.splice(indFriends, 1);
@@ -119,13 +130,13 @@ var FriendsComponent = /** @class */ (function () {
     FriendsComponent.prototype.addFriend = function (friend, event) {
         var _this = this;
         event.preventDefault();
-        this.filteredFriends = [];
-        var fr = { username: friend.username, id: friend._id };
+        var fr = { username: friend.username, id: friend._id, image: '' };
         var user = JSON.parse(localStorage.getItem('user'));
         this.userService.addFriend(user._id, fr).subscribe();
         var ind = this.friendIds.indexOf(fr.id);
         if (ind === -1) {
             user.friends.push(fr);
+            this.filteredFriends.push(friend);
             localStorage.setItem('user', JSON.stringify(user));
         }
         this.showAddAlert = true;
@@ -134,35 +145,6 @@ var FriendsComponent = /** @class */ (function () {
         }, 3000);
     };
     FriendsComponent.prototype.onTabChanged = function (event) {
-        this.filteredFriends = [];
-        this.friendIds = [];
-        this.friendNames = [];
-        this.friendsUsername = [];
-        // this.friendInput.nativeElement.value = '';
-        // this.userInput.nativeElement.value = '';
-        // this.friendIds = [];
-        // this.friendNames = [];
-        // this.friendsUsername = [];
-        // if (localStorage.getItem('user')){
-        //   const us: UserData = JSON.parse(localStorage.getItem('user'));
-        //   if ('friends' in us){
-        //     this.friendsUsername = JSON.parse(localStorage.getItem('user')).friends;
-        //   }
-        //   for (const u of this.friendsUsername){
-        //     this.friendIds.push(u.id);
-        //     this.friendNames.push(u.username);
-        //    }
-        // }
-        // this.userService.getUsers().subscribe(data => {
-        //   this.users = (data as any).data;
-        //   this.filteredUser = (data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
-        //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
-        //   this.friends = (data as any).data;
-        //   this.filteredFriends = (data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
-        //   && user.id !== JSON.parse(localStorage.getItem('user'))._id);
-        // });
-        // this.username = JSON.parse(localStorage.getItem('user')).username;
-        // this.searchValue = '';
     };
     FriendsComponent.prototype.removeUser = function (user, event) {
         event.preventDefault();

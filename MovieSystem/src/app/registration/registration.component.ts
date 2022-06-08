@@ -20,6 +20,7 @@ export interface UserData {
   repeatPassword?: string;
   _id?: string;
   friends?: Array<Friend> | null;
+  genres?: Array<string>;
 }
 
 @Component({
@@ -59,7 +60,6 @@ export class RegistrationComponent implements OnInit, OnChanges {
   // }
 
   ngOnInit(): void {
-    console.log('parent');
   }
 
 

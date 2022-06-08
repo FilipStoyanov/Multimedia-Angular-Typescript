@@ -26,11 +26,11 @@
         <li class="list__item" *ngIf="movieData.country">Country: <span>{{movieData.country}}</span></li>
         <li class="list__item" *ngIf="movieData.year">Year: <span>{{movieData.year}}</span></li>
         <li class="list__item" *ngIf="movieData.producer">Producer: <span>{{movieData.producer}}</span></li>
-        <li class="list__item" *ngIf="movieData.rating">Rating: <span>{{movieData.rating}}</span></li>
+        <li class="list__item" *ngIf="movieData.averageRating">Rating: <span>{{movieData.averageRating}}</span></li>
         <li class="list__item" *ngIf="movieData.watches">Watches: <span>{{movieData.watches}}</span></li>
       </ul>
     </div>
-    <p *ngIf="movieData.averageRating" class="movie__rating mt-5">Rating: <span>{{movieData.averageRating}} </span></p>
+    <!-- <p *ngIf="movieData.averageRating" class="movie__rating mt-5">Rating: <span>{{movieData.averageRating}} </span></p> -->
     <mat-accordion class="movie__accordion my-5">
       <mat-expansion-panel>
         <mat-expansion-panel-header>

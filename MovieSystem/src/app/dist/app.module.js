@@ -64,6 +64,8 @@ var store_1 = require("@ngrx/store");
 var not_found_component_1 = require("./not-found/not-found.component");
 var friend_preferences_component_1 = require("./friend-preferences/friend-preferences.component");
 var drag_drop_1 = require("@angular/cdk/drag-drop");
+var ratings_component_1 = require("./ratings/ratings.component");
+var terms_component_1 = require("./terms/terms.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -99,6 +101,8 @@ var AppModule = /** @class */ (function () {
                 add_collection_component_1.AddCollectionComponent,
                 not_found_component_1.NotFoundComponent,
                 friend_preferences_component_1.FriendPreferencesComponent,
+                ratings_component_1.RatingsComponent,
+                terms_component_1.TermsComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -117,14 +121,12 @@ var AppModule = /** @class */ (function () {
                 icon_1.MatIconModule,
                 dialog_1.MatDialogModule,
                 tabs_1.MatTabsModule,
-                form_field_1.MatFormFieldModule,
                 drag_drop_1.DragDropModule,
                 expansion_1.MatExpansionModule,
                 forms_1.FormsModule,
                 card_1.MatCardModule,
                 button_toggle_1.MatButtonToggleModule,
                 animations_1.BrowserAnimationsModule,
-                form_field_1.MatFormFieldModule,
                 store_1.StoreModule.forRoot({ user: user_reducer_1.userReducer }),
                 ng_bootstrap_2.NgbAlertModule,
                 ng_bootstrap_1.NgbModule,

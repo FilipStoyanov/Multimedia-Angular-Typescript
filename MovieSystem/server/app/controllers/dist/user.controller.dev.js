@@ -136,6 +136,7 @@ router.post('/Users', function _callee2(req, res) {
             username: req.body.username,
             password: req.body.password,
             role: req.body.role || 'user',
+            genres: req.body.genres,
             id: ''
           });
           _context4.prev = 1;
@@ -161,7 +162,7 @@ router.post('/Users', function _callee2(req, res) {
 
         case 10:
           newUser = _context4.sent;
-          res.status(201).json(newUser);
+          res.status(201).location("/api/users/".concat(newUser._id)).json(newUser);
 
         case 12:
           _context4.next = 17;
@@ -304,8 +305,6 @@ router.put('/Users/:id', function _callee5(req, res) {
           return _context7.finish(17);
 
         case 25:
-          console.log(friendIds);
-
           if (updateUser.friends) {
             if (friendIds.indexOf(req.body.friends.id) === -1) {
               newFriends.push(req.body.friends);
@@ -318,30 +317,30 @@ router.put('/Users/:id', function _callee5(req, res) {
             newFriends = _toConsumableArray(updateUser.friends);
           }
 
-          _context7.next = 29;
+          _context7.next = 28;
           return regeneratorRuntime.awrap(User.updateOne({
             _id: req.params.id
           }, {
             friends: _toConsumableArray(newFriends)
           }));
 
-        case 29:
-          _context7.next = 34;
+        case 28:
+          _context7.next = 33;
           break;
 
-        case 31:
-          _context7.prev = 31;
+        case 30:
+          _context7.prev = 30;
           _context7.t1 = _context7["catch"](0);
           res.status(500).json({
             message: _context7.t1.message
           });
 
-        case 34:
+        case 33:
         case "end":
           return _context7.stop();
       }
     }
-  }, null, null, [[0, 31], [9, 13, 17, 25], [18,, 20, 24]]);
+  }, null, null, [[0, 30], [9, 13, 17, 25], [18,, 20, 24]]);
 });
 router.patch('/Users/:id', function _callee6(req, res) {
   var body;
@@ -356,7 +355,9 @@ router.patch('/Users/:id', function _callee6(req, res) {
             lastname: req.body.lastname,
             email: req.body.email,
             password: req.body.password,
-            birthdate: req.body.birthdate
+            birthdate: req.body.birthdate,
+            genres: req.body.genres,
+            image: req.body.image
           };
           _context8.next = 4;
           return regeneratorRuntime.awrap(User.updateOne({

@@ -16,7 +16,7 @@
             {{collection.name}}
           </mat-panel-title>
           <mat-panel-description>
-            <button *ngIf="showSendIcon === 'true'" class="btn-send" mat-icon color="accent" aria-label="Example icon button with a send icon" (click)="sendCollection(collection, $event)">
+            <button *ngIf="showSendIcon === 'true' && this.friends.length > 0" class="btn-send" mat-icon color="accent" aria-label="Example icon button with a send icon" (click)="sendCollection(collection, $event)">
               <mat-icon>send</mat-icon>
             </button>
             <button class="btn" mat-icon color="accent" aria-label="Example icon button with a delete icon" (click) = "removeCollection(collection, $event)">

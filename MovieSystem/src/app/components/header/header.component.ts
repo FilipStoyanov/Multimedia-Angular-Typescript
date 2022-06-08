@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit, OnChanges {
       this.userData.username = parseUser.username;
     }else{
       this.showNotRegistered = true;
-      console.log(this.userData);
     }
     if (parseUser && 'image' in parseUser){
       this.imageData = parseUser.image;

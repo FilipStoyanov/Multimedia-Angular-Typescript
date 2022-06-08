@@ -8,10 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.UserService = void 0;
 var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
 var baseURL = 'http://localhost:8080/api/users';
 var UserService = /** @class */ (function () {
-    function UserService(http) {
+    function UserService(http, router) {
         this.http = http;
+        this.router = router;
     }
     UserService.prototype.addUser = function (newUser) {
         var headers = { 'content-type': 'application/json' };
@@ -24,6 +26,13 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getUser = function (username) {
         return this.http.get(baseURL + ("/" + username));
     };
+    UserService.prototype.canActivate = function (id) {
+        var _this = this;
+        this.getUser(id).subscribe(function (data) {
+            _this.router.navigate(['user/' + data._id]);
+        });
+        return rxjs_1.of(false);
+    };
     UserService.prototype.getUserByEmail = function (email) {
         return this.http.get(baseURL + ("/" + email + "/1"));
     };
@@ -34,14 +43,6 @@ var UserService = /** @class */ (function () {
     };
     UserService.prototype.addFriend = function (id, friendName) {
         this.user = JSON.parse(localStorage.getItem('user'));
-        var findIndex = this.user.friends.indexOf(friendName);
-        if (findIndex === -1) {
-            this.user.friends.push(friendName);
-        }
-        else {
-            this.user.friends.splice(findIndex, 1);
-        }
-        localStorage.setItem('user', JSON.stringify(this.user));
         var headers = { 'content-type': 'application/json' };
         var body = JSON.stringify({ friends: friendName });
         return this.http.put(baseURL + ("/" + id), body, { headers: headers });

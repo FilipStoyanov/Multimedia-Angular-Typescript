@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { UserData } from '../registration/registration.component';
 import { Friend } from '../friends/friends.component';
+import {Router, CanActivate} from '@angular/router';
 
 const baseURL = 'http://localhost:8080/api/users';
 @Injectable({
   providedIn: 'root',
 })
 
-export class UserService {
-  constructor(private http: HttpClient){}
+export class UserService implements CanActivate {
+  constructor(private http: HttpClient, private router: Router){}
   user: UserData;
   addUser(newUser: UserData): Observable<UserData>{
       const headers = { 'content-type': 'application/json'};
@@ -23,6 +24,13 @@ export class UserService {
   getUser(username: string): Observable<UserData>{
     return this.http.get<UserData>(baseURL + `/${username}`);
   }
+  canActivate(id): Observable<boolean> {
+    this.getUser(id).subscribe(
+      data => {
+      this.router.navigate(['user/' + data._id]);
+    });
+    return of(false);
+  }
   getUserByEmail(email: string): Observable<UserData>{
     return this.http.get<UserData>(baseURL + `/${email}/1`);
   }
@@ -33,13 +41,6 @@ export class UserService {
   }
   addFriend(id: string, friendName: Friend): Observable<UserData>{
     this.user = JSON.parse(localStorage.getItem('user'));
-    const findIndex = this.user.friends.indexOf(friendName);
-    if (findIndex === -1){
-      this.user.friends.push(friendName);
-    }else{
-      this.user.friends.splice(findIndex, 1);
-    }
-    localStorage.setItem('user', JSON.stringify(this.user));
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify({friends: friendName});
 

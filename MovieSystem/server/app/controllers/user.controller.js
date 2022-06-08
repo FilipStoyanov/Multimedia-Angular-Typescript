@@ -49,6 +49,7 @@ router.post('/Users', async (req,res) => {
      username: req.body.username,
      password: req.body.password,
      role: req.body.role || 'user',
+     genres: req.body.genres,
      id: ''
   })
   try{
@@ -59,7 +60,7 @@ router.post('/Users', async (req,res) => {
       // })
     }else{
       const newUser = await user.save()
-      res.status(201).json(newUser);
+      res.status(201).location(`/api/users/${newUser._id}`).json(newUser);
     }
   }catch(err){
     res.status(400).json({message: err.message});
@@ -93,7 +94,6 @@ router.put('/Users/:id', async (req,res) => {
     for (const friend of updateUser.friends){
         friendIds.push(friend.id);
     }
-    console.log(friendIds);
     if(updateUser.friends){
       if(friendIds.indexOf(req.body.friends.id) === -1){
         newFriends.push(req.body.friends);
@@ -120,6 +120,8 @@ router.patch('/Users/:id', async (req,res) => {
       email: req.body.email,
       password: req.body.password,
       birthdate: req.body.birthdate,
+      genres: req.body.genres,
+      image: req.body.image,
     };
   await User.updateOne({username: req.params.id}, body);
   }catch(error){

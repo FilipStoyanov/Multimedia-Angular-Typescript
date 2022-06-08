@@ -37,7 +37,7 @@ export class Step2Component implements OnInit, DoCheck {
   private statusCode: boolean;
   private data: UserStep2 = {username: '', password: '', repeatPassword: ''};
   private user: UserData = {username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
-  birthdate: '', friends: []};
+  birthdate: '', friends: [], genres: []};
   public validation = { username: true, password: true, repeatPassword: true };
   showWarning: boolean;
   public imageUrl: string | ArrayBuffer;
@@ -166,12 +166,14 @@ export class Step2Component implements OnInit, DoCheck {
     this.validation.password = this.data.password.length >= 6;
     this.validation.username  = this.data.username.length > 3;
     this.user.image = this.imageUrl;
+    this.user.genres = this.favoriteGenres;
 
     if (this.validation.username && this.validation.password && this.validation.repeatPassword){
       this.userService.addUser(this.user).subscribe(
           data => {
             if (data) {
               stepper.next();
+              this.user._id = data._id;
               localStorage.setItem('user', JSON.stringify(this.user));
             }else {
               this.showAlert = true;
@@ -179,7 +181,7 @@ export class Step2Component implements OnInit, DoCheck {
           }
         );
 
-      // POST REQUEST TO THE BACKEND HERE
+    // POST REQUEST TO THE BACKEND HERE
     }else{
       this.validation.username = (this.validation.username === true);
       this.validation.password = (this.validation.password === true);

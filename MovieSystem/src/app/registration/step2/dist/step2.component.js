@@ -14,7 +14,7 @@ var Step2Component = /** @class */ (function () {
         this.store = store;
         this.data = { username: '', password: '', repeatPassword: '' };
         this.user = { username: '', password: '', repeatPassword: '', firstname: '', lastname: '', email: '', image: '', _id: '',
-            birthdate: '', friends: [] };
+            birthdate: '', friends: [], genres: [] };
         this.validation = { username: true, password: true, repeatPassword: true };
         this.genres = [
             'Action',
@@ -136,10 +136,12 @@ var Step2Component = /** @class */ (function () {
         this.validation.password = this.data.password.length >= 6;
         this.validation.username = this.data.username.length > 3;
         this.user.image = this.imageUrl;
+        this.user.genres = this.favoriteGenres;
         if (this.validation.username && this.validation.password && this.validation.repeatPassword) {
             this.userService.addUser(this.user).subscribe(function (data) {
                 if (data) {
                     stepper.next();
+                    _this.user._id = data._id;
                     localStorage.setItem('user', JSON.stringify(_this.user));
                 }
                 else {

@@ -41,7 +41,6 @@ export class SignInComponent implements OnInit {
          }else if ('password' in res && res.password !== this.user.password){
            this.invalidCredentials = true;
          }else if (res && 'password' in res && res.password === this.user.password){
-          console.log(res);
           this.invalidCredentials = false;
           localStorage.setItem('user', JSON.stringify(res));
           this.router.navigate([`/`]).then( () => window.location.reload());

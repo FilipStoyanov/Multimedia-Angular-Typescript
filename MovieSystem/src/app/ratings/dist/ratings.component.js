@@ -79,9 +79,7 @@ var RatingsComponent = /** @class */ (function () {
                 }
             }
         }
-        console.log(sortedIndex);
         var a = __spreadArrays(sortedIndex);
-        console.log(a);
         // this.removeCollection(ranking, event);
     };
     RatingsComponent = __decorate([

@@ -46,7 +46,6 @@ export class CollectionService {
       image: imageMovie,
       id: movieId,
     });
-    console.log(body);
     const headers = { 'content-type': 'application/json'};
     return this.http.put<Collection>(baseURL + `/${id}`, body, {headers});
   }

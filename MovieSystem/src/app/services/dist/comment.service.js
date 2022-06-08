@@ -20,7 +20,6 @@ var CommentService = /** @class */ (function () {
         return this.http.get(baseURL + ("/" + id));
     };
     CommentService.prototype.addComment = function (comment) {
-        console.log(comment);
         var headers = { 'content-type': 'application/json' };
         var body = JSON.stringify(comment);
         return this.http.post(baseURL, body, { headers: headers });

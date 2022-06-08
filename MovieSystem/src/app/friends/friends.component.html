@@ -6,10 +6,10 @@
       <mat-list role="list" #friends}>
         <a *ngFor="let friend of filteredFriends" [routerLink] = "navigationUrl" (click)="routeToUserProfile(friend)" id={{friend._id}}
           name={{friend.username}}>
-          <mat-list-item class="list__item row" role="listitem" *ngFor="let friend of filteredFriends" id={{friend._id}}
+          <mat-list-item class="list__item row" role="listitem" id={{friend._id}}
           name={{friend.username}}>
             <div class="col-3 px-2">
-              <img class="list__image" src="https://i.ytimg.com/vi/8WXp6UutPgE/maxresdefault.jpg" alt="user image" />
+              <img class="list__image" [src]="friend.image ? friend.image : '../../assets/icons/profile-icon-png-898.png'" alt="user image" />
               <span>{{friend.username}}</span>
             </div>
             <div class="col-6">
@@ -43,7 +43,7 @@
           name={{user._id}}>
           <mat-list-item class="list__item row" role="listitem">
             <div class="col-3 px-2">
-              <img class="list__image" src="https://i.ytimg.com/vi/8WXp6UutPgE/maxresdefault.jpg" alt="user image" />
+              <img class="list__image" [src]="user.image ? user.image : '../../assets/icons/profile-icon-png-898.png'" alt="user image" />
               <span>{{user.username}}</span>
             </div>
             <div class="col-6">
@@ -54,8 +54,11 @@
                 aria-label="Example icon button with a bookmark icon">
                 See more
               </button>
-              <button (click) = "addFriend(user,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+              <button *ngIf="isFriend(user) === false" (click) = "addFriend(user,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
                 <mat-icon>add</mat-icon>
+              </button>
+              <button *ngIf="isFriend(user) === true" (click) = "removeFriend(user,$event)" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon">
+                <mat-icon>close</mat-icon>
               </button>
               <button type="button" *ngIf="role === 'admin'" class="btn" mat-icon color="accent" aria-label="Example icon button with a bookmark icon" (click)="removeUser(user, $event)">
                 <mat-icon>delete</mat-icon>

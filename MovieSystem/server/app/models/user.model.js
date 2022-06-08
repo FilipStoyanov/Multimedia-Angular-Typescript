@@ -41,7 +41,11 @@ const userSchema  = new mongoose.Schema({
      id: String,
      username: String,
    }
-  ]
+  ],
+  genres: {
+    type: [String],
+    required: false,
+  },
 });
 
 module.exports = mongoose.model('User', userSchema, "Users");

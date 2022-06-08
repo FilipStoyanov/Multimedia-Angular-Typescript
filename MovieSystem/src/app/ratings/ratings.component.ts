@@ -78,9 +78,7 @@ export class RatingsComponent implements OnInit {
          }
       }
     }
-    console.log(sortedIndex);
     const a = [...sortedIndex];
-    console.log(a);
     // this.removeCollection(ranking, event);
   }
 }

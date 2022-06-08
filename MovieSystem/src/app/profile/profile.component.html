@@ -1,10 +1,15 @@
 <section class="profile row justify-content-center mb-5">
-  <div class="row py-5">
+  <div class="row pt-5 pb-4">
     <div class="col-12 col-md-4">
-      <img *ngIf="user.image" [src] = "user.image"
-        class="profile__image" alt="profile image" />
-      <img *ngIf="!user.image || !'image' in user" src="../../../assets/icons/profile-icon-png-898.png"
-        class="profile__image" alt="profile image" />
+      <button class="upload" (click)="onBtnClick()">
+        <input class="upload__input" accept ="image/*" type="file" name="profileImage" id="imageUpload" (change) = "readUrl($event);" />
+        <img src ="../../assets/icons/upload.svg" alt="upload icon" [ngClass]="editedUser.image ? 'none' : 'upload__icon'" />
+        <img [ngClass]="editedUser.image ? 'upload__image' : 'none'" [src] ="editedUser.image" alt="Your Profile image" />
+        <!-- <div [ngClass]="editedUser.image ? 'upload__mask' : 'none'"> -->
+          <!-- <img [ngClass]="editedUser.image ? 'upload__close' : 'none'" src="../../../assets/icons/close.svg" alt="close icon" /> -->
+        <!-- </div> -->
+      </button>
+      <mat-icon [ngClass]="editedUser.image ? 'upload__close' : 'none'" (click) = "onBtnClick()">close icon</mat-icon>
     </div>
     <div class="col-12 col-md-8 pt-3">
       <p *ngIf="user.username">Username: <span>{{user.username}}</span></p>
@@ -21,7 +26,8 @@
         <label class="profile__label" for="username">Username</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" (keyup) = "onChangeUsername($event)" type="text" defaultValue = {{user.username}} placeholder="Username" id="username" />
+        <input class="profile__field" (keyup)="onChangeUsername($event)" type="text" defaultValue={{user.username}}
+          placeholder="Username" id="username" />
       </div>
     </div>
     <div class="row my-4">
@@ -29,7 +35,8 @@
         <label class="profile__label" for="firstname">Firstname</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" (keyup) = "onChangeFirstname($event)" type="text"  defaultValue = {{user.firstname}} placeholder="Firstname" id="firstname" />
+        <input class="profile__field" (keyup)="onChangeFirstname($event)" type="text" defaultValue={{user.firstname}}
+          placeholder="Firstname" id="firstname" />
       </div>
     </div>
     <div class="row my-4">
@@ -37,7 +44,8 @@
         <label class="profile__label" for="lastname">Lastname</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" (keyup) = "onChangeLastname($event)" type="text" defaultValue = {{user.lastname}}  placeholder="Lastname" id="lasttname" />
+        <input class="profile__field" (keyup)="onChangeLastname($event)" type="text" defaultValue={{user.lastname}}
+          placeholder="Lastname" id="lasttname" />
       </div>
     </div>
     <div class="row my-4">
@@ -45,7 +53,8 @@
         <label class="profile__label" for="email">Email</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" type="text" (keyup) = "onChangeEmail($event)" defaultValue = {{user.email}} placeholder="Email" id="email" />
+        <input class="profile__field" type="text" (keyup)="onChangeEmail($event)" defaultValue={{user.email}}
+          placeholder="Email" id="email" />
       </div>
     </div>
     <div class="row my-4">
@@ -53,7 +62,8 @@
         <label class="profile__label" for="birthday">Birthday</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" (keyup) = "onChangeBirthday($event)" type="date" defaultValue = {{user.birthdate}} placeholder = "19/02/2000" id="birhtday" />
+        <input class="profile__field" (keyup)="onChangeBirthday($event)" type="date" defaultValue={{user.birthdate}}
+          placeholder="19/02/2000" id="birhtday" />
       </div>
     </div>
     <div class="row my-4">
@@ -61,11 +71,28 @@
         <label class="profile__label" for="password">Password</label>
       </div>
       <div class="col-12 col-md-8">
-        <input class="profile__field" (keyup) = "onChangePassword($event)" defaultValue = {{user.password}} type="password" placeholder = "Password" id="password" />
+        <input class="profile__field" (keyup)="onChangePassword($event)" defaultValue={{user.password}} type="password"
+          placeholder="Password" id="password" />
+      </div>
+    </div>
+    <div *ngIf="user.genres.length > 0" class="row my-4">
+      <div class="col-12 col-md-4">
+        <span class="profile__label">Genres</span>
+      </div>
+      <div class="col-12 col-md-8">
+        <button *ngFor="let genre of editedUser.genres" class="genre" type="button" (click)="removeGenre(genre)">
+          {{genre}}
+          <mat-icon style="position: absolute; top: 7.5px; right: 10px">close icon</mat-icon>
+        </button>
+        <app-default-select (handleSelect)="addGenre($event)" label="Favorite film genres" [options]="genres"
+          defaultValue="Genres"></app-default-select>
+        <!-- <button type="button" class="genre__add" (click)="showInput()">
+          <mat-icon>add</mat-icon>
+        </button> -->
       </div>
     </div>
     <div *ngIf="changedValue.indexOf(false) > -1" class="row justify-content-end mr-1">
-      <button type="submit" class="profile__save col-2 col-md-1 p-1" (click) = "saveAccount()">
+      <button type="submit" class="profile__save col-2 col-md-1 p-1" (click)="saveAccount()">
         ЗАПАЗИ
       </button>
     </div>
