@@ -66,6 +66,20 @@ router.put('/Collections/:_id', async (req,res) => {
   }
 });
 
+router.patch('/Collections/:_id', async(req,res) => {
+  try{
+    const body = {
+      user: req.body.user,
+      movies: req.body.movies,
+      name: req.body.name,
+    };
+    const reorderedCollection =  await Collection.findByIdAndUpdate(req.params._id, body);
+    res.status(200).json(reorderedCollection);
+  }catch(error){
+    res.status(500).json({message: error.message});
+  }
+})
+
 router.delete('/Collections/:_id', async (req,res) => {
   try{
     await Collection.findByIdAndDelete(req.params._id);

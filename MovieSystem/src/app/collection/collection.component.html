@@ -3,7 +3,7 @@
   <p *ngIf="!userCollections.length" class="collection__empty my-4">Sorry, but you don't have any collections. Create your first collection and share it
     with your friends.</p>
   <app-add-collection></app-add-collection>
-  <div *ngFor="let collection of userCollections" class="row">
+  <div *ngFor="let collection of userCollections; let indexOfElement = index" class="row">
     <p *ngIf="showSendAlert" class="alert col-10 text-center my-2 mx-auto">
       <ngb-alert type="success">
         <strong>Warning!</strong> Added successfully
@@ -16,7 +16,7 @@
             {{collection.name}}
           </mat-panel-title>
           <mat-panel-description>
-            <button *ngIf="showSendIcon === 'true' && this.friends.length > 0" class="btn-send" mat-icon color="accent" aria-label="Example icon button with a send icon" (click)="sendCollection(collection, $event)">
+            <button *ngIf="this.friends.length > 0 && collection.movies.length > 1" class="btn-send" mat-icon color="accent" aria-label="Example icon button with a send icon" (click)="sendCollection(collection, $event)">
               <mat-icon>send</mat-icon>
             </button>
             <button class="btn" mat-icon color="accent" aria-label="Example icon button with a delete icon" (click) = "removeCollection(collection, $event)">

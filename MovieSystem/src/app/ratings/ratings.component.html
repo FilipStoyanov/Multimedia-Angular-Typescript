@@ -1,15 +1,15 @@
 <section class="rating">
+<p class="rating__title">See how your friends rated your collections.</p>
 <div *ngFor="let collection of rankingCollections" class="row">
   <p *ngIf="showApplyAlert" class="alert col-10 text-center my-2 mx-auto">
     <ngb-alert type="success">
       <strong>Warning!</strong> Changed order in collection successfully!
     </ngb-alert>
   </p>
-  <p class="rating__title">See how your friends rated your collections.</p>
   <div class="col-10 mx-auto">
   <div class="d-flex">
     <h1 class="rating__collection">Collection: {{collection.collectionName}}</h1>
-    <button  mat-button color="primary" class="rating__apply" (click)="applyChanges(collection, $event)"> apply changes </button>
+    <button  mat-button color="primary" class="rating__apply" (click)="applyCollectionOrder(collection, $event)"> apply changes </button>
     <button class="rating__btn" type="button" (click)="removeCollection(collection,$event)"><mat-icon>delete</mat-icon></button>
   </div>
   <mat-accordion *ngFor="let movies of collection.movies; let indexOfElement = index" class="col-10 mx-auto my-2">

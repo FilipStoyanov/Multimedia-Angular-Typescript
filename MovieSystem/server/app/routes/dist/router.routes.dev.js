@@ -42,6 +42,7 @@ router["delete"]("/ranking/:id", RankingController);
 router.get("/collections", CollectionController);
 router.post("/collections", CollectionController);
 router.get("/collections/:username", CollectionController);
+router.patch("/collections/:_id", CollectionController);
 router.put("/collections/:_id", CollectionController);
 router["delete"]("/collections/:_id", CollectionController);
 router.get("/notification", NotificationController);

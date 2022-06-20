@@ -34,6 +34,11 @@ export class CollectionService {
     const body = JSON.stringify(collection);
     return this.http.post<Collection>(baseURL, body, {headers});
   }
+  reorderCollection(collection: Collection): Observable<Collection>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(collection);
+    return this.http.patch<Collection>(baseURL + `/${collection._id}`, body, {headers});
+  }
   removeCollection(id: string): Observable<Collection>{
     return this.http.delete<Collection>(baseURL + `/${id}`);
   }

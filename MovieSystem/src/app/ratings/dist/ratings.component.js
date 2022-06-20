@@ -16,14 +16,16 @@ exports.__esModule = true;
 exports.RatingsComponent = void 0;
 var core_1 = require("@angular/core");
 var RatingsComponent = /** @class */ (function () {
-    function RatingsComponent(rankingService) {
+    function RatingsComponent(rankingService, collectionService) {
         var _this = this;
         this.rankingService = rankingService;
+        this.collectionService = collectionService;
         this.rankingCollections = [];
         this.showApplyAlert = false;
         this.user = JSON.parse(localStorage.getItem('user'));
         this.rankingService.getAllRankingsByUserId(this.user._id).subscribe(function (data) {
             _this.rankingCollections = data.data;
+            console.log(data.data);
             //
         });
     }
@@ -34,6 +36,13 @@ var RatingsComponent = /** @class */ (function () {
         var ind = this.rankingCollections.indexOf(ranking);
         this.rankingCollections.splice(ind, 1);
         this.rankingService.deleteRanking(ranking).subscribe({});
+    };
+    RatingsComponent.prototype.applyCollectionOrder = function (ranking, event) {
+        event.stopPropagation();
+        var reorderedCollection;
+        reorderedCollection = { user: ranking.receiver, name: ranking.collectionName, movies: ranking.movies[0], _id: ranking.collectionId };
+        this.collectionService.reorderCollection(reorderedCollection).subscribe({});
+        this.removeCollection(ranking, event);
     };
     RatingsComponent.prototype.applyChanges = function (ranking, event) {
         var _this = this;

@@ -181,30 +181,65 @@ router.put('/Collections/:_id', function _callee4(req, res) {
     }
   }, null, null, [[0, 13]]);
 });
-router["delete"]('/Collections/:_id', function _callee5(req, res) {
+router.patch('/Collections/:_id', function _callee5(req, res) {
+  var body, reorderedCollection;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          _context5.next = 3;
+          body = {
+            user: req.body.user,
+            movies: req.body.movies,
+            name: req.body.name
+          };
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(Collection.findByIdAndUpdate(req.params._id, body));
+
+        case 4:
+          reorderedCollection = _context5.sent;
+          res.status(200).json(reorderedCollection);
+          _context5.next = 11;
+          break;
+
+        case 8:
+          _context5.prev = 8;
+          _context5.t0 = _context5["catch"](0);
+          res.status(500).json({
+            message: _context5.t0.message
+          });
+
+        case 11:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[0, 8]]);
+});
+router["delete"]('/Collections/:_id', function _callee6(req, res) {
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
           return regeneratorRuntime.awrap(Collection.findByIdAndDelete(req.params._id));
 
         case 3:
           res.status(200);
-          _context5.next = 9;
+          _context6.next = 9;
           break;
 
         case 6:
-          _context5.prev = 6;
-          _context5.t0 = _context5["catch"](0);
+          _context6.prev = 6;
+          _context6.t0 = _context6["catch"](0);
           res.status(400).json({
-            message: _context5.t0.message
+            message: _context6.t0.message
           });
 
         case 9:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[0, 6]]);

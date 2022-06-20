@@ -24,6 +24,11 @@ var CollectionService = /** @class */ (function () {
         var body = JSON.stringify(collection);
         return this.http.post(baseURL, body, { headers: headers });
     };
+    CollectionService.prototype.reorderCollection = function (collection) {
+        var headers = { 'content-type': 'application/json' };
+        var body = JSON.stringify(collection);
+        return this.http.patch(baseURL + ("/" + collection._id), body, { headers: headers });
+    };
     CollectionService.prototype.removeCollection = function (id) {
         return this.http["delete"](baseURL + ("/" + id));
     };

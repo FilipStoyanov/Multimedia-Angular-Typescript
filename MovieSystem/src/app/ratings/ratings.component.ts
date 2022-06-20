@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RankingService, Ranking } from '../services/ranking.service';
 import { UserData } from '../registration/registration.component';
 import { Movie } from '../services/movie.service';
+import { Collection, CollectionMovie, CollectionService } from '../services/collection.service';
 
 @Component({
   selector: 'app-ratings',
@@ -13,12 +14,13 @@ export class RatingsComponent implements OnInit {
   public user: UserData;
   public showApplyAlert: boolean;
 
-  constructor(private rankingService: RankingService) {
+  constructor(private rankingService: RankingService, private collectionService: CollectionService) {
     this.showApplyAlert = false;
     this.user = JSON.parse(localStorage.getItem('user'));
     this.rankingService.getAllRankingsByUserId(this.user._id).subscribe(
       data => {
         this.rankingCollections = (data as any).data;
+        console.log((data as any).data);
         //
       },
       //
@@ -35,6 +37,13 @@ export class RatingsComponent implements OnInit {
      this.rankingService.deleteRanking(ranking).subscribe({});
   }
 
+  applyCollectionOrder(ranking: Ranking, event: Event): void {
+    event.stopPropagation();
+    let reorderedCollection: Collection;
+    reorderedCollection = {user: ranking.receiver, name: ranking.collectionName, movies: ranking.movies[0], _id: ranking.collectionId };
+    this.collectionService.reorderCollection(reorderedCollection).subscribe({});
+    this.removeCollection(ranking, event);
+  }
   applyChanges(ranking: Ranking, event: Event): void {
     event.stopPropagation();
     const arr = [];
