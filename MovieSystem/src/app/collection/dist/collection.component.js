@@ -17,10 +17,11 @@ var MyCollection = /** @class */ (function () {
 }());
 exports.MyCollection = MyCollection;
 var CollectionComponent = /** @class */ (function () {
-    function CollectionComponent(collectionService, preferenceService) {
+    function CollectionComponent(collectionService, preferenceService, notificationService) {
         var _this = this;
         this.collectionService = collectionService;
         this.preferenceService = preferenceService;
+        this.notificationService = notificationService;
         this.userCollections = [];
         this.userId = JSON.parse(localStorage.getItem('user'))._id;
         this.movieUrl = '/movie/';

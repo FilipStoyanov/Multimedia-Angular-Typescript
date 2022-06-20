@@ -41,7 +41,7 @@ var FriendsComponent = /** @class */ (function () {
         this.userService.getUsers().subscribe(function (data) {
             _this.users = data.data;
             _this.filteredUser = data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1
-                && user.id !== JSON.parse(localStorage.getItem('user'))._id; });
+                && user._id !== JSON.parse(localStorage.getItem('user'))._id; });
             _this.friends = data.data;
             // tslint:disable-next-line:max-line-length
             _this.filteredFriends = data.data.filter(function (user) { return _this.friendIds.indexOf(user._id) > -1
@@ -55,10 +55,12 @@ var FriendsComponent = /** @class */ (function () {
         this.navUrl = '/user/';
     }
     FriendsComponent.prototype.ngOnInit = function () {
+        console.log('here');
     };
     FriendsComponent.prototype.ngAfterContentInit = function () {
     };
     FriendsComponent.prototype.ngOnDestroy = function () {
+        console.log(this.filteredFriends);
         this.filteredFriends = null;
         this.filteredUser = null;
     };
@@ -80,7 +82,8 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.searchValue = event.target.value;
         if (this.searchValue === '') {
-            this.filteredUser = this.users.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1; });
+            this.filteredUser = this.users.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1
+                && user._id !== JSON.parse(localStorage.getItem('user'))._id; });
         }
         else {
             this.filteredUser = this.users.filter(function (user) { return _this.friendIds.indexOf(user._id) === -1
@@ -126,6 +129,7 @@ var FriendsComponent = /** @class */ (function () {
             user.friends.splice(indFriends, 1);
             localStorage.setItem('user', JSON.stringify(user));
         }
+        window.location.reload();
     };
     FriendsComponent.prototype.addFriend = function (friend, event) {
         var _this = this;
@@ -133,6 +137,14 @@ var FriendsComponent = /** @class */ (function () {
         var fr = { username: friend.username, id: friend._id, image: '' };
         var user = JSON.parse(localStorage.getItem('user'));
         this.userService.addFriend(user._id, fr).subscribe();
+        var index = -1;
+        this.filteredUser.forEach(function (u, i) {
+            if (u._id === friend._id) {
+                index = i;
+            }
+        });
+        console.log(index);
+        this.filteredUser.splice(index, 1);
         var ind = this.friendIds.indexOf(fr.id);
         if (ind === -1) {
             user.friends.push(fr);

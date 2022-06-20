@@ -3,6 +3,7 @@ import { CollectionService } from '../services/collection.service';
 import { Movie } from '../services/movie.service';
 import { Preference, PreferenceService } from '../services/preference.service';
 import { UserData } from '../registration/registration.component';
+import { NotificationService } from '../services/notification.service';
 
 
 export interface Collection {
@@ -38,7 +39,8 @@ export class CollectionComponent implements OnInit {
   friends: Array<string>;
   showSendAlert: boolean;
   showSendIcon: string;
-  constructor(private collectionService: CollectionService, private preferenceService: PreferenceService) {
+  constructor(private collectionService: CollectionService, private preferenceService: PreferenceService,
+              private notificationService: NotificationService) {
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.movieUrl = '/movie/';
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -72,6 +74,7 @@ export class CollectionComponent implements OnInit {
     }, 3000);
     localStorage.setItem('show', 'false');
     this.showSendIcon = 'false';
+
 
   }
   removeCollection(collection: Collection, event: any): void {

@@ -63,7 +63,7 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.userService.getUsers().subscribe(data => {
         this.users = (data as any).data;
         this.filteredUser = (data as any).data.filter(user => this.friendIds.indexOf(user._id) === -1
-        && user.id !== JSON.parse(localStorage.getItem('user'))._id);
+        && user._id !== JSON.parse(localStorage.getItem('user'))._id);
         this.friends = (data as any).data;
         // tslint:disable-next-line:max-line-length
         this.filteredFriends = (data as any).data.filter(user => this.friendIds.indexOf(user._id) > -1
@@ -79,12 +79,14 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('here');
   }
 
   ngAfterContentInit(): void {
   }
 
   ngOnDestroy(): void {
+    console.log(this.filteredFriends);
     this.filteredFriends = null;
     this.filteredUser = null;
   }
@@ -106,7 +108,8 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
   filterUsers(event): void{
     this.searchValue = event.target.value;
     if (this.searchValue === ''){
-      this.filteredUser = this.users.filter(user => this.friendIds.indexOf(user._id) === -1);
+      this.filteredUser = this.users.filter(user => this.friendIds.indexOf(user._id) === -1
+      && user._id !== JSON.parse(localStorage.getItem('user'))._id);
     }else{
       this.filteredUser = this.users.filter(user => this.friendIds.indexOf(user._id) === -1
       && user._id !== JSON.parse(localStorage.getItem('user'))._id
@@ -149,6 +152,7 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
       user.friends.splice(indFriends, 1);
       localStorage.setItem('user', JSON.stringify(user));
     }
+    window.location.reload();
   }
   addFriend(friend: UserData, event: Event): void {
     event.preventDefault();
@@ -156,6 +160,14 @@ export class FriendsComponent implements OnInit, AfterContentInit, OnDestroy {
     const user: UserData = JSON.parse(localStorage.getItem('user'));
     this.userService.addFriend(user._id, fr).subscribe(
     );
+    let index = -1;
+    this.filteredUser.forEach( (u, i) => {
+        if (u._id === friend._id){
+             index = i;
+        }
+    });
+    console.log(index);
+    this.filteredUser.splice(index, 1);
     const ind = this.friendIds.indexOf(fr.id);
     if (ind === -1){
       user.friends.push(fr);
