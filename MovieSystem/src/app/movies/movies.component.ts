@@ -48,7 +48,7 @@ export class MoviesComponent implements OnInit {
 
   btn4: SortBtn = {
     isAscending: false,
-    type: 'Author',
+    type: 'Producer',
   };
   sortButton: SortBtn[] = [this.btn1, this.btn2, this.btn3, this.btn4];
   addMovie: Movie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
@@ -66,6 +66,7 @@ export class MoviesComponent implements OnInit {
       }
     });
     this.initialFilms = [...this.films];
+    console.log(this.films);
   }
 
   onClick(currBtn: SortBtn): void {

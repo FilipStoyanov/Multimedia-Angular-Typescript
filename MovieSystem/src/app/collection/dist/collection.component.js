@@ -38,6 +38,7 @@ var CollectionComponent = /** @class */ (function () {
             this.friends.push(fr.id);
         }
         this.collectionService.getAllForUser(this.userId).subscribe(function (result) {
+            console.log(result);
             _this.userCollections = result;
         });
     }

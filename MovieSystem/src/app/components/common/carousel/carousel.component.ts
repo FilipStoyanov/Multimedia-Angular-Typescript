@@ -17,8 +17,8 @@ export class CarouselComponent implements OnInit {
          this.films[0],
          this.films[1],
          this.films[2],
-         this.films[3],
-         this.films[4],
+         this.films[this.films.length - 2],
+         this.films[7],
         ];
      });
   }

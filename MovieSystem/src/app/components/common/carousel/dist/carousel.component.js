@@ -21,8 +21,8 @@ var CarouselComponent = /** @class */ (function () {
                 _this.films[0],
                 _this.films[1],
                 _this.films[2],
-                _this.films[3],
-                _this.films[4],
+                _this.films[_this.films.length - 2],
+                _this.films[7],
             ];
         });
     }

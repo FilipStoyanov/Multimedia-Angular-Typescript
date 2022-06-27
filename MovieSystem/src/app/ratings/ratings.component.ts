@@ -10,6 +10,7 @@ import { Collection, CollectionMovie, CollectionService } from '../services/coll
   styleUrls: ['./ratings.component.scss']
 })
 export class RatingsComponent implements OnInit {
+  public readonly movieUrl = '/movie/';
   public rankingCollections: Ranking[] = [];
   public user: UserData;
   public showApplyAlert: boolean;

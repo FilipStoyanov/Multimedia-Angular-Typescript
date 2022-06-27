@@ -56,6 +56,7 @@ export class CollectionComponent implements OnInit {
 
     this.collectionService.getAllForUser(this.userId).subscribe(
       result => {
+        console.log(result as any);
         this.userCollections = (result as any);
       },
     );

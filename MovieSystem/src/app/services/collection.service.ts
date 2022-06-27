@@ -47,8 +47,8 @@ export class CollectionService {
     const body = JSON.stringify({
       titleEn: titleen,
       titleBg: titlebg,
-      year: yearMovie,
       image: imageMovie,
+      year: yearMovie,
       id: movieId,
     });
     const headers = { 'content-type': 'application/json'};

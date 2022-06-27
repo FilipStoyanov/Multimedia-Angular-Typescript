@@ -39,7 +39,7 @@ var MoviesComponent = /** @class */ (function () {
         };
         this.btn4 = {
             isAscending: false,
-            type: 'Author'
+            type: 'Producer'
         };
         this.sortButton = [this.btn1, this.btn2, this.btn3, this.btn4];
         this.addMovie = { image: '', titleEn: '', titleBg: '', trailer: '', producer: '', year: '',
@@ -56,6 +56,7 @@ var MoviesComponent = /** @class */ (function () {
             }
         });
         this.initialFilms = __spreadArrays(this.films);
+        console.log(this.films);
     }
     MoviesComponent.prototype.onClick = function (currBtn) {
         var indexBtn = this.sortButton.indexOf(currBtn);

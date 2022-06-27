@@ -20,6 +20,7 @@ var RatingsComponent = /** @class */ (function () {
         var _this = this;
         this.rankingService = rankingService;
         this.collectionService = collectionService;
+        this.movieUrl = '/movie/';
         this.rankingCollections = [];
         this.showApplyAlert = false;
         this.user = JSON.parse(localStorage.getItem('user'));

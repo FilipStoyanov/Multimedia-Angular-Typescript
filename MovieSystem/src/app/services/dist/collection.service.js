@@ -36,8 +36,8 @@ var CollectionService = /** @class */ (function () {
         var body = JSON.stringify({
             titleEn: titleen,
             titleBg: titlebg,
-            year: yearMovie,
             image: imageMovie,
+            year: yearMovie,
             id: movieId
         });
         var headers = { 'content-type': 'application/json' };

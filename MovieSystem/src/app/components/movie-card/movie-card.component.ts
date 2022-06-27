@@ -95,6 +95,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   addToCollection(collection: Collection): void {
+      console.log(this.movie._id);
       this.collectionService.updateCollection(collection._id, this.movie.titleEn, this.movie.titleBg,
       this.movie.image, this.movie.year, this.movie._id).subscribe();
   }
