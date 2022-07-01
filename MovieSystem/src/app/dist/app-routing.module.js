@@ -26,6 +26,7 @@ var terms_component_1 = require("./terms/terms.component");
 var notRegisteredUser = [
     { path: 'registration', component: registration_component_1.RegistrationComponent },
     { path: 'movies', component: movies_component_1.MoviesComponent },
+    { path: 'movie/:movieId', component: movie_component_1.MovieComponent },
     { path: 'collections', component: collection_component_1.CollectionComponent },
     { path: 'about', component: about_us_component_1.AboutUsComponent },
     { path: 'terms', component: terms_component_1.TermsComponent },
@@ -51,12 +52,6 @@ var registeredUser = [
     { path: '', redirectTo: 'home' },
     { path: '**', redirectTo: '404' },
 ];
-var UserRole;
-(function (UserRole) {
-    UserRole[UserRole["admin"] = 0] = "admin";
-    UserRole[UserRole["registeredUser"] = 1] = "registeredUser";
-    UserRole[UserRole["notRegisteredUser"] = 2] = "notRegisteredUser";
-})(UserRole || (UserRole = {}));
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }

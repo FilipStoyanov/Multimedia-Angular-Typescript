@@ -179,6 +179,7 @@ var MoviesComponent = /** @class */ (function () {
         this.films.push(this.addMovie);
         this.userMovies.push(this.addMovie);
         this.movieService.addMovie(this.addMovie).subscribe();
+        window.location.reload();
     };
     MoviesComponent = __decorate([
         core_1.Component({

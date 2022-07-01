@@ -18,6 +18,7 @@ import { TermsComponent } from './terms/terms.component';
 const notRegisteredUser: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'movies', component: MoviesComponent },
+  { path: 'movie/:movieId', component: MovieComponent},
   { path: 'collections', component: CollectionComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'terms', component: TermsComponent },
@@ -44,11 +45,6 @@ const registeredUser: Routes = [
   {path: '', redirectTo: 'home'},
   { path: '**',  redirectTo: '404'},
 ];
-enum UserRole {
-  admin,
-  registeredUser,
-  notRegisteredUser,
-}
 @NgModule({
   imports: [RouterModule.forRoot(localStorage.getItem('user') ? registeredUser : notRegisteredUser ), CommonModule],
   exports: [RouterModule],

@@ -31,6 +31,12 @@ var MovieComponent = /** @class */ (function () {
             _this.comments = data;
         });
         this.parserUser = JSON.parse(localStorage.getItem('user'));
+        if (this.parserUser && '_id' in this.parserUser) {
+            this.isRegisteredUser = true;
+        }
+        else {
+            this.isRegisteredUser = false;
+        }
         // PASSING DATA WITH PROPS
         // if (this.router.getCurrentNavigation().extras.state){
         //    this.hasData = this.router.getCurrentNavigation().extras.state;
@@ -82,6 +88,7 @@ var MovieComponent = /** @class */ (function () {
         this.showTextArea = !this.showTextArea;
     };
     MovieComponent.prototype.addReview = function () {
+        var _this = this;
         this.date = new Date();
         this.review.description = this.commentInput;
         this.review.date = this.datePipe.transform(this.date, 'dd-MM-yyyy');
@@ -96,7 +103,10 @@ var MovieComponent = /** @class */ (function () {
         }
         this.review.username = JSON.parse(localStorage.getItem('user')).username;
         this.review.userId = this.parserUser._id;
-        this.commentService.addComment(this.review).subscribe();
+        console.log(this.review);
+        setTimeout(function () {
+            _this.commentService.addComment(_this.review).subscribe();
+        }, 1000);
         this.toggleInput();
         this.comments.push(this.review);
     };

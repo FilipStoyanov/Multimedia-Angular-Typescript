@@ -27,6 +27,7 @@ export class MovieComponent implements OnInit {
   movieId: string;
   imageUrl: string | ArrayBuffer;
   parserUser: UserData;
+  isRegisteredUser: boolean;
   constructor(private router: ActivatedRoute, private movieService: MovieService, private commentService: CommentService,
               private datePipe: DatePipe, private notificationService: NotificationService ) {
     this.commentInput = '';
@@ -42,6 +43,11 @@ export class MovieComponent implements OnInit {
       this.comments = (data as any);
     });
     this.parserUser = JSON.parse(localStorage.getItem('user'));
+    if (this.parserUser && '_id' in this.parserUser) {
+      this.isRegisteredUser = true;
+    }else{
+      this.isRegisteredUser = false;
+    }
 
       // PASSING DATA WITH PROPS
       // if (this.router.getCurrentNavigation().extras.state){
@@ -112,7 +118,10 @@ export class MovieComponent implements OnInit {
      }
      this.review.username = JSON.parse(localStorage.getItem('user')).username;
      this.review.userId = this.parserUser._id;
-     this.commentService.addComment(this.review).subscribe();
+     console.log(this.review);
+     setTimeout( () => {
+       this.commentService.addComment(this.review).subscribe();
+     }, 1000);
      this.toggleInput();
      this.comments.push(this.review);
   }
